@@ -54,6 +54,9 @@ export class MainScene extends Phaser.Scene{
         keyPause.on(`down`, () => { this.pauseGame();})
         let keyPause2 = this.input.keyboard.addKey(`P`);
         keyPause2.on(`down`, () => { this.pauseGame();})
+
+        let playerJump = this.input.keyboard.addKey('SPACE');
+        playerJump.on(`down`, () => { this.player.jump();})
         //let keyPause3 = this.input.keyboard.addKey(`R`);
         //keyPause3.on(`down`, () => { this.restartGame();})
 
@@ -72,6 +75,9 @@ export class MainScene extends Phaser.Scene{
             if (pointer.x > this.cameras.main.width / 2) {
             this.player.jump();
             }
+            else {
+                this.progressBar.value += 0.01;
+              }
         }, this);
 
         // Ground
@@ -81,6 +87,26 @@ export class MainScene extends Phaser.Scene{
       
         // Colisiones entre el jugador y el suelo
         this.physics.add.collider(this.player, this.ground);
+
+        
+       
+      
+        // Progress Bar
+
+        this.progressBar = this.rexUI.add.slider({
+          x: 400,
+          y: 50,
+          width: 500,
+          height: 20,
+          orientation: 'x',
+          track: this.add.rectangle(400, 50, 300, 20, 0x00FF00).setOrigin(0.5),
+          thumb: this.add.rectangle(400, 50, 20, 20, 0xFFFF00).setOrigin(0.5).setDepth(6),
+          value: 0.4, // Valor inicial
+          space: { top: 4, bottom: 4 },
+          valuechangeCallback: function (value) {
+          }
+        }).layout();
+        this.redBar = this.add.rectangle(150, 40, 100, 20, 0xFF0000).setOrigin(0)
     }
 
     init(data){
@@ -97,6 +123,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     update(totalTime, deltaTime) {
+        this.UpdateSpeed()
         switch(this.gameState) {
             case `init`:
                 this.gameState = 'restart';
@@ -125,6 +152,7 @@ export class MainScene extends Phaser.Scene{
                     let dt = Math.min(1, deltaTime/1000);
                     this.backgroundManager.update(dt);
                     this.obstacleManager.update(dt);
+                    this.UpdateBar()
                     //this.printShapeCount();
                 }
                 break;
@@ -136,8 +164,23 @@ export class MainScene extends Phaser.Scene{
                 }
                 break;
         }
+        
+
     }
     
+    UpdateSpeed(){
+        this.obstacleManager.maxSpeed = 540
+        this.obstacleManager.horizontalSpeed = (this.progressBar.value * this.obstacleManager.maxSpeed)
+        console.log(this.obstacleManager.horizontalSpeed)
+    }
+    UpdateBar(){
+        this.progressBar.value -= 0.0001; 
+
+        if (this.progressBar.value < 0.001) {
+            this.progressBar.value = 0.001;
+        }
+    }
+
     toMeters(n) {
         return n / 108;
     }
