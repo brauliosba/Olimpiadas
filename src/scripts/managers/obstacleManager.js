@@ -74,7 +74,7 @@ export class ObstacleManager
 
             if (obstacle.sprite.x <= -obstacle.sprite.displayWidth) {
                 obstacle.sprite.setVisible(false);
-                obstacle.sprite.status = 'free';
+                obstacle.status = 'free';
                 this.activeObstacles.shift();
             }
         }
