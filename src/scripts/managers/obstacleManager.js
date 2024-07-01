@@ -20,14 +20,17 @@ export class ObstacleManager
         this.probability = 7;
         this.currentZone = 1;
         this.zoneDistance = 0;
+        this.obstaclesGroup = this.scene.physics.add.group();
     }
 
     create() {
         for (let i = 0; i < 5; i++) {
-            let obs = this.scene.add.image(0, 0, 'square').setOrigin(0).setScale(.1).setVisible(false).setTint('0x000000').setDepth(5);
+            let obs = this.scene.physics.add.image(0, 0, 'square').setOrigin(0).setScale(.1).setVisible(false).setTint('0x000000').setDepth(5);
             let obstacle = new Obstacle(obs)
             this.obstacles.push(obstacle);
         }
+
+        this.getEnemiesGroup();
     }
 
     update(dt) {
@@ -86,5 +89,17 @@ export class ObstacleManager
             if (this.currentZone < 5) this.currentZone += 1;
             this.zoneDistance = 0;
         }
+    }
+    
+    getEnemiesGroup(){
+        const obstacle = this.scene.obstacleManager.obstacles;
+        for (let i = 0; i < obstacle.length; i++) {
+            this.obstaclesGroup.add(obstacle[i].sprite);
+        }
+        this.scene.physics.add.overlap(this.scene.player.body, this.obstaclesGroup, this.collisionHandler, null, this);
+    }
+
+    collisionHandler(playerBody, obstacleBody) {
+        //this.scene.player. quitar vida?
     }
 }

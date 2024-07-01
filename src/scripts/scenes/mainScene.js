@@ -39,16 +39,6 @@ export class MainScene extends Phaser.Scene{
         //Animations
         this.anims.resumeAll();
 
-        //Instances
-        this.visualEffectsManager = new VisualEffectsManager(this);
-        this.visualEffectsManager.init();
-
-        this.backgroundManager = new BackgroundManager(this, this.gameWidth);
-        this.backgroundManager.create();
-
-        this.obstacleManager = new ObstacleManager(this, this.gameWidth);
-        this.obstacleManager.create();
-
         // inputs
         let keyPause = this.input.keyboard.addKey(`ESC`);
         keyPause.on(`down`, () => { this.pauseGame();})
@@ -80,6 +70,16 @@ export class MainScene extends Phaser.Scene{
               }
         }, this);
 
+        //Instances
+        this.visualEffectsManager = new VisualEffectsManager(this);
+        this.visualEffectsManager.init();
+
+        this.backgroundManager = new BackgroundManager(this, this.gameWidth);
+        this.backgroundManager.create();
+
+        this.obstacleManager = new ObstacleManager(this, this.gameWidth);
+        this.obstacleManager.create();
+
         // Ground
 
         this.ground = this.add.rectangle(400, 980, 800, 40, 0x00ff00);
@@ -87,9 +87,6 @@ export class MainScene extends Phaser.Scene{
       
         // Colisiones entre el jugador y el suelo
         this.physics.add.collider(this.player, this.ground);
-
-        
-       
       
         // Progress Bar
 
