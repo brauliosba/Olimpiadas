@@ -1,6 +1,8 @@
 import * as Phaser from 'phaser';
 import { GameplayUI } from '../components/gameplayUI';
 import { VisualEffectsManager } from '../managers/visualEffectsManager.js'
+import { BackgroundManager } from '../managers/backgroundManager.js';
+import { ObstacleManager } from '../managers/obstacleManager.js';
 
 export class MainScene extends Phaser.Scene{
     constructor()
@@ -8,6 +10,10 @@ export class MainScene extends Phaser.Scene{
         super({
             key: `MainScene`,
         });
+    }
+
+    preload(){
+        this.load.image('square', './src/images/square.png');
     }
 
     create(){
@@ -39,6 +45,12 @@ export class MainScene extends Phaser.Scene{
         this.visualEffectsManager = new VisualEffectsManager(this);
         this.visualEffectsManager.init();
 
+        this.backgroundManager = new BackgroundManager(this, this.gameWidth);
+        this.backgroundManager.create();
+
+        this.obstacleManager = new ObstacleManager(this, this.gameWidth);
+        this.obstacleManager.create();
+
         // inputs
         let keyPause = this.input.keyboard.addKey(`ESC`);
         keyPause.on(`down`, () => { this.pauseGame();})
@@ -46,6 +58,15 @@ export class MainScene extends Phaser.Scene{
         keyPause2.on(`down`, () => { this.pauseGame();})
         //let keyPause3 = this.input.keyboard.addKey(`R`);
         //keyPause3.on(`down`, () => { this.restartGame();})
+
+        let startText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'Presiona para empezar', { fontFamily: 'Montserrat', fontSize : 80, color: '#000000' }).setOrigin(.5).setDepth(8);
+        this.startButton = this.add.image(0,0,'square').setDisplaySize(this.gameWidth, this.gameHeight).setOrigin(0).setAlpha(.01);
+        this.startButton.setInteractive().on('pointerup', () => {
+            startText.setVisible(false);
+            this.startAnimation();
+            this.startButton.destroy();
+            this.startButton = null;
+        });
     }
 
     init(data){
@@ -67,21 +88,29 @@ export class MainScene extends Phaser.Scene{
                 this.gameState = 'restart';
                 break;
             case `restart`:
-                if (this.startRunning && this.tutorial) {
-                    this.tutorial = false;
+                if (this.startRunning && !this.tutorialActive) {
+                    this.tutorialActive = true;
+                    this.startRunning = false;
+                    this.startCounter = 3;
                     this.isPaused = true;
                     this.pauseTimeEvents();
-                    this.startTutorial();
+                
+                    if (this.tutorial)
+                        this.startTutorial();
                 }
-                else if (this.startRunning && !this.tutorialActive) {
+                else if (!this.tutorialActive) {
                     this.startTime = this.time.now * 0.001;
                     //this.uiScene.audioManager.playMusic();
+                    this.isPaused = false;
                     this.gameState = 'play';
-                    this.game.config.metadata.onGameStart({state:`game_start`, name:`mi_chaufa`});
+                    this.game.config.metadata.onGameStart({state:`game_start`, name:`olimpiadas`});
                 }
                 break;
             case `play`:
-                if (!this.isPaused){
+                if (!this.isPaused) {
+                    let dt = Math.min(1, deltaTime/1000);
+                    this.backgroundManager.update(dt);
+                    this.obstacleManager.update(dt);
                     this.gameplayUI.updateScore();
                     //this.printShapeCount();
                 }
@@ -97,11 +126,11 @@ export class MainScene extends Phaser.Scene{
     }
     
     toMeters(n) {
-        return n / 10.8;
+        return n / 108;
     }
     
     toPixels(n) {
-        return n * 10.8;
+        return n * 108;
     }
 
     pauseGame(){
@@ -149,7 +178,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     startTutorial(){
-        this.tutorialActive = false;
+        //this.tutorialActive = false;
         /*
         this.tutorialActive = true;
         this.panel.showInstructions(() => {
@@ -158,6 +187,27 @@ export class MainScene extends Phaser.Scene{
             this.pauseTimeEvents();
         });
         */
+    }
+    
+    startAnimation() {
+        this.tutorialActive = true;
+        let countText = this.add.text(this.gameWidth/2, this.gameHeight/2, '3', { fontFamily: 'Montserrat', fontSize : 400, color: '#000000' });
+        countText.setOrigin(.5).setDepth(10);
+
+        this.regressiveCount(countText);
+    }
+
+    regressiveCount(countText) {
+        setTimeout(() => {
+            this.startCounter -= 1;
+            countText.setText(this.startCounter);
+            if (this.startCounter > 0)
+                this.regressiveCount(countText);
+            else {
+                countText.setVisible(false);
+                this.tutorialActive = false;
+            }
+        }, 1000)
     }
 
     backMenu(){
