@@ -25,7 +25,7 @@ export class ObstacleManager
 
     create() {
         for (let i = 0; i < 5; i++) {
-            let obs = this.scene.physics.add.image(0, 0, 'square').setOrigin(0).setScale(.1).setVisible(false).setTint('0x000000').setDepth(5);
+            let obs = this.scene.physics.add.sprite(0, 0, 'square').setOrigin(0).setScale(.1).setVisible(false).setTint('0x000000').setDepth(5);
             let obstacle = new Obstacle(obs)
             this.obstacles.push(obstacle);
         }
@@ -62,6 +62,7 @@ export class ObstacleManager
         for (let i = 0; i < this.obstacles.length; i++) {
             let obstacle = this.obstacles[i];
             if (obstacle.status == 'free') {
+                obstacle.sprite.enableBody();
                 obstacle.sprite.setPosition(this.gameWidth, this.gameWidth-200).setVisible(true);
                 obstacle.status = 'active'
                 this.activeObstacles.push(obstacle);
@@ -101,5 +102,6 @@ export class ObstacleManager
 
     collisionHandler(playerBody, obstacleBody) {
         //this.scene.player. quitar vida?
+        obstacleBody.disableBody(true, false);
     }
 }
