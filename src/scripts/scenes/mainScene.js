@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { GameplayUI } from '../components/gameplayUI';
+import { Player } from '../components/player.js';
 import { VisualEffectsManager } from '../managers/visualEffectsManager.js'
 import { BackgroundManager } from '../managers/backgroundManager.js';
 import { ObstacleManager } from '../managers/obstacleManager.js';
@@ -14,8 +14,8 @@ export class MainScene extends Phaser.Scene{
 
     preload(){
         this.load.image('square', './src/images/square.png');
+        this.load.image('player', 'src/images/player.png'); // Reemplaza con la ruta a la imagen de tu jugador
     }
-
     create(){
         this.gameState = 'init';
 
@@ -40,8 +40,6 @@ export class MainScene extends Phaser.Scene{
         this.anims.resumeAll();
 
         //Instances
-        this.gameplayUI = new GameplayUI(this, this.gameWidth);
-        this.gameplayUI.create();
         this.visualEffectsManager = new VisualEffectsManager(this);
         this.visualEffectsManager.init();
 
@@ -67,6 +65,22 @@ export class MainScene extends Phaser.Scene{
             this.startButton.destroy();
             this.startButton = null;
         });
+        // Player
+        this.player = new Player(this, 400, 300); // Coloca al jugador en el centro de la pantalla
+
+        this.input.on('pointerdown', function (pointer) {
+            if (pointer.x > this.cameras.main.width / 2) {
+            this.player.jump();
+            }
+        }, this);
+
+        // Ground
+
+        this.ground = this.add.rectangle(400, 580, 800, 40, 0x00ff00);
+        this.physics.add.existing(this.ground, true);
+      
+        // Colisiones entre el jugador y el suelo
+        this.physics.add.collider(this.player, this.ground);
     }
 
     init(data){
