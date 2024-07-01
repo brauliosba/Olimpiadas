@@ -82,14 +82,14 @@ export class MainScene extends Phaser.Scene{
 
         // Ground
 
-        this.ground = this.add.rectangle(400, 980, 800, 40, 0x00ff00);
+        this.ground = this.add.rectangle(500, 980, 1500, 40, 0x00ff00);
         this.physics.add.existing(this.ground, true);
       
         // Colisiones entre el jugador y el suelo
         this.physics.add.collider(this.player, this.ground);
+        this.physics.add.collider(this.obstacleManager.obstaclesGroup, this.ground);
       
         // Progress Bar
-
         this.progressBar = this.rexUI.add.slider({
           x: 400,
           y: 50,
