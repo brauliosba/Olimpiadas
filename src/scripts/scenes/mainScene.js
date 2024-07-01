@@ -66,7 +66,7 @@ export class MainScene extends Phaser.Scene{
             this.startButton = null;
         });
         // Player
-        this.player = new Player(this, 400, 300); // Coloca al jugador en el centro de la pantalla
+        this.player = new Player(this, 400, 800); // Coloca al jugador en el centro de la pantalla
 
         this.input.on('pointerdown', function (pointer) {
             if (pointer.x > this.cameras.main.width / 2) {
@@ -76,7 +76,7 @@ export class MainScene extends Phaser.Scene{
 
         // Ground
 
-        this.ground = this.add.rectangle(400, 580, 800, 40, 0x00ff00);
+        this.ground = this.add.rectangle(400, 980, 800, 40, 0x00ff00);
         this.physics.add.existing(this.ground, true);
       
         // Colisiones entre el jugador y el suelo
@@ -125,7 +125,6 @@ export class MainScene extends Phaser.Scene{
                     let dt = Math.min(1, deltaTime/1000);
                     this.backgroundManager.update(dt);
                     this.obstacleManager.update(dt);
-                    this.gameplayUI.updateScore();
                     //this.printShapeCount();
                 }
                 break;
