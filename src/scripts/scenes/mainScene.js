@@ -14,7 +14,10 @@ export class MainScene extends Phaser.Scene{
 
     preload(){
         this.load.image('square', './src/images/square.png');
-        this.load.image('player', 'src/images/player.png'); // Reemplaza con la ruta a la imagen de tu jugador
+        this.load.spritesheet('player', './src/images/player.png', {
+            frameWidth: 205, // Ancho de cada frame en el spritesheet
+            frameHeight: 205 // Altura de cada frame en el spritesheet
+          });
     }
     create(){
         this.gameState = 'init';
@@ -61,12 +64,15 @@ export class MainScene extends Phaser.Scene{
         // Player
         this.player = new Player(this, 400, 800); // Coloca al jugador en el centro de la pantalla
 
+      
+
+        //Player Input
         this.input.on('pointerdown', function (pointer) {
             if (pointer.x > this.cameras.main.width / 2) {
             this.player.jump();
             }
             else {
-                this.progressBar.value += 0.01;
+                this.progressBar.value += 0.09;
               }
         }, this);
 
@@ -120,7 +126,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     update(totalTime, deltaTime) {
-        this.UpdateSpeed()
+        
         switch(this.gameState) {
             case `init`:
                 this.gameState = 'restart';
@@ -146,9 +152,12 @@ export class MainScene extends Phaser.Scene{
                 break;
             case `play`:
                 if (!this.isPaused) {
+                    
                     let dt = Math.min(1, deltaTime/1000);
                     this.backgroundManager.update(dt);
                     this.obstacleManager.update(dt);
+
+                    this.UpdateSpeed()
                     this.UpdateBar()
                     //this.printShapeCount();
                 }
@@ -166,12 +175,13 @@ export class MainScene extends Phaser.Scene{
     }
     
     UpdateSpeed(){
+        this.player.UpdateFrameRate(this.progressBar.value)
         this.obstacleManager.maxSpeed = 540
         this.obstacleManager.horizontalSpeed = (this.progressBar.value * this.obstacleManager.maxSpeed)
         console.log(this.obstacleManager.horizontalSpeed)
     }
     UpdateBar(){
-        this.progressBar.value -= 0.0001; 
+        this.progressBar.value -= 0.001; 
 
         if (this.progressBar.value < 0.001) {
             this.progressBar.value = 0.001;
