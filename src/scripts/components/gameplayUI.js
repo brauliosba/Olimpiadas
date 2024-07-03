@@ -17,14 +17,14 @@ export class GameplayUI
             height: 20,
             orientation: 'x',
             track: this.scene.add.rectangle(400, 50, 300, 20, 0x00FF00).setOrigin(0.5),
-            thumb: this.scene.add.rectangle(400, 50, 20, 20, 0xFFFF00).setOrigin(0.5).setDepth(6),
+            thumb: this.scene.add.rectangle(400, 50, 20, 20, 0xFFFF00).setOrigin(0.5).setDepth(8.1),
             value: 0.4, // Valor inicial
             space: { top: 4, bottom: 4 },
             valuechangeCallback: this.onSliderValueChange.bind(this)
-        }).layout().setDepth(8);
+        }).layout();
         this.progressBar.value = this.scene.data.get('initialSpeed')/this.scene.data.get('maxSpeed');
 
-        this.redBar = this.scene.add.rectangle(150, 40, 100, 20, 0xFF0000).setOrigin(0).setDepth(8);
+        this.redBar = this.scene.add.rectangle(150, 40, 100, 20, 0xFF0000).setOrigin(0);
 
         this.hearts = this.scene.add.group({
             key: 'square', // Imagen a usar para los objetos del grupo
