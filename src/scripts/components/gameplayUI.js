@@ -22,6 +22,8 @@ export class GameplayUI
             space: { top: 4, bottom: 4 },
             valuechangeCallback: this.onSliderValueChange.bind(this)
         }).layout().setDepth(8);
+        this.progressBar.value = this.scene.data.get('initialSpeed')/this.scene.data.get('maxSpeed');
+
         this.redBar = this.scene.add.rectangle(150, 40, 100, 20, 0xFF0000).setOrigin(0).setDepth(8);
 
         this.hearts = this.scene.add.group({

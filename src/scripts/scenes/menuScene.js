@@ -19,6 +19,11 @@ export class MenuScene extends Phaser.Scene
     create(){
         this.gameWidth = 1080;
 
+        this.data.set('initialSpeed', 2);
+        this.data.set('maxSpeed', 5);
+        this.data.set('clickSpeed', 0.09);
+        this.data.set('lostSpeed', 0.001);
+
         //UI
         this.uiScene = this.scene.get('UIScene');
         this.uiScene.setCurrentScene(this);
@@ -177,20 +182,15 @@ export class MenuScene extends Phaser.Scene
     exposedVariables(){
         let y = 80
         let space = 60;
-        /*
-        this.addVariable(y, `Modificador tamaño dish 1:`, 'sizeDish1');
-        this.addVariable(y + space * 1, `Modificador tamaño dish 2:`, 'sizeDish2');
-        */
+        
+        this.addVariable(y, `Velocidad Inicial:`, 'initialSpeed');
+        this.addVariable(y + space * 1, `Velocidad Maxima:`, 'maxSpeed');
+        this.addVariable(y + space * 2, `Porcentaje Velocidad \npor click:`, 'clickSpeed');
+        this.addVariable(y + space * 3, `Porcentaje Velocidad \nperdida (max. 0.01):`, 'lostSpeed');
     }
 
     setData(key, speed){
         this.data.set(key, parseFloat(speed))
-    }
-
-    showWarning(){
-        if (this.data.get('fps') == null && !this.data.get('IS_TOUCH')) {
-            //this.uiScene.panel.showWarning();
-        }
     }
 
     pauseGame(){

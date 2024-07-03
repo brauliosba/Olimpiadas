@@ -10,9 +10,8 @@ export class ObstacleManager
     constructor(scene, gameWidth) {
         this.scene = scene;
         this.gameWidth = gameWidth;
-        this.horizontalSpeed = this.scene.toPixels(5);
-        this.acceleration = this.scene.toPixels(this.scene.data.get('bgAscendantAcceleration'));
-        this.maxSpeed = this.scene.toPixels(5);
+        this.horizontalSpeed = this.scene.toPixels(this.scene.data.get('initialSpeed'));
+        this.maxSpeed = this.scene.toPixels(this.scene.data.get('maxSpeed'));
         this.obstacles = [];
         this.activeObstacles = [];
         this.obstacleCooldown = [15,10,8,6,3];

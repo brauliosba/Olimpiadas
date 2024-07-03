@@ -27,6 +27,8 @@ export class MainScene extends Phaser.Scene{
         this.gameHeight = this.game.config.height;
         this.isPaused = false;
         this.startRunning = true;
+        this.clickSpeed = this.data.get('clickSpeed');
+        this.lostSpeed = this.data.get('lostSpeed');
 
         //UI
         this.uiScene = this.scene.get('UIScene');
@@ -95,13 +97,13 @@ export class MainScene extends Phaser.Scene{
                         this.player.jump();
                     }
                     else {
-                        this.gameplayUI.progressBar.value += 0.09;
+                        this.gameplayUI.progressBar.value += this.clickSpeed;
                     }
                 }
             }, this);
         } else {
             this.input.on('pointerdown', function (pointer) {
-                if (this.gameState == 'play') this.gameplayUI.progressBar.value += 0.09;
+                if (this.gameState == 'play') this.gameplayUI.progressBar.value += this.clickSpeed;
             }, this);
         }
     }
@@ -175,7 +177,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     UpdateBar(){
-        this.gameplayUI.progressBar.value -= 0.001; 
+        this.gameplayUI.progressBar.value -= this.lostSpeed; 
 
         if (this.gameplayUI.progressBar.value < 0.001) {
             this.gameplayUI.progressBar.value = 0.001;
