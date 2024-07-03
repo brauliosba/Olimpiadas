@@ -10,12 +10,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.setGravityY(300);
 
       // Definir las animaciones del jugador
-      scene.anims.create({
-        key: 'run',
-        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 9 }), // Frames del 0 al 9
-        frameRate: this.baseFrameRate, // Velocidad de la animación
-        repeat: -1 // Repetir indefinidamente
-        });
+        if (!this.scene.anims.exists('run')){
+            scene.anims.create({
+                key: 'run',
+                frames: this.scene.anims.generateFrameNumbers('player', { start: 0, end: 9, first: 0 }), // Frames del 0 al 9
+                frameRate: this.baseFrameRate, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            });
+        }
 
        this.anims.play('run', true);
     }
@@ -31,6 +33,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         let initialSpeed = 40
         let finalSpeed = 200
         this.anims.msPerFrame  = finalSpeed - (barValue * (finalSpeed-initialSpeed)); 
-        console.log("framerate " + this.anims.msPerFrame)
+        //console.log("framerate " + this.anims.msPerFrame)
     }
 }

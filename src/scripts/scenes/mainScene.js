@@ -87,14 +87,23 @@ export class MainScene extends Phaser.Scene{
         this.physics.add.collider(this.obstacleManager.obstaclesGroup, this.ground);
 
         //Player Input
-        this.input.on('pointerdown', function (pointer) {
-            if (pointer.x > this.cameras.main.width / 2) {
-            this.player.jump();
-            }
-            else {
-                this.gameplayUI.progressBar.value += 0.09;
-              }
-        }, this);
+        if (this.data.get('IS_TOUCH')) {
+            this.input.on('pointerdown', function (pointer) {
+                if (this.gameState == 'play') {
+                    let pointerX = this.getTypePointer(pointer);
+                    if (pointerX > this.cameras.main.width / 2) {
+                        this.player.jump();
+                    }
+                    else {
+                        this.gameplayUI.progressBar.value += 0.09;
+                    }
+                }
+            }, this);
+        } else {
+            this.input.on('pointerdown', function (pointer) {
+                if (this.gameState == 'play') this.gameplayUI.progressBar.value += 0.09;
+            }, this);
+        }
     }
 
     init(data){
@@ -237,7 +246,10 @@ export class MainScene extends Phaser.Scene{
         if(newScore >= highScore) this.data.set(`highScore`, newScore);
 
         setTimeout(() =>{
-            this.add.text(this.gameWidth/2, this.gameWidth/2, 'GAME OVER', { fontFamily: 'Montserrat', fontSize : 80, color: '#000000' }).setOrigin(.5).setDepth(8);
+            let loseText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'RESTART', { fontFamily: 'Montserrat', fontSize : 80, color: '#000000' }).setOrigin(.5).setDepth(8);
+            loseText.setInteractive().on('pointerup', () => {
+                this.restartGame();
+            });
             /*
             this.uiScene.animationsManager.finishAnimation(() => {
                 this.panel.showScore(newScore, newScore, gameplayTime);
