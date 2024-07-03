@@ -15,10 +15,11 @@ export class MainScene extends Phaser.Scene{
 
     preload(){
         this.load.image('square', './src/images/square.png');
-        this.load.spritesheet('player', './src/images/player.png', {
+        this.load.spritesheet('playerRun', './src/images/player.png', {
             frameWidth: 205, // Ancho de cada frame en el spritesheet
             frameHeight: 205 // Altura de cada frame en el spritesheet
           });
+        this.load.image('playerJump', './src/images/playerJump.png');
     }
     create(){
         this.gameState = 'init';
@@ -52,7 +53,8 @@ export class MainScene extends Phaser.Scene{
         keyPause2.on(`down`, () => { this.pauseGame();})
 
         let playerJump = this.input.keyboard.addKey('SPACE');
-        playerJump.on(`down`, () => { this.player.jump();})
+        playerJump.on(`down`, () => { 
+            if(this.gameState === 'play')this.player.jump();})
         //let keyPause3 = this.input.keyboard.addKey(`R`);
         //keyPause3.on(`down`, () => { this.restartGame();})
 
@@ -97,13 +99,13 @@ export class MainScene extends Phaser.Scene{
                         this.player.jump();
                     }
                     else {
-                        this.gameplayUI.progressBar.value += this.clickSpeed;
+                        if(this.player.isGrounded)this.gameplayUI.progressBar.value += this.clickSpeed;
                     }
                 }
             }, this);
         } else {
             this.input.on('pointerdown', function (pointer) {
-                if (this.gameState == 'play') this.gameplayUI.progressBar.value += this.clickSpeed;
+                if (this.gameState == 'play'&&this.player.isGrounded) this.gameplayUI.progressBar.value += this.clickSpeed;
             }, this);
         }
     }
@@ -152,7 +154,7 @@ export class MainScene extends Phaser.Scene{
                     let dt = Math.min(1, deltaTime/1000);
                     this.backgroundManager.update(dt);
                     this.obstacleManager.update(dt);
-
+                    this.player.changeAnimation()
                     this.UpdateSpeed()
                     this.UpdateBar()
                     //this.printShapeCount();
@@ -169,6 +171,8 @@ export class MainScene extends Phaser.Scene{
         
 
     }
+
+   
     
     UpdateSpeed(){
         this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
@@ -290,8 +294,13 @@ export class MainScene extends Phaser.Scene{
             else {
                 countText.setVisible(false);
                 this.tutorialActive = false;
+                this.gameStarting()
             }
         }, 1000)
+    }
+
+    gameStarting(){
+        //cosas al iniciar el juego
     }
 
     backMenu(){
