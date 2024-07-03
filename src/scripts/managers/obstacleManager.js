@@ -12,7 +12,7 @@ export class ObstacleManager
         this.gameWidth = gameWidth;
         this.horizontalSpeed = this.scene.toPixels(5);
         this.acceleration = this.scene.toPixels(this.scene.data.get('bgAscendantAcceleration'));
-        this.maxSpeed = this.scene.toPixels(this.scene.data.get('bgAscendantMaxSpeed'));
+        this.maxSpeed = this.scene.toPixels(5);
         this.obstacles = [];
         this.activeObstacles = [];
         this.obstacleCooldown = [15,10,8,6,3];
@@ -20,12 +20,16 @@ export class ObstacleManager
         this.probability = 7;
         this.currentZone = 1;
         this.zoneDistance = 0;
-        this.obstaclesGroup = this.scene.physics.add.group();
+        this.currentLifes = 2;
+        this.obstaclesGroup = this.scene.physics.add.group({
+            allowGravity: false
+        });
     }
 
     create() {
         for (let i = 0; i < 5; i++) {
             let obs = this.scene.physics.add.sprite(0, 0, 'square').setOrigin(0).setScale(.1).setVisible(false).setTint('0x000000').setDepth(5);
+            obs.body.allowGravity = false;
             let obstacle = new Obstacle(obs)
             this.obstacles.push(obstacle);
         }
@@ -89,6 +93,7 @@ export class ObstacleManager
         if (meterDistance >= this.currentZone * 100) {
             if (this.currentZone < 5) this.currentZone += 1;
             this.zoneDistance = 0;
+            this.scene.gameplayUI.updateRedBar(this.currentZone - 1);
         }
     }
     
@@ -103,5 +108,8 @@ export class ObstacleManager
     collisionHandler(playerBody, obstacleBody) {
         //this.scene.player. quitar vida?
         obstacleBody.disableBody(true, false);
+        this.currentLifes -= 1;
+        this.scene.gameplayUI.hearts.getChildren()[this.currentLifes].setVisible(false);
+        if (this.currentLifes == 0) this.scene.gameState = 'game_over';
     }
 }

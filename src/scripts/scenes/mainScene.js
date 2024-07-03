@@ -3,6 +3,7 @@ import { Player } from '../components/player.js';
 import { VisualEffectsManager } from '../managers/visualEffectsManager.js'
 import { BackgroundManager } from '../managers/backgroundManager.js';
 import { ObstacleManager } from '../managers/obstacleManager.js';
+import { GameplayUI } from '../components/gameplayUI.js';
 
 export class MainScene extends Phaser.Scene{
     constructor()
@@ -64,18 +65,6 @@ export class MainScene extends Phaser.Scene{
         // Player
         this.player = new Player(this, 400, 800); // Coloca al jugador en el centro de la pantalla
 
-      
-
-        //Player Input
-        this.input.on('pointerdown', function (pointer) {
-            if (pointer.x > this.cameras.main.width / 2) {
-            this.player.jump();
-            }
-            else {
-                this.progressBar.value += 0.09;
-              }
-        }, this);
-
         //Instances
         this.visualEffectsManager = new VisualEffectsManager(this);
         this.visualEffectsManager.init();
@@ -86,30 +75,26 @@ export class MainScene extends Phaser.Scene{
         this.obstacleManager = new ObstacleManager(this, this.gameWidth);
         this.obstacleManager.create();
 
-        // Ground
+        this.gameplayUI = new GameplayUI(this, this.gameWidth);
+        this.gameplayUI.create();
 
+        // Ground
         this.ground = this.add.rectangle(500, 980, 1500, 40, 0x00ff00);
         this.physics.add.existing(this.ground, true);
-      
+        
         // Colisiones entre el jugador y el suelo
         this.physics.add.collider(this.player, this.ground);
         this.physics.add.collider(this.obstacleManager.obstaclesGroup, this.ground);
-      
-        // Progress Bar
-        this.progressBar = this.rexUI.add.slider({
-          x: 400,
-          y: 50,
-          width: 500,
-          height: 20,
-          orientation: 'x',
-          track: this.add.rectangle(400, 50, 300, 20, 0x00FF00).setOrigin(0.5),
-          thumb: this.add.rectangle(400, 50, 20, 20, 0xFFFF00).setOrigin(0.5).setDepth(6),
-          value: 0.4, // Valor inicial
-          space: { top: 4, bottom: 4 },
-          valuechangeCallback: function (value) {
-          }
-        }).layout();
-        this.redBar = this.add.rectangle(150, 40, 100, 20, 0xFF0000).setOrigin(0)
+
+        //Player Input
+        this.input.on('pointerdown', function (pointer) {
+            if (pointer.x > this.cameras.main.width / 2) {
+            this.player.jump();
+            }
+            else {
+                this.gameplayUI.progressBar.value += 0.09;
+              }
+        }, this);
     }
 
     init(data){
@@ -175,17 +160,36 @@ export class MainScene extends Phaser.Scene{
     }
     
     UpdateSpeed(){
-        this.player.UpdateFrameRate(this.progressBar.value)
-        this.obstacleManager.maxSpeed = 540
-        this.obstacleManager.horizontalSpeed = (this.progressBar.value * this.obstacleManager.maxSpeed)
-        console.log(this.obstacleManager.horizontalSpeed)
+        this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
+        this.obstacleManager.horizontalSpeed = (this.gameplayUI.progressBar.value * this.obstacleManager.maxSpeed)
+        this.backgroundManager.horizontalSpeed = this.obstacleManager.horizontalSpeed * .5;
     }
-    UpdateBar(){
-        this.progressBar.value -= 0.001; 
 
-        if (this.progressBar.value < 0.001) {
-            this.progressBar.value = 0.001;
+    UpdateBar(){
+        this.gameplayUI.progressBar.value -= 0.001; 
+
+        if (this.gameplayUI.progressBar.value < 0.001) {
+            this.gameplayUI.progressBar.value = 0.001;
         }
+    }
+
+    startLoseTimer(){
+        // Si ya estamos rastreando la colisión, no hacer nada
+        if (this.loseTimer !== null) return;
+    
+        // Si no estamos rastreando la colisión, iniciar el temporizador
+        this.loseTimer = this.time.addEvent({
+            delay: 3000, // Duración del temporizador en milisegundos (5 segundos)
+            callback: () => {
+                this.gameState = 'game_over';
+            },
+            callbackScope: this
+        });
+    }
+
+    stopLoseTimer() {
+        this.loseTimer?.remove();
+        this.loseTimer = null;
     }
 
     toMeters(n) {
@@ -233,10 +237,13 @@ export class MainScene extends Phaser.Scene{
         if(newScore >= highScore) this.data.set(`highScore`, newScore);
 
         setTimeout(() =>{
+            this.add.text(this.gameWidth/2, this.gameWidth/2, 'GAME OVER', { fontFamily: 'Montserrat', fontSize : 80, color: '#000000' }).setOrigin(.5).setDepth(8);
+            /*
             this.uiScene.animationsManager.finishAnimation(() => {
                 this.panel.showScore(newScore, newScore, gameplayTime);
                 this.game.config.metadata.onGameEnd({state:`game_end`, name:`turbo_delivery`, score:newScore, time:gameplayTime});
             });
+            */
         }, 2000);
     }
 

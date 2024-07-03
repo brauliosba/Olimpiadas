@@ -4,8 +4,6 @@ export class BackgroundManager
         this.scene = scene;
         this.gameWidth = gameWidth;
         this.horizontalSpeed = this.scene.toPixels(2);
-        this.acceleration = this.scene.toPixels(this.scene.data.get('bgAscendantAcceleration'));
-        this.maxSpeed = this.scene.toPixels(this.scene.data.get('bgAscendantMaxSpeed'));
         this.backgrounds = [];
     }
 

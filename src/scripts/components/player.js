@@ -33,5 +33,4 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.msPerFrame  = finalSpeed - (barValue * (finalSpeed-initialSpeed)); 
         console.log("framerate " + this.anims.msPerFrame)
     }
-
-  }
+}
