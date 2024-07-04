@@ -174,7 +174,7 @@ export class MainScene extends Phaser.Scene{
 
     calculateIncrement(value, baseSpeed) {
         return baseSpeed / (value * 5);
-      }
+    }
     
     UpdateSpeed(){
         this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
