@@ -3,6 +3,7 @@ import { Player } from '../components/player.js';
 import { VisualEffectsManager } from '../managers/visualEffectsManager.js'
 import { BackgroundManager } from '../managers/backgroundManager.js';
 import { ObstacleManager } from '../managers/obstacleManager.js';
+import { PowerUpsManager } from '../managers/powerUpsManager.js';
 import { GameplayUI } from '../components/gameplayUI.js';
 
 export class MainScene extends Phaser.Scene{
@@ -33,6 +34,7 @@ export class MainScene extends Phaser.Scene{
         this.score = 0;
         this.scoreDistance = 0;
         this.scoreThreshold = this.toPixels(this.data.get('scoreThreshold'));
+        this.lifes = 2;
 
         //UI
         this.uiScene = this.scene.get('UIScene');
@@ -81,6 +83,9 @@ export class MainScene extends Phaser.Scene{
 
         this.obstacleManager = new ObstacleManager(this, this.gameWidth);
         this.obstacleManager.create();
+
+        this.powerUpManager = new PowerUpsManager(this, this.gameWidth);
+        this.powerUpManager.create();
 
         this.gameplayUI = new GameplayUI(this, this.gameWidth);
         this.gameplayUI.create();
@@ -156,6 +161,7 @@ export class MainScene extends Phaser.Scene{
                     let dt = Math.min(1, deltaTime/1000);
                     this.backgroundManager.update(dt);
                     this.obstacleManager.update(dt);
+                    this.powerUpManager.update(dt);
                     this.player.changeAnimation();
                     this.UpdateSpeed()
                     this.UpdateBar()
@@ -182,6 +188,7 @@ export class MainScene extends Phaser.Scene{
         this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
         this.obstacleManager.horizontalSpeed = (this.gameplayUI.progressBar.value * this.obstacleManager.maxSpeed)
         this.backgroundManager.horizontalSpeed = this.obstacleManager.horizontalSpeed * .5;
+        this.powerUpManager.horizontalSpeed = this.obstacleManager.horizontalSpeed;
     }
 
     UpdateBar(){

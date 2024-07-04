@@ -19,7 +19,6 @@ export class ObstacleManager
         this.probability = 7;
         this.currentZone = 1;
         this.zoneDistance = 0;
-        this.currentLifes = 2;
         this.obstaclesGroup = this.scene.physics.add.group({
             allowGravity: false
         });
@@ -105,10 +104,9 @@ export class ObstacleManager
     }
 
     collisionHandler(playerBody, obstacleBody) {
-        //this.scene.player. quitar vida?
         obstacleBody.disableBody(true, false);
-        this.currentLifes -= 1;
-        this.scene.gameplayUI.hearts.getChildren()[this.currentLifes].setVisible(false);
-        if (this.currentLifes == 0) this.scene.gameState = 'game_over';
+        this.scene.lifes -= 1;
+        this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(false);
+        if (this.scene.lifes == 0) this.scene.gameState = 'game_over';
     }
 }

@@ -28,7 +28,7 @@ export class GameplayUI
 
         this.hearts = this.scene.add.group({
             key: 'square', // Imagen a usar para los objetos del grupo
-            repeat: 1, // Número de objetos adicionales a crear (total = repeat + 1)
+            repeat: this.scene.lifes - 1, // Número de objetos adicionales a crear (total = repeat + 1)
             setXY: { x: 40, y: 50, stepX: 60 } // Posición inicial y el paso en el eje X
         });
 
