@@ -99,13 +99,13 @@ export class MainScene extends Phaser.Scene{
                         this.player.jump();
                     }
                     else {
-                        if(this.player.isGrounded)this.gameplayUI.progressBar.value += this.clickSpeed;
+                        if(this.player.isGrounded)this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
                     }
                 }
             }, this);
         } else {
             this.input.on('pointerdown', function (pointer) {
-                if (this.gameState == 'play'&&this.player.isGrounded) this.gameplayUI.progressBar.value += this.clickSpeed;
+                if (this.gameState == 'play'&&this.player.isGrounded) this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
             }, this);
         }
     }
@@ -172,7 +172,9 @@ export class MainScene extends Phaser.Scene{
 
     }
 
-   
+    calculateIncrement(value, baseSpeed) {
+        return baseSpeed * (0.5 * (1 - value) + 0.5 * (1 - value ** 2));
+      }
     
     UpdateSpeed(){
         this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
