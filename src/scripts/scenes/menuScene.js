@@ -187,7 +187,7 @@ export class MenuScene extends Phaser.Scene
         this.addVariable(y + space * 1, `Velocidad Maxima:`, 'maxSpeed');
         this.addVariable(y + space * 2, `Porcentaje Velocidad \npor click:`, 'clickSpeed');
         this.addVariable(y + space * 3, `Porcentaje Velocidad \nperdida (max. 0.01):`, 'lostSpeed');
-        this.addVariable(y + space * 4, `Porcentaje Velocidad`, 'jumpForce');
+        this.addVariable(y + space * 4, `Fuerza de salto`, 'jumpForce');
 
     }
 
