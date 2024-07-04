@@ -173,7 +173,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     calculateIncrement(value, baseSpeed) {
-        return baseSpeed * (0.5 * (1 - value) + 0.5 * (1 - value ** 2));
+        return baseSpeed / (value * 5);
       }
     
     UpdateSpeed(){
