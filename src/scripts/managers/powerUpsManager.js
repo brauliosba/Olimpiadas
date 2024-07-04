@@ -48,7 +48,9 @@ export class PowerUpsManager
 
     activePowerUp() {
         this.powerUp.sprite.enableBody();
-        this.powerUp.sprite.setPosition(this.gameWidth, this.gameWidth-220).setVisible(true);
+        let isObstacle = this.scene.obstacleManager.checkActiveObstacles();
+        let posY = isObstacle ? this.gameWidth-340 : this.gameWidth-220;
+        this.powerUp.sprite.setPosition(this.gameWidth, posY).setVisible(true);
         this.powerUp.status = 'active';
         this.powerUp.sprite.id = 0;
     }

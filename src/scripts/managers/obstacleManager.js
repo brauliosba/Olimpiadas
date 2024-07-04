@@ -109,4 +109,13 @@ export class ObstacleManager
         this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(false);
         if (this.scene.lifes == 0) this.scene.gameState = 'game_over';
     }
+
+    checkActiveObstacles() {
+        for (let i = 0; i < this.activeObstacles.length; i++) {
+            let obstacle = this.activeObstacles[i];
+            if (obstacle.sprite.x + obstacle.sprite.displayWidth >= 1000) return true;
+        }
+
+        return false;
+    }
 }
