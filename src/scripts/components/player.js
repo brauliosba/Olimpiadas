@@ -27,9 +27,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     jump() {
         console.log("jump")
         if (this.body.touching.down) {
-            this.setVelocityY(this.scene.data.get('jumpForce')*-1);
-            
-            
+            this.setVelocityY(this.scene.data.get('jumpForce')*-1);           
         }
     }
 
@@ -46,10 +44,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 this.anims.pause()
                 this.setTexture('playerJump');
             }
-        }
-
-        
-        
+        }       
     }
 
     UpdateFrameRate(barValue){
