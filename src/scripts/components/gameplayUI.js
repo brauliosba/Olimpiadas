@@ -37,8 +37,8 @@ export class GameplayUI
         });
         
         //Text UI
-        //this.scoreText = this.scene.add.text(this.gameWidth/2, 40, '0', { fontFamily: 'Montserrat', fontSize: 45, color: '#FFFBE7' });
-        //this.scoreText.setDepth(8).setOrigin(.5);
+        this.scoreText = this.scene.add.text(this.gameWidth-50, 120, 'Puntaje: 0', { fontFamily: 'Montserrat', fontSize: 45, color: '#0000000' });
+        this.scoreText.setDepth(8).setOrigin(1);
 
         /*
         //Feedback UI
@@ -56,8 +56,8 @@ export class GameplayUI
         }
     }
 
-    updateScore() {
-        this.scoreText.setText(this.scene.score);
+    updateScore(score) {
+        this.scoreText.setText('Puntaje: ' + score);
     }
 
     updateRedBar(currentZone) {

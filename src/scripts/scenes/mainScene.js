@@ -30,6 +30,9 @@ export class MainScene extends Phaser.Scene{
         this.startRunning = true;
         this.clickSpeed = this.data.get('clickSpeed');
         this.lostSpeed = this.data.get('lostSpeed');
+        this.score = 0;
+        this.scoreDistance = 0;
+        this.scoreThreshold = this.toPixels(this.data.get('scoreThreshold'));
 
         //UI
         this.uiScene = this.scene.get('UIScene');
@@ -149,15 +152,14 @@ export class MainScene extends Phaser.Scene{
                 }
                 break;
             case `play`:
-                if (!this.isPaused) {
-                    
+                if (!this.isPaused) {      
                     let dt = Math.min(1, deltaTime/1000);
                     this.backgroundManager.update(dt);
                     this.obstacleManager.update(dt);
-                    this.player.changeAnimation()
+                    this.player.changeAnimation();
                     this.UpdateSpeed()
                     this.UpdateBar()
-                    //this.printShapeCount();
+                    this.updateScore(dt);
                 }
                 break;
             case `game_over`:
@@ -176,7 +178,7 @@ export class MainScene extends Phaser.Scene{
         return baseSpeed / (value * 5);
     }
     
-    UpdateSpeed(){
+    UpdateSpeed(dt){
         this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
         this.obstacleManager.horizontalSpeed = (this.gameplayUI.progressBar.value * this.obstacleManager.maxSpeed)
         this.backgroundManager.horizontalSpeed = this.obstacleManager.horizontalSpeed * .5;
@@ -187,6 +189,16 @@ export class MainScene extends Phaser.Scene{
 
         if (this.gameplayUI.progressBar.value < 0.001) {
             this.gameplayUI.progressBar.value = 0.001;
+        }
+    }
+
+    updateScore(dt){
+        this.scoreDistance += this.obstacleManager.horizontalSpeed * dt;
+
+        if (this.scoreDistance >= this.scoreThreshold) {
+            this.scoreDistance = 0;
+            this.score += Math.floor(this.gameplayUI.progressBar.value * 100);
+            this.gameplayUI.updateScore(this.score);
         }
     }
 
