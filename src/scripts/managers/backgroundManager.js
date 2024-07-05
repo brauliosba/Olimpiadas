@@ -8,15 +8,25 @@ export class BackgroundManager
     }
 
     create() {
+        this.scene.add.image(0,0,'background').setOrigin(0).setScale(.72).setDepth(0);
+        this.scene.add.image(0,270,'bg','asientos.png').setOrigin(0).setScale(.72).setDepth(0.1);
+        this.scene.add.image(0,this.gameWidth-470,'bg','muro.png').setOrigin(0).setScale(.72).setDepth(0.2);
+        this.logo = this.scene.add.tileSprite(0,this.gameWidth-415,0,0,'bg','logo.png').setOrigin(0).setScale(.72).setDepth(0.3);
+        this.scene.add.image(0,this.gameWidth-250,'bg','pista.png').setOrigin(0).setScale(.72).setDepth(0.4);
+
+        /*
         this.b1 = this.scene.add.image(0, 0, 'square').setOrigin(0).setDisplaySize(this.gameWidth, this.gameWidth);
         this.backgrounds.push(this.b1);
 
         this.b2 = this.scene.add.image(0, 0, 'square').setOrigin(0).setDisplaySize(this.gameWidth, this.gameWidth).setTint('0x95A922');
         this.b2.x = this.b1.displayWidth;
         this.backgrounds.push(this.b2);
+        */
     }
 
     update(dt) {
+        this.logo.tilePositionX += this.horizontalSpeed * dt;
+
         const updateBackgroundPosition = (background) => {
             background.x -= this.horizontalSpeed * dt;
         };
@@ -33,9 +43,9 @@ export class BackgroundManager
             }
         }
     
-        updateBackgroundPosition(this.b1);
-        updateBackgroundPosition(this.b2);
-        resetBackground(this.b1);
-        resetBackground(this.b2);
+        //updateBackgroundPosition(this.b1);
+        //updateBackgroundPosition(this.b2);
+        //resetBackground(this.b1);
+        //resetBackground(this.b2);
     }
 }

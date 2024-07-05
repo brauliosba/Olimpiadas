@@ -16,10 +16,9 @@ export class MainScene extends Phaser.Scene{
 
     preload(){
         this.load.image('square', './src/images/square.png');
-        this.load.spritesheet('playerRun', './src/images/player.png', {
-            frameWidth: 205, // Ancho de cada frame en el spritesheet
-            frameHeight: 205 // Altura de cada frame en el spritesheet
-          });
+        this.load.image('background', './src/images/background.png');
+        this.load.atlas('bg', './src/images/bg.png', './src/images/bg.json');
+        this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 205, frameHeight: 205});
         this.load.image('playerJump', './src/images/playerJump.png');
     }
     create(){

@@ -93,4 +93,10 @@ export class PowerUpsManager
                 break;
         }
     }
+
+    checkActivePowerUp() {
+        let sprite = this.powerUp.sprite;
+        if (sprite.x + sprite.displayWidth >= 1000) return sprite.x + sprite.displayWidth + 50;
+        return this.gameWidth;
+    }
 }
