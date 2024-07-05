@@ -1,5 +1,15 @@
 {
 "frames": {
+	"asientos.png": {
+		"frame": {"x":0, "y":1679, "w":1500, "h":450},
+		"spriteSourceSize": {"x":0,"y":0,"w":1500,"h":450},
+		"sourceSize": {"w":1500,"h":450}
+	},
+	"gradas.png": {
+		"frame": {"x":0, "y":201, "w":1500, "h":800},
+		"spriteSourceSize": {"x":0,"y":0,"w":1500,"h":800},
+		"sourceSize": {"w":1500,"h":800}
+	},
 	"logo.png": {
 		"frame": {"x":0, "y":0, "w":1800, "h":200},
 		"spriteSourceSize": {"x":0,"y":0,"w":1800,"h":200},
@@ -14,17 +24,12 @@
 		"frame": {"x":0, "y":1328, "w":1500, "h":350},
 		"spriteSourceSize": {"x":0,"y":0,"w":1500,"h":350},
 		"sourceSize": {"w":1500,"h":350}
-	},
-	"asientos.png": {
-		"frame": {"x":0, "y":201, "w":1500, "h":800},
-		"spriteSourceSize": {"x":0,"y":0,"w":1500,"h":800},
-		"sourceSize": {"w":1500,"h":800}
 	}
 
 },
 "meta": {
 	"image": "sprites.png",
-	"size": {"w": 1801, "h": 1679},
+	"size": {"w": 1801, "h": 2130},
 	"scale": "1"
 }
 }

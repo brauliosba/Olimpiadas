@@ -186,7 +186,7 @@ export class MainScene extends Phaser.Scene{
     UpdateSpeed(dt){
         this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
         this.obstacleManager.horizontalSpeed = (this.gameplayUI.progressBar.value * this.obstacleManager.maxSpeed)
-        this.backgroundManager.horizontalSpeed = this.obstacleManager.horizontalSpeed * .5;
+        this.backgroundManager.horizontalSpeed = this.obstacleManager.horizontalSpeed * .7;
         this.powerUpManager.horizontalSpeed = this.obstacleManager.horizontalSpeed;
     }
 
