@@ -52,7 +52,15 @@ export class PowerUpsManager
         let posY = isObstacle ? this.gameWidth-340 : this.gameWidth-220;
         this.powerUp.sprite.setPosition(this.gameWidth, posY).setVisible(true);
         this.powerUp.status = 'active';
-        this.powerUp.sprite.id = 0;
+
+        let rand = Phaser.Math.Between(0, 1);
+        if (rand == 0) {
+            this.powerUp.sprite.id = 0;
+            this.powerUp.sprite.setTint('0x00ff00');
+        } else {
+            this.powerUp.sprite.id = 1;
+            this.powerUp.sprite.setTint('0x0000ff');
+        }
     }
 
     updatePowerUpPostion(dt) {
@@ -79,6 +87,7 @@ export class PowerUpsManager
                 }
                 break;
             case 1:
+                this.scene.gameplayUI.progressBar.value = 1;
                 break;
             default:
                 break;
