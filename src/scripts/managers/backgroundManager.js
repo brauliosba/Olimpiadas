@@ -5,6 +5,8 @@ export class BackgroundManager
         this.gameWidth = gameWidth;
         this.horizontalSpeed = this.scene.toPixels(2);
         this.backgrounds = [];
+        this.clouds = [];
+        this.lastCloudIndex = 2;
     }
 
     create() {
@@ -15,39 +17,49 @@ export class BackgroundManager
         this.logo = this.scene.add.tileSprite(0,this.gameWidth-415,0,0,'bg','logo.png').setOrigin(0).setScale(.72).setDepth(0.4);
         this.scene.add.image(0,this.gameWidth-250,'bg','pista.png').setOrigin(0).setScale(.72).setDepth(0.5);
 
-        /*
-        this.b1 = this.scene.add.image(0, 0, 'square').setOrigin(0).setDisplaySize(this.gameWidth, this.gameWidth);
-        this.backgrounds.push(this.b1);
+        let cloud = this.scene.add.image(300, 180, 'clouds', '1.png').setOrigin(.5).setScale(.72);
+        this.clouds.push(cloud);
 
-        this.b2 = this.scene.add.image(0, 0, 'square').setOrigin(0).setDisplaySize(this.gameWidth, this.gameWidth).setTint('0x95A922');
-        this.b2.x = this.b1.displayWidth;
-        this.backgrounds.push(this.b2);
-        */
+        let cloud2 = this.scene.add.image(700, 80, 'clouds', '2.png').setOrigin(.5).setScale(.72);
+        this.clouds.push(cloud2);
+
+        let cloud3 = this.scene.add.image(1100, 130, 'clouds', '3.png').setOrigin(.5).setScale(.72);
+        this.clouds.push(cloud3);
+
+        let cloud4 = this.scene.add.image(1500, 90, 'clouds', '2.png').setOrigin(.5).setScale(.72);
+        this.clouds.push(cloud4);
     }
 
     update(dt) {
         this.seats.tilePositionX += this.horizontalSpeed * dt;
         this.logo.tilePositionX += this.horizontalSpeed * dt;
 
-        const updateBackgroundPosition = (background) => {
-            background.x -= this.horizontalSpeed * dt;
-        };
+        this.cloudsUpdate(dt);
+    }
 
-        const resetBackground = (background) => {
-            if (background.x <= -this.gameWidth) {
-                //let textureIndex = this.currentZone < 5 ? this.currentZone : 5;
-                //background.setTexture('backgrounds', 'background' + textureIndex + '.png').setDisplaySize(this.gameWidth, this.gameWidth + 20);
-                background.x = this.backgrounds[this.backgrounds.length-1].x + background.displayWidth;
-                background.id = this.currentZone;
-                let temp = this.backgrounds[0];
-                this.backgrounds.shift();
-                this.backgrounds.push(temp);
+    cloudsUpdate(dt){
+        for(let i = 0; i < this.clouds.length; i++){
+            let cloud = this.clouds[i];
+            cloud.x -= this.horizontalSpeed * .2 * dt;
+
+            if (cloud.x <= -cloud.displayWidth/2){
+                this.drawCloud()
             }
         }
-    
-        //updateBackgroundPosition(this.b1);
-        //updateBackgroundPosition(this.b2);
-        //resetBackground(this.b1);
-        //resetBackground(this.b2);
+    }
+
+    drawCloud(){
+        let type = Phaser.Math.Between(1, 4);
+        type = type != this.lastCloudIndex ? type : type + 1 > 4 ? 1 : type + 1;
+        this.lastCloudIndex = type;
+        let cloud = this.clouds[0];
+        cloud.setTexture('clouds', type + '.png');
+        const lastCloud =  this.clouds[this.clouds.length - 1]
+        const posX = lastCloud.x + lastCloud.displayWidth/2 + cloud.displayWidth/2 + 200;
+        const posY = Phaser.Math.Between(80, 180);
+        cloud.setPosition(posX, posY);
+
+        this.clouds.shift();
+        this.clouds.push(cloud);
     }
 }
