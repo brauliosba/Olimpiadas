@@ -46,7 +46,7 @@ module.exports = {
       new CopyWebpackPlugin({
          patterns: [
             { from: './src/images', to: './src/images' },
-            //{ from: './src/audios', to: './src/audios' },
+            { from: './src/audios', to: './src/audios' },
          ],
        }),
       new HtmlWebpackPlugin({

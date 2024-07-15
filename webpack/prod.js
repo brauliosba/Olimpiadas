@@ -29,7 +29,7 @@ module.exports = merge(base, { // Merging this config with base.js        // con
       new CopyPlugin({ 
          patterns: [
             { from: './src/images', to: './src/images' },
-            //{ from: './src/audios', to: './src/audios' },
+            { from: './src/audios', to: './src/audios' },
          ],
       }),
       /*

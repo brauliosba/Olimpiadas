@@ -36,6 +36,10 @@ export class MainScene extends Phaser.Scene{
         this.scoreThreshold = this.toPixels(this.data.get('scoreThreshold'));
         this.lifes = 2;
 
+        //Time
+        this.accumulatedTime = 0;
+        this.timePerStep = 0.5;
+
         //UI
         this.uiScene = this.scene.get('UIScene');
         this.uiScene.setCurrentScene(this);
@@ -163,6 +167,7 @@ export class MainScene extends Phaser.Scene{
                     this.obstacleManager.update(dt);
                     this.powerUpManager.update(dt);
                     this.player.changeAnimation();
+                    this.PlayRunningSound(deltaTime)
                     this.UpdateSpeed()
                     this.UpdateBar()
                     this.updateScore(dt);
@@ -178,6 +183,20 @@ export class MainScene extends Phaser.Scene{
         }
         
 
+    }
+
+    PlayRunningSound(deltaTime){
+         // Incrementar el tiempo acumulado
+         this.accumulatedTime += deltaTime / 1000; // Convierte delta a segundos
+        
+         // Comprobar si ha pasado suficiente tiempo para un paso
+         if (this.accumulatedTime >= this.timePerStep) {
+             // Reproducir un sonido "trote" aleatorio
+             this.uiScene.audioManager.playRandomTroteSound();
+             
+             // Restablecer el tiempo acumulado
+             this.accumulatedTime -= this.timePerStep;
+         }
     }
 
     calculateIncrement(value, baseSpeed) {
@@ -243,7 +262,7 @@ export class MainScene extends Phaser.Scene{
             
             if (this.isPaused){
                 this.anims.pauseAll();
-                //this.uiScene.audioManager.pauseMusic();
+                this.uiScene.audioManager.pauseMusic();
                 //this.panel.showPause();
             }
             else{ 
@@ -258,8 +277,9 @@ export class MainScene extends Phaser.Scene{
     }
 
     restartGame(){
-        //this.uiScene.audioManager.stopMusic();
+        this.uiScene.audioManager.stopMusic();
         this.scene.restart([this.data, false]);
+
     }
 
     finishGame() {
