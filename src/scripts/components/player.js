@@ -14,7 +14,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         if (!this.scene.anims.exists('run')){
             scene.anims.create({
                 key: 'run',
-                frames: this.scene.anims.generateFrameNumbers('playerRun', { start: 0, end: 9, first: 0 }), // Frames del 0 al 9
+                frames: this.scene.anims.generateFrameNumbers('playerRun', { start: 0, end: 7, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             });
@@ -26,7 +26,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   
     jump() {
         console.log("jump")
+
         if (this.body.touching.down) {
+            this.uiScene.audioManager.salto.play()
             this.setVelocityY(this.scene.data.get('jumpForce')*-1);           
         }
     }
@@ -37,6 +39,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             if (this.texture.key !== 'playerRun') {
                 this.setTexture('playerRun');
                 this.play('run');
+                this.uiScene.audioManager.aterrizaje.play()
               }
         }else{
             this.isGrounded = false

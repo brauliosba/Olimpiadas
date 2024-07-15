@@ -13,6 +13,7 @@ export class BackgroundManager
         this.scene.add.image(0,0,'background').setOrigin(0).setScale(.72).setDepth(0);
         this.scene.add.image(0,270,'bg','gradas.png').setOrigin(0).setScale(.72).setDepth(0.1);
         this.seats = this.scene.add.tileSprite(0,335,0,0,'bg','asientos.png').setOrigin(0).setScale(.72).setDepth(0.2);
+        this.extra = this.scene.add.tileSprite(0,635,0,0,'extra').setOrigin(0).setScale(1).setDepth(0.4);
         this.scene.add.image(0,this.gameWidth-470,'bg','muro.png').setOrigin(0).setScale(.72).setDepth(0.3);
         this.logo = this.scene.add.tileSprite(0,this.gameWidth-415,0,0,'bg','logo.png').setOrigin(0).setScale(.72).setDepth(0.4);
         this.scene.add.image(0,this.gameWidth-250,'bg','pista.png').setOrigin(0).setScale(.72).setDepth(0.5);
@@ -31,6 +32,7 @@ export class BackgroundManager
     }
 
     update(dt) {
+        this.extra.tilePositionX += this.horizontalSpeed * dt;
         this.seats.tilePositionX += this.horizontalSpeed * dt;
         this.logo.tilePositionX += this.horizontalSpeed * dt;
 

@@ -105,6 +105,7 @@ export class ObstacleManager
     }
 
     collisionHandler(playerBody, obstacleBody) {
+        this.uiScene.audioManager.golpe.play()
         obstacleBody.disableBody(true, false);
         this.scene.lifes -= 1;
         this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(false);
