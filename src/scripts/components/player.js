@@ -7,9 +7,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.baseFrameRate = 10
       this.setCollideWorldBounds(true);
       //this.setBounce(0.2);
+      this.setScale(.6)
       this.setGravityY(500);
       this.setSize(120,150);
-      //this.setOffse5t(5, -20);
+      this.setOffset(350, 400);
       // Definir las animaciones del jugador
         if (!this.scene.anims.exists('run')){
             scene.anims.create({
@@ -28,7 +29,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         console.log("jump")
 
         if (this.body.touching.down) {
-            this.uiScene.audioManager.salto.play()
+            this.scene.uiScene.audioManager.salto.play()
             this.setVelocityY(this.scene.data.get('jumpForce')*-1);           
         }
     }
@@ -39,7 +40,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             if (this.texture.key !== 'playerRun') {
                 this.setTexture('playerRun');
                 this.play('run');
-                this.uiScene.audioManager.aterrizaje.play()
+                this.scene.uiScene.audioManager.aterrizaje.play()
               }
         }else{
             this.isGrounded = false

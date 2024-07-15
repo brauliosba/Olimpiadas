@@ -10,22 +10,22 @@ export class AudioManager
         //this.scene.load.audio(`mainTheme`, [ `./src/audios/menu_loop.ogg`, `./src/audios/menu_loop.m4a` ]);
         //this.scene.load.audio(`gameplayTheme`, [ `./src/audios/gameplay_loop.ogg`, `./src/audios/gameplay_loop.m4a` ]);
         //sfx
-        this.scene.load.audio(`aterrizaje`, [ `./src/audios/m4a/sfx_aterrizaje.ogg`, `./src/audios/ogg/sfx_aterrizaje.m4a` ]);
-        this.scene.load.audio(`golpe`, [ `./src/audios/m4a/sfx_golpe.ogg`, `./src/audios/ogg/sfx_golpe.m4a` ]);
-        this.scene.load.audio(`salto`, [ `./src/audios/m4a/sfx_salto.ogg`, `./src/audios/ogg/sfx_salto.m4a` ]);
+        this.scene.load.audio(`aterrizaje`, [ `./src/audios/m4a/sfx_aterrizaje.m4a`, `./src/audios/ogg/sfx_aterrizaje.ogg` ]);
+        this.scene.load.audio(`golpe`, [ `./src/audios/m4a/sfx_golpe.m4a`, `./src/audios/ogg/sfx_golpe.ogg` ]);
+        this.scene.load.audio(`salto`, [ `./src/audios/m4a/sfx_salto.m4a`, `./src/audios/ogg/sfx_salto.ogg` ]);
         
 
-        this.scene.load.audio(`trote_1`, [ `./src/audios/m4a/sfx_trote_1.ogg`, `./src/audios/ogg/sfx_trote_1.m4a` ]);
-        this.scene.load.audio(`trote_2`, [ `./src/audios/m4a/sfx_trote_2.ogg`, `./src/audios/ogg/sfx_trote_2.m4a` ]);
-        this.scene.load.audio(`trote_3`, [ `./src/audios/m4a/sfx_trote_3.ogg`, `./src/audios/ogg/sfx_trote_3.m4a` ]);
-        this.scene.load.audio(`trote_4`, [ `./src/audios/m4a/sfx_trote_4.ogg`, `./src/audios/ogg/sfx_trote_4.m4a` ]);
-        this.scene.load.audio(`trote_5`, [ `./src/audios/m4a/sfx_trote_5.ogg`, `./src/audios/ogg/sfx_trote_5.m4a` ]);
-        this.scene.load.audio(`trote_6`, [ `./src/audios/m4a/sfx_trote_6.ogg`, `./src/audios/ogg/sfx_trote_6.m4a` ]);
-        this.scene.load.audio(`trote_7`, [ `./src/audios/m4a/sfx_trote_7.ogg`, `./src/audios/ogg/sfx_trote_7.m4a` ]);
-        this.scene.load.audio(`trote_8`, [ `./src/audios/m4a/sfx_trote_8.ogg`, `./src/audios/ogg/sfx_trote_8.m4a` ]);
+        this.scene.load.audio(`trote_1`, [ `./src/audios/m4a/sfx_trote_1.m4a`, `./src/audios/ogg/sfx_trote_1.ogg` ]);
+        this.scene.load.audio(`trote_2`, [ `./src/audios/m4a/sfx_trote_2.m4a`, `./src/audios/ogg/sfx_trote_2.ogg` ]);
+        this.scene.load.audio(`trote_3`, [ `./src/audios/m4a/sfx_trote_3.m4a`, `./src/audios/ogg/sfx_trote_3.ogg` ]);
+        this.scene.load.audio(`trote_4`, [ `./src/audios/m4a/sfx_trote_4.m4a`, `./src/audios/ogg/sfx_trote_4.ogg` ]);
+        this.scene.load.audio(`trote_5`, [ `./src/audios/m4a/sfx_trote_5.m4a`, `./src/audios/ogg/sfx_trote_5.ogg` ]);
+        this.scene.load.audio(`trote_6`, [ `./src/audios/m4a/sfx_trote_6.m4a`, `./src/audios/ogg/sfx_trote_6.ogg` ]);
+        this.scene.load.audio(`trote_7`, [ `./src/audios/m4a/sfx_trote_7.m4a`, `./src/audios/ogg/sfx_trote_7.ogg` ]);
+        this.scene.load.audio(`trote_8`, [ `./src/audios/m4a/sfx_trote_8.m4a`, `./src/audios/ogg/sfx_trote_8.ogg` ]);
 
-        this.scene.load.audio(`ui_click`, [ `./src/audios/m4a/sfx_ui_button_click.ogg`, `./src/audios/ogg/sfx_ui_button_click.m4a` ]);
-        this.scene.load.audio(`page_click`, [ `./src/audios/m4a/sfx_ui_button_page.ogg`, `./src/audios/ogg/sfx_ui_button_page.m4a` ]);
+        this.scene.load.audio(`ui_click`, [ `./src/audios/m4a/sfx_ui_button_click.m4a`, `./src/audios/ogg/sfx_ui_button_click.ogg` ]);
+        this.scene.load.audio(`page_click`, [ `./src/audios/m4a/sfx_ui_button_page.m4a`, `./src/audios/ogg/sfx_ui_button_page.ogg` ]);
         
     }
 
@@ -235,7 +235,7 @@ export class AudioManager
     }
 
     stopMusic(){
-        this.getCurrentTheme().stop();
+        //this.getCurrentTheme().stop();
     }
 
     updateSFXVolume(value){

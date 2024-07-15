@@ -191,7 +191,7 @@ export class MainScene extends Phaser.Scene{
          this.accumulatedTime += deltaTime / 1000; // Convierte delta a segundos
         
          // Comprobar si ha pasado suficiente tiempo para un paso
-         if (this.accumulatedTime >= this.timePerStep) {
+         if (this.accumulatedTime >= this.timePerStep && this.player.isGrounded) {
              // Reproducir un sonido "trote" aleatorio
              this.uiScene.audioManager.playRandomTroteSound();
              
@@ -203,9 +203,27 @@ export class MainScene extends Phaser.Scene{
     calculateIncrement(value, baseSpeed) {
         return baseSpeed / (value * 5);
     }
+
+    mapSpeedToRange(speed) {
+        const minSpeed = 300;
+        const maxSpeed = 600;
+        const minRange = 0.1;
+        const maxRange = 0.6;
+    
+        // Calcular la proporción
+        let proportion = (speed - minSpeed) / (maxSpeed - minSpeed);
+        
+        // Invertir la proporción
+        proportion = 1 - proportion;
+        
+        // Mapear la proporción al rango
+        return minRange + proportion * (maxRange - minRange);
+    }
     
     UpdateSpeed(dt){
+        console.log(this.obstacleManager.horizontalSpeed)
         this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
+        this.timePerStep = this.mapSpeedToRange(this.obstacleManager.horizontalSpeed)
         this.obstacleManager.horizontalSpeed = (this.gameplayUI.progressBar.value * this.obstacleManager.maxSpeed)
         this.backgroundManager.horizontalSpeed = this.obstacleManager.horizontalSpeed * .7;
         this.powerUpManager.horizontalSpeed = this.obstacleManager.horizontalSpeed;
