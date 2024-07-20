@@ -26,6 +26,12 @@ export class MenuScene extends Phaser.Scene
         this.data.set('jumpForce', 500);
         this.data.set('scoreThreshold', 1);
         this.data.set('powerThreshold', 30);
+        this.data.set('cd1', 15);
+        this.data.set('cd2', 10);
+        this.data.set('cd3', 8);
+        this.data.set('cd4', 6);
+        this.data.set('cd5', 3);
+        this.data.set('gravity', 500);
         
         //UI
         this.uiScene = this.scene.get('UIScene');
@@ -71,6 +77,7 @@ export class MenuScene extends Phaser.Scene
 
         let playButton = this.add.text(this.gameWidth/2, 890, 'JUGAR', { fontFamily: 'Montserrat', fontSize : 40, color: '#FFFFFF' }).setScale(.72);
         playButton.setInteractive().on('pointerup', () => {
+            this.uiScene.audioManager.stopMusic();
             this.nextSceneReady = false;
             this.showLoading();
             //this.uiScene.audioManager.buttonPlay.play();
@@ -144,6 +151,7 @@ export class MenuScene extends Phaser.Scene
         this.scene.sendToBack('MainScene');
         this.mainScene = this.scene.get("MainScene");
         this.scene.get(`MainScene`).events.once(`create`, () => {
+            
             this.mainScene.startRunning = false;
             this.nextSceneReady = true;
         });
@@ -193,6 +201,12 @@ export class MenuScene extends Phaser.Scene
         this.addVariable(y + space * 4, `Fuerza de salto`, 'jumpForce');
         this.addVariable(y + space * 5, `Distancia para obtener \npuntaje (metros):`, 'scoreThreshold');
         this.addVariable(y + space * 6, `Distancia para obtener \npower up (minimo 10 metros):`, 'powerThreshold');
+        this.addVariable(y + space * 7, `Cooldown entre obstaculos en la fase 1`, 'cd1');
+        this.addVariable(y + space * 8, `Cooldown entre obstaculos en la fase 2`, 'cd2');
+        this.addVariable(y + space * 9, `Cooldown entre obstaculos en la fase 3`, 'cd3');
+        this.addVariable(y + space * 10, `Cooldown entre obstaculos en la fase 4`, 'cd4');
+        this.addVariable(y + space * 11, `Cooldown entre obstaculos en la fase 5`, 'cd5');
+        this.addVariable(y + space * 11, `Gravedad`, 'gravity');
     }
 
     setData(key, speed){

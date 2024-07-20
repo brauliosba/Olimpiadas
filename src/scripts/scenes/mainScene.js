@@ -20,8 +20,14 @@ export class MainScene extends Phaser.Scene{
         this.load.atlas('bg', './src/images/bg.png', './src/images/bg.json');
         this.load.image('extra', './src/images/pista-extras.png');
         this.load.atlas('clouds', './src/images/clouds.png', './src/images/clouds.json');
-        this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 800, frameHeight: 600});
+
+        //player
+        this.load.spritesheet('playerIdle', './src/images/playerIdle.png', {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerStun', './src/images/playerStun.png', {frameWidth: 700, frameHeight: 500});
         this.load.image('playerJump', './src/images/playerJump.png');
+        this.load.image('playerReady', './src/images/playerReady.png');
+        this.load.image('playerSet', './src/images/playerSet.png');
     }
     create(){
         this.gameState = 'init';
@@ -62,7 +68,7 @@ export class MainScene extends Phaser.Scene{
         let keyPause2 = this.input.keyboard.addKey(`P`);
         keyPause2.on(`down`, () => { this.pauseGame();})
 
-        let playerJump = this.input.keyboard.addKey('SPACE');
+        let playerJump = this.input.keyboard.addKey('up');
         playerJump.on(`down`, () => { 
             if(this.gameState === 'play')this.player.jump();})
         //let keyPause3 = this.input.keyboard.addKey(`R`);
@@ -77,7 +83,7 @@ export class MainScene extends Phaser.Scene{
             this.startButton = null;
         });
         // Player
-        this.player = new Player(this, 400, 800); // Coloca al jugador en el centro de la pantalla
+        this.player = new Player(this, 400, 700); // Coloca al jugador en el centro de la pantalla
 
         //Instances
         this.visualEffectsManager = new VisualEffectsManager(this);
@@ -117,8 +123,22 @@ export class MainScene extends Phaser.Scene{
                 }
             }, this);
         } else {
+            // Manejador para el click en pantalla
             this.input.on('pointerdown', function (pointer) {
-                if (this.gameState == 'play'&&this.player.isGrounded) this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
+                // Verificar si estamos en estado 'play' y el jugador está en el suelo
+                if (this.gameState == 'play' && this.player.isGrounded) {
+                    // Incrementar la barra de progreso utilizando la función calculateIncrement
+                    this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
+                }
+            }, this);
+
+            // Manejador para la tecla espacio
+            this.input.keyboard.on('keydown-SPACE', function (event) {
+                // Verificar si estamos en estado 'play' y el jugador está en el suelo
+                if (this.gameState == 'play' && this.player.isGrounded) {
+                    // Incrementar la barra de progreso utilizando la función calculateIncrement
+                    this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
+                }
             }, this);
         }
     }
@@ -155,7 +175,7 @@ export class MainScene extends Phaser.Scene{
                 }
                 else if (!this.tutorialActive) {
                     this.startTime = this.time.now * 0.001;
-                    //this.uiScene.audioManager.playMusic();
+                    this.uiScene.audioManager.playMusic();
                     this.isPaused = false;
                     this.gameState = 'play';
                     this.game.config.metadata.onGameStart({state:`game_start`, name:`olimpiadas`});
@@ -201,6 +221,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     calculateIncrement(value, baseSpeed) {
+        if(this.player.isStun)return 0
         return baseSpeed / (value * 5);
     }
 
@@ -348,9 +369,14 @@ export class MainScene extends Phaser.Scene{
     regressiveCount(countText) {
         setTimeout(() => {
             this.startCounter -= 1;
+            if(this.startCounter == 2)this.player.setImage('playerSet')
+            if(this.startCounter == 1)this.player.setImage('playerReady')
             countText.setText(this.startCounter);
-            if (this.startCounter > 0)
+            if (this.startCounter > 0){
+                
                 this.regressiveCount(countText);
+                
+            }
             else {
                 countText.setVisible(false);
                 this.tutorialActive = false;

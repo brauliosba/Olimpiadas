@@ -14,7 +14,7 @@ export class ObstacleManager
         this.maxSpeed = this.scene.toPixels(this.scene.data.get('maxSpeed'));
         this.obstacles = [];
         this.activeObstacles = [];
-        this.obstacleCooldown = [15,10,8,6,3];
+        this.obstacleCooldown = [this.scene.data.get('cd1'),this.scene.data.get('cd2'),this.scene.data.get('cd3'),this.scene.data.get('cd4'),this.scene.data.get('cd5')];
         this.currentDistance = this.scene.toPixels(15);
         this.probability = 7;
         this.currentZone = 1;
@@ -106,6 +106,7 @@ export class ObstacleManager
 
     collisionHandler(playerBody, obstacleBody) {
         this.scene.uiScene.audioManager.golpe.play()
+        this.scene.player.setStun()
         obstacleBody.disableBody(true, false);
         this.scene.lifes -= 1;
         this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(false);

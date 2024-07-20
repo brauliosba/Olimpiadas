@@ -3,7 +3,7 @@ export class BackgroundManager
     constructor(scene, gameWidth) {
         this.scene = scene;
         this.gameWidth = gameWidth;
-        this.horizontalSpeed = this.scene.toPixels(2);
+        this.horizontalSpeed = this.scene.toPixels(this.scene.data.get('initialSpeed'));
         this.backgrounds = [];
         this.clouds = [];
         this.lastCloudIndex = 2;
@@ -29,12 +29,15 @@ export class BackgroundManager
 
         let cloud4 = this.scene.add.image(1500, 90, 'clouds', '2.png').setOrigin(.5).setScale(.72);
         this.clouds.push(cloud4);
+        //this.horizontalSpeed *= 1.7
+
     }
 
     update(dt) {
-        this.extra.tilePositionX += this.horizontalSpeed * dt;
-        this.seats.tilePositionX += this.horizontalSpeed * dt;
-        this.logo.tilePositionX += this.horizontalSpeed * dt;
+        
+        this.extra.tilePositionX += this.horizontalSpeed * dt * 1.9 ;
+        this.seats.tilePositionX += this.horizontalSpeed * dt* 1.9 *.8  ;
+        this.logo.tilePositionX += this.horizontalSpeed * dt* 1.9 ;
 
         this.cloudsUpdate(dt);
     }
@@ -42,7 +45,7 @@ export class BackgroundManager
     cloudsUpdate(dt){
         for(let i = 0; i < this.clouds.length; i++){
             let cloud = this.clouds[i];
-            cloud.x -= this.horizontalSpeed * .2 * dt;
+            cloud.x -= this.horizontalSpeed * .5 * dt;
 
             if (cloud.x <= -cloud.displayWidth/2){
                 this.drawCloud()

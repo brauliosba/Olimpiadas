@@ -1,6 +1,7 @@
 export class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, 'playerRun');
+      this.isStun = false
       this.setDepth(3)
       scene.add.existing(this);
       scene.physics.add.existing(this);
@@ -8,9 +9,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.setCollideWorldBounds(true);
       //this.setBounce(0.2);
       this.setScale(.6)
-      this.setGravityY(500);
-      this.setSize(120,150);
-      this.setOffset(350, 400);
+      this.setGravityY(this.scene.data.get('gravity'));
+      this.setSize(100,150);
+      this.setOffset(300, 350);
       // Definir las animaciones del jugador
         if (!this.scene.anims.exists('run')){
             scene.anims.create({
@@ -19,9 +20,28 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             });
-        }
+            scene.anims.create({
+                key: 'idle',
+                frames: this.scene.anims.generateFrameNumbers('playerIdle', { start: 0, end: 7, first: 0 }), // Frames del 0 al 9
+                frameRate: this.baseFrameRate, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            });
+            scene.anims.create({
+                key: 'stun',
+                frames: this.scene.anims.generateFrameNumbers('playerStun', { start: 0, end: 3, first: 0 }), // Frames del 0 al 9
+                frameRate: this.baseFrameRate, // Velocidad de la animación
+                repeat: 1 
+            });
 
-       this.anims.play('run', true);
+        }
+        this.on('animationcomplete', function (animation, frame) {
+            if (animation.key === 'stun') {
+                this.isStun = false
+            }
+        });
+        
+
+       this.anims.play('idle', true);
        this.isGrounded = true
     }
   
@@ -35,20 +55,37 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     changeAnimation(){
-        if(this.body.touching.down){
-            this.isGrounded = true
-            if (this.texture.key !== 'playerRun') {
-                this.setTexture('playerRun');
-                this.play('run');
-                this.scene.uiScene.audioManager.aterrizaje.play()
-              }
-        }else{
-            this.isGrounded = false
-            if (this.texture.key !== 'playerJump') {
-                this.anims.pause()
-                this.setTexture('playerJump');
-            }
-        }       
+        if(!this.isStun){
+            if(this.body.touching.down){
+                this.isGrounded = true
+                if (this.texture.key !== 'playerRun') {
+                    this.setTexture('playerRun');
+                    this.play('run');
+                    this.scene.uiScene.audioManager.aterrizaje.play()
+                  }
+            }else{
+                this.isGrounded = false
+                if (this.texture.key !== 'playerJump') {
+                    this.anims.pause()
+                    this.setTexture('playerJump');
+                }
+            }   
+        }
+            
+    }
+    setStun(){
+        this.isStun= true
+        this.setTexture('playerStun');
+        this.play('stun');
+    }
+
+    fixPlayer(){
+        this.isStun= false
+    }
+
+    setImage(texture){
+        this.anims.pause()
+        this.setTexture(texture);
     }
 
     UpdateFrameRate(barValue){
