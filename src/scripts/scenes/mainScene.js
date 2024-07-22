@@ -117,21 +117,19 @@ export class MainScene extends Phaser.Scene{
 
         //Player Input
         if (this.data.get('IS_TOUCH')) {
-            this.tapScreen.on('pointerdown', function (pointer) {
-                if (this.gameState == 'play') {
-                    this.jumpButton = this.add.image(700, 300, 'inputs', 'tapatlon_jump.png').setDepth(6.2).setInteractive().setOrigin(0)
-                    this.jumpButton.on('pointerdown', function (pointer) {
-                        this.player.jump()
-                    }, this);
-                    this.tapScreen.on('pointerdown', function (pointer) {
-                        // Verificar si estamos en estado 'play' y el jugador está en el suelo
-                        if (this.gameState == 'play' && this.player.isGrounded) {
-                            // Incrementar la barra de progreso utilizando la función calculateIncrement
-                            this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
-                        }
-                    }, this);
-                    if(this.player.isGrounded)this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
+                
+            this.jumpButton = this.add.image(700, 300, 'inputs', 'tapatlon_jump.png').setDepth(6.2).setInteractive().setOrigin(0)
+            this.jumpButton.on('pointerdown', function (pointer) {
+                    this.player.jump()
+            }, this);
+
+            this.tapScreen.on('pointerdown', function (pointer) {  
+                // Verificar si estamos en estado 'play' y el jugador está en el suelo
+                if (this.gameState == 'play' && this.player.isGrounded) {
+                    // Incrementar la barra de progreso utilizando la función calculateIncrement
+                    this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
                 }
+                
             }, this);
         } else {
             // Manejador para el click en pantalla
@@ -233,7 +231,9 @@ export class MainScene extends Phaser.Scene{
 
     calculateIncrement(value, baseSpeed) {
         if(this.player.isStun)return 0
-        return ((baseSpeed / (value * 5)))/1000;
+        let aument = ((baseSpeed / (value * 5)))/1000
+        console.log("AUMENTO " + aument)
+        return aument;
     }
 
     mapSpeedToRange(speed) {
