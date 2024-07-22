@@ -19,7 +19,10 @@ export class MainScene extends Phaser.Scene{
         this.load.image('background', './src/images/background.png');
         this.load.atlas('bg', './src/images/bg.png', './src/images/bg.json');
         this.load.image('extra', './src/images/pista-extras.png');
+        this.load.image('tapScreen', './src/images/tapScreen.png');
+        
         this.load.atlas('clouds', './src/images/clouds.png', './src/images/clouds.json');
+        this.load.atlas('inputs', './src/images/inputs.png', './src/images/inputs.json');
 
         //player
         this.load.spritesheet('playerIdle', './src/images/playerIdle.png', {frameWidth: 700, frameHeight: 500});
@@ -63,6 +66,8 @@ export class MainScene extends Phaser.Scene{
         this.anims.resumeAll();
 
         // inputs
+        this.tapScreen = this.add.image(0, 0, 'tapScreen').setDepth(6).setInteractive().setOrigin(0)
+        
         let keyPause = this.input.keyboard.addKey(`ESC`);
         keyPause.on(`down`, () => { this.pauseGame();})
         let keyPause2 = this.input.keyboard.addKey(`P`);
@@ -75,7 +80,7 @@ export class MainScene extends Phaser.Scene{
         //keyPause3.on(`down`, () => { this.restartGame();})
 
         let startText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'Presiona para empezar', { fontFamily: 'Montserrat', fontSize : 80, color: '#000000' }).setOrigin(.5).setDepth(8);
-        this.startButton = this.add.image(0,0,'square').setDisplaySize(this.gameWidth, this.gameHeight).setOrigin(0).setAlpha(.01);
+        this.startButton = this.add.image(0,0,'square').setDisplaySize(this.gameWidth, this.gameHeight).setOrigin(0).setAlpha(.01).setDepth(6.1);
         this.startButton.setInteractive().on('pointerup', () => {
             startText.setVisible(false);
             this.startAnimation();
@@ -111,20 +116,25 @@ export class MainScene extends Phaser.Scene{
 
         //Player Input
         if (this.data.get('IS_TOUCH')) {
-            this.input.on('pointerdown', function (pointer) {
+            this.tapScreen.on('pointerdown', function (pointer) {
                 if (this.gameState == 'play') {
-                    let pointerX = this.getTypePointer(pointer);
-                    if (pointerX > this.cameras.main.width / 2) {
-                        this.player.jump();
-                    }
-                    else {
-                        if(this.player.isGrounded)this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
-                    }
+                    this.jumpButton = this.add.image(700, 300, 'inputs', 'tapatlon_jump.png').setDepth(6.2).setInteractive().setOrigin(0)
+                    this.jumpButton.on('pointerdown', function (pointer) {
+                        this.player.jump()
+                    }, this);
+                    this.tapScreen.on('pointerdown', function (pointer) {
+                        // Verificar si estamos en estado 'play' y el jugador está en el suelo
+                        if (this.gameState == 'play' && this.player.isGrounded) {
+                            // Incrementar la barra de progreso utilizando la función calculateIncrement
+                            this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
+                        }
+                    }, this);
+                    if(this.player.isGrounded)this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
                 }
             }, this);
         } else {
             // Manejador para el click en pantalla
-            this.input.on('pointerdown', function (pointer) {
+            this.tapScreen.on('pointerdown', function (pointer) {
                 // Verificar si estamos en estado 'play' y el jugador está en el suelo
                 if (this.gameState == 'play' && this.player.isGrounded) {
                     // Incrementar la barra de progreso utilizando la función calculateIncrement

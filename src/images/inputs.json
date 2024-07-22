@@ -1,0 +1,40 @@
+{
+"frames": {
+	"tapatlon_barra.png": {
+		"frame": {"x":205, "y":243, "w":200, "h":84},
+		"spriteSourceSize": {"x":0,"y":0,"w":200,"h":84},
+		"sourceSize": {"w":200,"h":84}
+	},
+	"tapatlon_click.png": {
+		"frame": {"x":205, "y":328, "w":117, "h":156},
+		"spriteSourceSize": {"x":0,"y":0,"w":117,"h":156},
+		"sourceSize": {"w":117,"h":156}
+	},
+	"tapatlon_jump.png": {
+		"frame": {"x":0, "y":0, "w":242, "h":242},
+		"spriteSourceSize": {"x":0,"y":0,"w":242,"h":242},
+		"sourceSize": {"w":242,"h":242}
+	},
+	"tapatlon_obstacle.png": {
+		"frame": {"x":243, "y":0, "w":154, "h":175},
+		"spriteSourceSize": {"x":0,"y":0,"w":154,"h":175},
+		"sourceSize": {"w":154,"h":175}
+	},
+	"tapatlon_tap.png": {
+		"frame": {"x":0, "y":243, "w":204, "h":202},
+		"spriteSourceSize": {"x":0,"y":0,"w":204,"h":202},
+		"sourceSize": {"w":204,"h":202}
+	},
+	"tapatlon_up.png": {
+		"frame": {"x":323, "y":328, "w":93, "h":89},
+		"spriteSourceSize": {"x":0,"y":0,"w":93,"h":89},
+		"sourceSize": {"w":93,"h":89}
+	}
+
+},
+"meta": {
+	"image": "sprites.png",
+	"size": {"w": 417, "h": 485},
+	"scale": "1"
+}
+}
