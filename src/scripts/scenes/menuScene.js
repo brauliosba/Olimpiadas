@@ -21,8 +21,8 @@ export class MenuScene extends Phaser.Scene
 
         this.data.set('initialSpeed', 2);
         this.data.set('maxSpeed', 5);
-        this.data.set('clickSpeed', 0.09);
-        this.data.set('lostSpeed', 0.001);
+        this.data.set('clickSpeed', 60);
+        this.data.set('lostSpeed', 100);
         this.data.set('jumpForce', 500);
         this.data.set('scoreThreshold', 1);
         this.data.set('powerThreshold', 30);
@@ -197,7 +197,7 @@ export class MenuScene extends Phaser.Scene
         this.addVariable(y, `Velocidad Inicial:`, 'initialSpeed');
         this.addVariable(y + space * 1, `Velocidad Maxima:`, 'maxSpeed');
         this.addVariable(y + space * 2, `Porcentaje Velocidad \npor click:`, 'clickSpeed');
-        this.addVariable(y + space * 3, `Porcentaje Velocidad \nperdida (max. 0.01):`, 'lostSpeed');
+        this.addVariable(y + space * 3, `Porcentaje Velocidad \nperdida:`, 'lostSpeed');
         this.addVariable(y + space * 4, `Fuerza de salto`, 'jumpForce');
         this.addVariable(y + space * 5, `Distancia para obtener \npuntaje (metros):`, 'scoreThreshold');
         this.addVariable(y + space * 6, `Distancia para obtener \npower up (minimo 10 metros):`, 'powerThreshold');

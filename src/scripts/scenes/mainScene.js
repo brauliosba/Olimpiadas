@@ -49,6 +49,7 @@ export class MainScene extends Phaser.Scene{
         //Time
         this.accumulatedTime = 0;
         this.timePerStep = 0.5;
+        this.dt = 1
 
         //UI
         this.uiScene = this.scene.get('UIScene');
@@ -143,7 +144,7 @@ export class MainScene extends Phaser.Scene{
             }, this);
 
             // Manejador para la tecla espacio
-            this.input.keyboard.on('keydown-SPACE', function (event) {
+            this.input.keyboard.on('keyup-SPACE', function (event) {
                 // Verificar si estamos en estado 'play' y el jugador está en el suelo
                 if (this.gameState == 'play' && this.player.isGrounded) {
                     // Incrementar la barra de progreso utilizando la función calculateIncrement
@@ -167,7 +168,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     update(totalTime, deltaTime) {
-        
+        this.dt = deltaTime
         switch(this.gameState) {
             case `init`:
                 this.gameState = 'restart';
@@ -200,7 +201,7 @@ export class MainScene extends Phaser.Scene{
                     this.player.changeAnimation();
                     this.PlayRunningSound(deltaTime)
                     this.UpdateSpeed()
-                    this.UpdateBar()
+                    this.UpdateBar(dt)
                     this.updateScore(dt);
                 }
                 break;
@@ -232,7 +233,7 @@ export class MainScene extends Phaser.Scene{
 
     calculateIncrement(value, baseSpeed) {
         if(this.player.isStun)return 0
-        return baseSpeed / (value * 5);
+        return ((baseSpeed / (value * 5)))/1000;
     }
 
     mapSpeedToRange(speed) {
@@ -260,8 +261,9 @@ export class MainScene extends Phaser.Scene{
         this.powerUpManager.horizontalSpeed = this.obstacleManager.horizontalSpeed;
     }
 
-    UpdateBar(){
-        this.gameplayUI.progressBar.value -= this.lostSpeed; 
+    UpdateBar(dt){
+        console.log("DELTA TIME " + dt)
+        this.gameplayUI.progressBar.value -= (this.lostSpeed * (dt/1000)); 
 
         if (this.gameplayUI.progressBar.value < 0.001) {
             this.gameplayUI.progressBar.value = 0.001;
