@@ -1,0 +1,40 @@
+{
+"frames": {
+	"Bar.png": {
+		"frame": {"x":0, "y":0, "w":1007, "h":76},
+		"spriteSourceSize": {"x":0,"y":0,"w":1007,"h":76},
+		"sourceSize": {"w":1007,"h":76}
+	},
+	"Group 141.png": {
+		"frame": {"x":0, "y":312, "w":63, "h":58},
+		"spriteSourceSize": {"x":9,"y":5,"w":81,"h":83},
+		"sourceSize": {"w":81,"h":83}
+	},
+	"Pausa_Default.png": {
+		"frame": {"x":0, "y":371, "w":62, "h":62},
+		"spriteSourceSize": {"x":0,"y":0,"w":62,"h":62},
+		"sourceSize": {"w":62,"h":62}
+	},
+	"Pausa_Hovered.png": {
+		"frame": {"x":0, "y":434, "w":61, "h":62},
+		"spriteSourceSize": {"x":0,"y":0,"w":62,"h":62},
+		"sourceSize": {"w":62,"h":62}
+	},
+	"TableroInGame.png": {
+		"frame": {"x":0, "y":77, "w":955, "h":234},
+		"spriteSourceSize": {"x":4,"y":0,"w":962,"h":234},
+		"sourceSize": {"w":962,"h":234}
+	},
+	"Vida.png": {
+		"frame": {"x":0, "y":497, "w":47, "h":40},
+		"spriteSourceSize": {"x":0,"y":0,"w":47,"h":40},
+		"sourceSize": {"w":47,"h":40}
+	}
+
+},
+"meta": {
+	"image": "sprites.png",
+	"size": {"w": 1008, "h": 538},
+	"scale": "1"
+}
+}

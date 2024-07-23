@@ -11,7 +11,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.setScale(.6)
       this.setGravityY(this.scene.data.get('gravity'));
       this.setSize(100,150);
-      this.setOffset(300, 350);
+      this.setOffset(300, 310);
       // Definir las animaciones del jugador
         if (!this.scene.anims.exists('run')){
             scene.anims.create({

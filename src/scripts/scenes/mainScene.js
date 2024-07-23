@@ -23,7 +23,10 @@ export class MainScene extends Phaser.Scene{
         
         this.load.atlas('clouds', './src/images/clouds.png', './src/images/clouds.json');
         this.load.atlas('inputs', './src/images/inputs.png', './src/images/inputs.json');
-
+        this.load.atlas('UIgame', './src/images/UIgame.png', './src/images/UIgame.json');
+        //powerups
+        this.load.image('corazon', './src/images/power-up-corazon.png');
+        this.load.image('zapatilla', './src/images/power-up-zapatilla.png');
         //player
         this.load.spritesheet('playerIdle', './src/images/playerIdle.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 700, frameHeight: 500});
@@ -46,15 +49,18 @@ export class MainScene extends Phaser.Scene{
         this.scoreThreshold = this.toPixels(this.data.get('scoreThreshold'));
         this.lifes = 2;
 
+        
         //Time
         this.accumulatedTime = 0;
         this.timePerStep = 0.5;
         this.dt = 1
+        
 
-        //UI
+        //UI Scene
         this.uiScene = this.scene.get('UIScene');
         this.uiScene.setCurrentScene(this);
         this.uiScene.animationsManager.createGameplayObjects(this.gameWidth);
+
         /*
         this.panel = this.uiScene.panel;
         this.panel.createInstructionsPanel(this.gameWidth);
@@ -89,7 +95,7 @@ export class MainScene extends Phaser.Scene{
             this.startButton = null;
         });
         // Player
-        this.player = new Player(this, 400, 700); // Coloca al jugador en el centro de la pantalla
+        this.player = new Player(this, 400, 800); // Coloca al jugador en el centro de la pantalla
 
         //Instances
         this.visualEffectsManager = new VisualEffectsManager(this);
@@ -108,7 +114,7 @@ export class MainScene extends Phaser.Scene{
         this.gameplayUI.create();
 
         // Ground
-        this.ground = this.add.rectangle(500, 980, 1500, 40, 0x00ff00);
+        this.ground = this.add.rectangle(500, 950, 1500, 40, 0x00ff00);
         this.physics.add.existing(this.ground, true);
         
         // Colisiones entre el jugador y el suelo
@@ -117,16 +123,21 @@ export class MainScene extends Phaser.Scene{
 
         //Player Input
         if (this.data.get('IS_TOUCH')) {
-                
-            this.jumpButton = this.add.image(700, 300, 'inputs', 'tapatlon_jump.png').setDepth(6.2).setInteractive().setOrigin(0)
+           
+           
+            this.jumpButton = this.add.image(800, 400, 'inputs', 'tapatlon_jump.png').setDepth(6.2).setInteractive().setOrigin(0)
             this.jumpButton.on('pointerdown', function (pointer) {
+                if (this.gameState == 'play' && this.player.isGrounded) {
                     this.player.jump()
+                }
+
             }, this);
 
             this.tapScreen.on('pointerdown', function (pointer) {  
                 // Verificar si estamos en estado 'play' y el jugador está en el suelo
                 if (this.gameState == 'play' && this.player.isGrounded) {
                     // Incrementar la barra de progreso utilizando la función calculateIncrement
+                    this.gameplayUI.hideMobileUI()
                     this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
                 }
                 
@@ -230,6 +241,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     calculateIncrement(value, baseSpeed) {
+        this.gameplayUI.handlePointerDown()
         if(this.player.isStun)return 0
         let aument = ((baseSpeed / (value * 5)))/1000
         console.log("AUMENTO " + aument)
@@ -307,6 +319,9 @@ export class MainScene extends Phaser.Scene{
         return n * 108;
     }
 
+
+    
+
     pauseGame(){
         if (this.gameState == 'play'){
             this.isPaused = !this.isPaused
@@ -323,10 +338,10 @@ export class MainScene extends Phaser.Scene{
             }
         }
     }
-
     pauseTimeEvents(){
-        
+
     }
+    
 
     restartGame(){
         this.uiScene.audioManager.stopMusic();

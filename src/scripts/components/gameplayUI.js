@@ -9,36 +9,60 @@ export class GameplayUI
 
     create(){
         //Image UI
+        //UI
+        this.mobileContainer = this.scene.add.container().setDepth(6.2);
+        this.desktopContainer = this.scene.add.container().setDepth(6.2);
+        this.inGameBoard = this.scene.add.image(550, 150, 'UIgame','TableroInGame.png').setDepth(6)
+        this.inGameBar = this.scene.add.image(550, 330, 'UIgame','Bar.png').setDepth(6)
+
+        this.tapTimer;
+        this.tapInterval = 2000; 
+        if (this.scene.data.get('IS_TOUCH')) {
+           
+            this.tapRight = this.scene.add.image(850, 850, 'inputs', 'tapatlon_tap.png').setDepth(6.2).setOrigin(0)
+            this.tapLeft = this.scene.add.image(20, 850, 'inputs', 'tapatlon_tap.png').setDepth(6.2).setOrigin(0).setFlipX(true)
+            this.mobileContainer.add(this.tapRight)
+            this.mobileContainer.add(this.tapLeft)
+        }
+
         // Progress Bar
         this.progressBar = this.scene.rexUI.add.slider({
-            x: 400,
-            y: 50,
-            width: 500,
-            height: 20,
+            x: 560,
+            y: 320,
+            width: 780,
+            height: 50,
             orientation: 'x',
-            track: this.scene.add.rectangle(400, 50, 300, 20, 0x00FF00).setOrigin(0.5),
-            thumb: this.scene.add.rectangle(400, 50, 20, 20, 0xFFFF00).setOrigin(0.5).setDepth(8.1),
+            track: this.scene.add.rectangle(400, 50, 300, 20, 0x91CCBC).setOrigin(0.5).setDepth(5),
+            thumb: this.scene.add.image(400, 0, 'UIgame', 'Group 141.png').setOrigin(0.5,34).setDepth(8.1),
             value: 0.4, // Valor inicial
             space: { top: 4, bottom: 4 },
             valuechangeCallback: this.onSliderValueChange.bind(this)
         }).layout();
         this.progressBar.value = this.scene.data.get('initialSpeed')/this.scene.data.get('maxSpeed');
 
-        this.redBar = this.scene.add.rectangle(150, 40, 100, 20, 0xFF0000).setOrigin(0);
+        this.redBar = this.scene.add.rectangle(170, 300, 144,50, 0xE05243).setOrigin(0).setDepth(5.1);
 
-        this.hearts = this.scene.add.group({
-            key: 'square', // Imagen a usar para los objetos del grupo
-            repeat: this.scene.lifes - 1, // Número de objetos adicionales a crear (total = repeat + 1)
-            setXY: { x: 40, y: 50, stepX: 60 } // Posición inicial y el paso en el eje X
-        });
+        this.hearts = this.scene.add.group();
+
+        // Posición inicial
+        var x = 235;
+        var y = 70;
+        var stepX = 90;
+
+        // Crear los objetos manualmente y añadirlos al grupo
+        for (var i = 0; i < this.scene.lifes; i++) {
+            var heart = this.scene.add.image(x + i * stepX, y, 'UIgame', 'Vida.png');
+            this.hearts.add(heart);
+        }
 
         this.hearts.children.iterate(function (child) {
-            child.setScale(0.05).setDepth(8).setTint('0xff0000'); // Establecer la escala de cada objeto
+            child.setScale(1).setDepth(8); // Establecer la escala de cada objeto
         });
         
         //Text UI
-        this.scoreText = this.scene.add.text(this.gameWidth-50, 120, 'Puntaje: 0', { fontFamily: 'Montserrat', fontSize: 45, color: '#0000000' });
-        this.scoreText.setDepth(8).setOrigin(1);
+        
+        this.scoreText = this.scene.add.text(this.gameWidth-510, 180, '0', { font: '800 90px Bungee', color: '#FFFFFF' }).setOrigin(0.5)
+        this.scoreText.setDepth(8).setAlign('center');
 
         /*
         //Feedback UI
@@ -46,6 +70,38 @@ export class GameplayUI
         this.chopsticksMessage = this.scene.add.image(0, 0, 'feedbackUI', 'message_palillos.png').setScale(.72).setDepth(8).setVisible(false);
         this.feedbackScoreDict = {};
         */
+    }
+
+    handlePointerDown() {
+        // Reiniciar el temporizador de taps
+        clearTimeout(this.tapTimer);
+    
+        // Ocultar el contenedor con una animación
+        this.hideMobileUI();
+    
+        // Configurar el temporizador para mostrar el contenedor después de un periodo de inactividad
+        this.tapTimer = setTimeout(() => this.showMobileUI.call(this), this.tapInterval);
+    }
+    hideMobileUI() {
+        if (this.mobileContainer.alpha === 1) {
+            // Crear la animación para hacer desaparecer el contenedor
+            this.scene.tweens.add({
+                targets: this.mobileContainer,
+                alpha: 0,
+                duration: 500,
+                ease: 'Power2'
+            });
+        }
+    }
+    showMobileUI() {
+        if (this.mobileContainer.alpha === 0) {
+            this.scene.tweens.add({
+                targets: this.mobileContainer,
+                alpha: 1,
+                duration: 500,
+                ease: 'Power2'
+            });
+        }
     }
 
     onSliderValueChange(value) {
@@ -57,7 +113,7 @@ export class GameplayUI
     }
 
     updateScore(score) {
-        this.scoreText.setText('Puntaje: ' + score);
+        this.scoreText.setText(score);
     }
 
     updateRedBar(currentZone) {

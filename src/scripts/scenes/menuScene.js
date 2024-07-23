@@ -7,7 +7,7 @@ export class MenuScene extends Phaser.Scene
 
     preload(){
         //this.load.image(`square`, `src/images/square.png`);
-        //this.load.image(`menuBG`, `src/images/ui/menu_background.png`);
+        this.load.image(`menuBG`, `src/images/inicio-ilustracion.png`);
         //this.load.atlas(`menuUI`, `src/images/ui/menu_ui.png`, `src/images/ui/menu_ui.json`);
         this.load.plugin('rextexteditplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js', true);
     }
@@ -64,8 +64,9 @@ export class MenuScene extends Phaser.Scene
 
         this.isPaused = false;
        
-        /*
+        
         let bg = this.add.image(this.gameWidth/2, this.gameWidth/2, 'menuBG').setDisplaySize(this.gameWidth, this.gameWidth);
+        /*
         bg.setInteractive().on('pointerdown', () => { this.uiScene.audioManager.resumeMusic(); this.isPaused = false; });
         if (this.data.get('sponsor')) {
             // agregar sponsor assets
@@ -75,7 +76,7 @@ export class MenuScene extends Phaser.Scene
         this.add.image(140, 80, `menuUI`, `logo_pchujoy.png`).setScale(.72);
         */
 
-        let playButton = this.add.text(this.gameWidth/2, 890, 'JUGAR', { fontFamily: 'Montserrat', fontSize : 40, color: '#FFFFFF' }).setScale(.72);
+        let playButton = this.add.text(this.gameWidth/2, 890, 'JUGAR', { fontFamily: 'Bungee', fontSize : 80, color: '#000000' }).setScale(.72);
         playButton.setInteractive().on('pointerup', () => {
             this.uiScene.audioManager.stopMusic();
             this.nextSceneReady = false;
@@ -95,6 +96,7 @@ export class MenuScene extends Phaser.Scene
         */
 
         this.exposedVariables();
+        this.uiScene.audioManager.playMusic();
     }
 
     update(){

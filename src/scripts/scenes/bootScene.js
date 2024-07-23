@@ -10,7 +10,7 @@ export class BootScene extends Phaser.Scene
     preload(){
         this.load.rexWebFont({
             google: {
-                families: ['Montserrat:800']
+                families: ['Bungee:800']
             },
         });
 

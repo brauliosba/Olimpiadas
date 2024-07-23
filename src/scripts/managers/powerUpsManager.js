@@ -18,7 +18,7 @@ export class PowerUpsManager
     }
 
     create(){
-        let sprite = this.scene.physics.add.sprite(0, 0, 'square').setOrigin(0).setScale(.1).setVisible(false).setTint('0x00FF00').setDepth(5);
+        let sprite = this.scene.physics.add.sprite(0, 0, 'square').setOrigin(0).setScale( .5).setVisible(false).setDepth(5);
         sprite.body.allowGravity = false;
         this.powerUp = new PowerUp(sprite);
 
@@ -56,10 +56,10 @@ export class PowerUpsManager
         let rand = Phaser.Math.Between(0, 1);
         if (rand == 0) {
             this.powerUp.sprite.id = 0;
-            this.powerUp.sprite.setTint('0x00ff00');
+            this.powerUp.sprite.setTexture('corazon');
         } else {
             this.powerUp.sprite.id = 1;
-            this.powerUp.sprite.setTint('0x0000ff');
+            this.powerUp.sprite.setTexture('zapatilla');
         }
     }
 

@@ -26,7 +26,9 @@ export class ObstacleManager
 
     create() {
         for (let i = 0; i < 5; i++) {
-            let obs = this.scene.physics.add.sprite(0, 0, 'square').setOrigin(0).setScale(.1).setVisible(false).setTint('0x000000').setDepth(5);
+            let obs = this.scene.physics.add.sprite(0, 0, 'inputs', 'tapatlon_obstacle.png').setOrigin(0).setScale(.8).setVisible(false).setDepth(5);
+            obs.setSize(60,150);
+            obs.setOffset(10, 10);
             obs.body.allowGravity = false;
             let obstacle = new Obstacle(obs)
             this.obstacles.push(obstacle);
@@ -66,7 +68,7 @@ export class ObstacleManager
             if (obstacle.status == 'free') {
                 obstacle.sprite.enableBody();
                 let posX = this.scene.powerUpManager.checkActivePowerUp();
-                obstacle.sprite.setPosition(posX, this.gameWidth-220).setVisible(true);
+                obstacle.sprite.setPosition(posX, this.gameWidth-260).setVisible(true);
                 obstacle.status = 'active'
                 this.activeObstacles.push(obstacle);
                 break;
