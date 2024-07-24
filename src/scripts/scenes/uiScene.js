@@ -1,4 +1,4 @@
-//import {Panel} from '../components/panel.js';
+import {Panel} from '../components/panel.js';
 import {AnimationsManager} from '../managers/animationManager.js';
 import {AudioManager} from '../managers/audioManager.js';
 import * as Phaser from 'phaser';
@@ -10,7 +10,9 @@ export class UIScene extends Phaser.Scene
     }
 
     preload(){
-        //this.load.image('panel', `./src/images/ui/menu_base.png`);
+        this.load.image('panel', `./src/images/ui/menus/fondo.png`);
+        this.load.image('panelCredits', `./src/images/ui/menus/fondo_creditos.png`);
+        this.load.image('panelInstructions', `./src/images/ui/menus/fondo_instrucciones.png`);
         //this.load.atlas('panelUI', `./src/images/ui/panel_ui.png`, `./src/images/ui/panel_ui.json`);
         //this.load.atlas('tutorialUI', `./src/images/ui/tutorial_ui.png`, `./src/images/ui/tutorial_ui.json`);
         //this.load.image('leapLogo', `./src/images/ui/leap_logo.png`);
@@ -35,14 +37,11 @@ export class UIScene extends Phaser.Scene
         this.audioManager.init();
         this.animationsManager.createAnimations();
 
-        /*
         this.panel = new Panel(this);
         this.panel.create(this.gameWidth);
-        this.panel.createInstructionsPanel(this.gameWidth);
+        //this.panel.createInstructionsPanel(this.gameWidth);
         this.panel.createOptionsPanel(this.gameWidth);
         this.panel.createCreditsPanel(this.gameWidth);
-        this.panel.createWarningPanel(this.gameWidth);
-        */
 
         this.graphics = this.add.graphics().setDepth(10).setVisible(false);
         this.graphics.fillStyle(0x000000, 1);
