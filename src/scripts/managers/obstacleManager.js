@@ -91,7 +91,7 @@ export class ObstacleManager
 
     updateCurrentZone() {
         let meterDistance = Math.floor(this.scene.toMeters(this.zoneDistance));
-        if (meterDistance >= this.currentZone * 100) {
+        if (meterDistance >= this.currentZone * this.scene.data.get('tamaño_fase')) {
             if (this.currentZone < 5) this.currentZone += 1;
             this.zoneDistance = 0;
             this.scene.gameplayUI.updateRedBar(this.currentZone - 1);

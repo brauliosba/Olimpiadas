@@ -30,7 +30,7 @@ export class BootScene extends Phaser.Scene
             this.data.set(`highScore`, this.game.config.metadata.highScore);
             this.data.set('sponsor', this.game.config.metadata.sponsor);
             this.data.set(`musicVolume`, .2);
-            this.data.set(`sfxVolume`, .2);
+            this.data.set(`sfxVolume`, 2);
             let phaserDiv = document.getElementById(`phaser-div`);
             this.data.set(`parentSize`, phaserDiv.style.width);
             this.data.set(`fps`, this.gpuTier.fps);

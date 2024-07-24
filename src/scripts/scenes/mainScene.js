@@ -249,11 +249,12 @@ export class MainScene extends Phaser.Scene{
     }
 
     mapSpeedToRange(speed) {
-        const minSpeed = 300;
-        const maxSpeed = 600;
+        const minSpeed = 0;
+        const maxSpeed = 864;
         const minRange = 0.1;
         const maxRange = 0.6;
-    
+        
+        console.log('SPEED '+ speed)
         // Calcular la proporción
         let proportion = (speed - minSpeed) / (maxSpeed - minSpeed);
         

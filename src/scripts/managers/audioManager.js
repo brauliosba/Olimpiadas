@@ -61,6 +61,7 @@ export class AudioManager
             this.getCurrentTheme().play();
             
             this.setAudioVolume(this.scene.data.get('musicVolume'));
+            this.updateSFXVolume(.7)
         }
         else
         {

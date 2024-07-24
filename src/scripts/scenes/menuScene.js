@@ -19,19 +19,20 @@ export class MenuScene extends Phaser.Scene
     create(){
         this.gameWidth = 1080;
 
-        this.data.set('initialSpeed', 2);
-        this.data.set('maxSpeed', 5);
-        this.data.set('clickSpeed', 60);
+        this.data.set('initialSpeed', 4);
+        this.data.set('maxSpeed', 8);
+        this.data.set('clickSpeed', 80);
         this.data.set('lostSpeed', 100);
-        this.data.set('jumpForce', 500);
+        this.data.set('jumpForce', 600);
         this.data.set('scoreThreshold', 1);
         this.data.set('powerThreshold', 30);
         this.data.set('cd1', 15);
         this.data.set('cd2', 10);
         this.data.set('cd3', 8);
-        this.data.set('cd4', 6);
-        this.data.set('cd5', 3);
-        this.data.set('gravity', 500);
+        this.data.set('cd4', 8);
+        this.data.set('cd5', 6);
+        this.data.set('gravity', 900);
+        this.data.set('tamaño_fase', 100);
         
         //UI
         this.uiScene = this.scene.get('UIScene');
@@ -206,7 +207,8 @@ export class MenuScene extends Phaser.Scene
         this.addVariable(y + space * 9, `Cooldown entre obstaculos en la fase 3`, 'cd3');
         this.addVariable(y + space * 10, `Cooldown entre obstaculos en la fase 4`, 'cd4');
         this.addVariable(y + space * 11, `Cooldown entre obstaculos en la fase 5`, 'cd5');
-        this.addVariable(y + space * 11, `Gravedad`, 'gravity');
+        this.addVariable(y + space * 12, `Gravedad`, 'gravity');
+        this.addVariable(y + space * 13, `Tamaño en metros de la fase: `, 'tamaño_fase');
     }
 
     setData(key, speed){
