@@ -68,7 +68,7 @@ export class ObstacleManager
             if (obstacle.status == 'free') {
                 obstacle.sprite.enableBody();
                 let posX = this.scene.powerUpManager.checkActivePowerUp();
-                obstacle.sprite.setPosition(posX, this.gameWidth-260).setVisible(true);
+                obstacle.sprite.setPosition(posX, this.gameWidth-360).setVisible(true);
                 obstacle.status = 'active'
                 this.activeObstacles.push(obstacle);
                 break;
