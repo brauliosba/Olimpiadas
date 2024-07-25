@@ -5,15 +5,16 @@ export class Panel
         this.scene = scene;
 
         this.credits = 
-        [['Programación', 'Diego Johnson', 'Braulio Baldeón'],
-        ['Arte, interfaz y animación', 'Lephirea', 'Edward'],
-        ['Marketing y diseño', 'Karoline Jiménez'],
+        [['Programación', 'Braulio Baldeón', 'Diego Johnson'],
+        ['Arte y animación', 'Edward Torres', 'Lephirea'],
+        ['Marketing y diseño UI', 'Karoline Jiménez'],
         ['Música y sonido', 'Gunter Brenner'],
         ['Dirección', 'Jorge García'],
-        ['Productor Ejecutivo', 'Phillip Chu Joy']]
+        ['Producción Ejecutiva', 'Phillip Chu Joy']]
     }
 
     create(dim){
+        this.gameWidth = dim;
         let background = this.scene.add.image(dim/2, dim/2, 'fade').setDisplaySize(dim, dim).setInteractive();
 
         this.panel = this.scene.add.image(dim/2, dim/2, 'panel').setScale(.72);
@@ -27,10 +28,10 @@ export class Panel
     createPausePanel(dim){
         //let pauseTitleContainer = this.scene.add.image(dim/2, 270, 'panelUI', 'cartel_titulo.png').setScale(.72);
 
-        let pauseTitle = this.scene.add.text(dim/2, 255, 'PAUSA', { font: '800 35px Bungee', color: '#FFFFFF', align: 'center' });
-        pauseTitle.setOrigin(0.5).setStroke('#142E1C', 10).setShadow(0, 4, '#738B59', 2, true, false);
+        let pauseTitle = this.scene.add.text(dim/2, 245, 'PAUSA', { font: '400 50px Bungee', color: '#FFFFFF', align: 'center' });
+        pauseTitle.setOrigin(0.5);
 
-        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
+        let closeImage = this.scene.add.image(dim-120, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
         closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
         closeImage.on('pointerup', () => {
             closeImage.setTexture('panelUI', 'cerrar_1.png');
@@ -46,7 +47,7 @@ export class Panel
             continueButton.setTexture('panelUI', 'pausa_continuar_1.png');
             this.scene.audioManager.resumeMusic();
             this.scene.currentScene.pauseGame();
-            this.scene.audioManager.buttonClick.play();
+            //this.scene.audioManager.buttonClick.play();
         });
 
         let optionsButton = this.scene.add.image(dim/2, dim/2, 'panelUI', 'pausa_opciones_1.png').setInteractive().setScale(.72);
@@ -60,7 +61,7 @@ export class Panel
             this.showOptions();
         });
 
-        let exitButton = this.scene.add.image(dim/2, dim/2+125, 'panelUI', 'pausa_salir_1.png').setInteractive().setScale(.72);
+        let exitButton = this.scene.add.image(dim/2, dim/2+135, 'panelUI', 'pausa_salir_1.png').setInteractive().setScale(.72);
         exitButton.on('pointerdown', () => {
             exitButton.setTexture('panelUI', 'pausa_salir_2.png');
         });
@@ -77,31 +78,31 @@ export class Panel
 
     createFirstTutorialPage(dim){
         let text1 = this.scene.add.text(dim/2, 380, 'COMBINA DOS BOCADITOS IGUALES PARA \nCREAR UNO MÁS GRANDE Y GANAR PUNTOS', { 
-            font: '800 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         text1.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
 
         let image1 = this.scene.add.image(dim/2-200, 450, 'tutorialUI', 'dish_01.png').setScale(.65);
         let sumText1 = this.scene.add.text(dim/2-100, 450, '+', { 
-            font: '800 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         sumText1.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
         let image2 = this.scene.add.image(dim/2, 450, 'tutorialUI', 'dish_01.png').setScale(.65);
         let equalText1 = this.scene.add.text(dim/2+100, 450, '=', { 
-            font: '800 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         equalText1.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
         let image3 = this.scene.add.image(dim/2+200, 450, 'tutorialUI', 'dish_02.png').setScale(.65);
 
         let image4 = this.scene.add.image(dim/2-200, 530, 'tutorialUI', 'dish_02.png').setScale(.65);
         let sumText2 = this.scene.add.text(dim/2-100, 530, '+', { 
-            font: '800 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         sumText2.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
         let image5 = this.scene.add.image(dim/2, 530, 'tutorialUI', 'dish_02.png').setScale(.65);
         let equalText2 = this.scene.add.text(dim/2+100, 530, '=', { 
-            font: '800 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
             equalText2.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
         let image6 = this.scene.add.image(dim/2+200, 530, 'tutorialUI', 'dish_03.png').setScale(.55);
 
         let text2 = this.scene.add.text(dim/2, 620, 'EVITA QUE SE LLENE EL ESCENARIO PARA \nNO PERDER Y ROMPER TUS RECORDS', { 
-            font: '800 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         text2.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
 
         let image7 = this.scene.add.image(dim/2, 705, 'tutorialUI', 'dish_05.png').setScale(.55);
@@ -114,19 +115,19 @@ export class Panel
 
     createSecondTutorialPage(dim){
         let text1 = this.scene.add.text(dim/2, 380, 'APROVECHA LOS ITEMS DE APOYO PARA \nEVITAR SER DERROTADO', { 
-            font: '800 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         text1.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
 
         let image1 = this.scene.add.image(dim/2, 460, 'tutorialUI', 'bomb.png').setScale(.65);
         
         let text2 = this.scene.add.text(dim/2, 530, 'COLOCA EL AJÍ BOMBA Y HAZLE CLICK \nPARA QUE ESTALLE EMPUJANDO TODO \nPERO NO DEJES QUE DOS SE TOQUEN', { 
-            font: '800 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         text2.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
 
         let image2 = this.scene.add.image(dim/2, 630, 'tutorialUI', 'palillos.png').setScale(.65);
         
         let text3 = this.scene.add.text(dim/2, 710, 'RECIBE LOS PALILLOS Y HAZ CLICK A UNA \nFICHA PROBLEMÁTICA PARA ELIMINARLA', { 
-            font: '800 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         text3.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
         
         const textContainer2 = this.scene.add.container(0, 0, [text1, image1, text2, image2, text3]).setVisible(false);
@@ -156,27 +157,26 @@ export class Panel
     }
 
     createOptionsPanel(dim){
-        let optionsTitle = this.scene.add.text(dim/2, 255, 'OPCIONES', { font: '800 35px Bungee', color: '#FFFFFF', align: 'center' });
+        let optionsTitle = this.scene.add.text(dim/2, 245, 'OPCIONES', { font: '400 55px Bungee', color: '#FFFFFF', align: 'center' });
         optionsTitle.setOrigin(0.5);
 
-        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
+        let closeImage = this.scene.add.image(dim-120, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
         closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
         closeImage.on('pointerup', () => {
             closeImage.setTexture('panelUI', 'cerrar_1.png');
             this.hideOptions();
         });
 
-        let musicTitle = this.scene.add.text(dim/2-205, dim/2-115, 'Música', { 
-            font: '800 30px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
-        musicTitle.setStroke('#560F0C', 10).setShadow(0, 4, '#560F0C', 2, true, false);
+        let musicTitle = this.scene.add.text(dim/2-235, dim/2-110, 'Música', { 
+            font: '400 45px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
 
         let musicThumb = this.scene.add.sprite(0,dim/2-115,'panelUI','slider_thumb.png').setScale(.72);
         let musicVolume = this.scene.data.get('musicVolume');
         let musicSlider;
         musicSlider = this.scene.rexUI.add.slider({
-            x: dim/2+100,
+            x: dim/2+140,
             y: dim/2-115,
-            width: 360,
+            width: 440,
             height: 50,
             orientation: 'x',
             value: 0,
@@ -196,17 +196,16 @@ export class Panel
         }).layout().setScale(1,.72);
         musicSlider.value = musicVolume;
 
-        let sfxTitle = this.scene.add.text(dim/2-205, dim/2-25, 'Sonido', { 
-            font: '800 30px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
-        sfxTitle.setStroke('#560F0C', 10).setShadow(0, 4, '#560F0C', 2, true, false);
+        let sfxTitle = this.scene.add.text(dim/2-235, dim/2, 'Sonido', { 
+            font: '400 45px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
         
-        let sfxThumb = this.scene.add.sprite(0,dim/2-25,'panelUI','slider_thumb.png').setScale(.72);
+        let sfxThumb = this.scene.add.sprite(0,dim/2,'panelUI','slider_thumb.png').setScale(.72);
         let sfxVolume = this.scene.data.get('sfxVolume');
         let sfxSlider;
         sfxSlider = this.scene.rexUI.add.slider({
-            x: dim/2+100,
-            y: dim/2-25,
-            width: 360,
+            x: dim/2+140,
+            y: dim/2,
+            width: 440,
             height: 50,
             orientation: 'x',
             value: 0,
@@ -226,23 +225,22 @@ export class Panel
         sfxSlider.value = sfxVolume;
 
         if ((/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)){
-            musicTitle.setPosition(dim/2-205, dim/2-55);
+            musicTitle.setPosition(dim/2-325, dim/2-50);
             musicThumb.setPosition(dim/2+5, dim/2-55);
-            musicSlider.setPosition(dim/2+100, dim/2-55);
-            sfxTitle.setPosition(dim/2-205, dim/2+75);
-            sfxThumb.setPosition(dim/2+5, dim/2+75)
-            sfxSlider.setPosition(dim/2+100, dim/2+75);
+            musicSlider.setPosition(dim/2+140, dim/2-55);
+            sfxTitle.setPosition(dim/2-235, dim/2+50);
+            sfxThumb.setPosition(dim/2+5, dim/2+50)
+            sfxSlider.setPosition(dim/2+140, dim/2+50);
             this.optionsContainer = this.scene.add.container(0, 0, 
                 [optionsTitle, closeImage, sfxSlider, sfxTitle, sfxThumb, musicTitle, musicSlider, musicThumb]);
         } else {
-            let fullscreenTitle = this.scene.add.text(dim/2-80, dim/2+115, 'Pantalla completa', { 
-                font: '800 35px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
-            fullscreenTitle.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
+            let fullscreenTitle = this.scene.add.text(dim/2-70, dim/2+100, 'Pantalla completa', { 
+                font: '400 45px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
             
-            let fullscreenToggleContainer = this.scene.add.image(dim/2+185, dim/2+115, 'panelUI', 'opciones_toggle_contenedor.png').setInteractive();
+            let fullscreenToggleContainer = this.scene.add.image(dim/2+305, dim/2+105, 'panelUI', 'toggle.png').setInteractive();
             fullscreenToggleContainer.on('pointerdown', () => { this.toggle(this.fullscreenToggleBall, dim/2); }).setScale(.72);
     
-            this.fullscreenToggleBall = this.scene.add.image(dim/2+205, dim/2+115, 'panelUI', 'opciones_toggle_off.png').setScale(.72);
+            this.fullscreenToggleBall = this.scene.add.image(dim/2+325, dim/2+105, 'panelUI', 'toggle_off.png').setScale(.72);
             this.setToggleFullscreen(this.scene.scale.isFullscreen, dim/2);
     
             this.optionsContainer = this.scene.add.container(0, 0, 
@@ -253,7 +251,7 @@ export class Panel
     }
 
     createCreditsPanel(dim){
-        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
+        let closeImage = this.scene.add.image(dim-190, 210, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
         closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
         closeImage.on('pointerup', () => {
             closeImage.setTexture('panelUI', 'cerrar_1.png');
@@ -263,68 +261,73 @@ export class Panel
         let labels = []
         let previousChildCount = 0;
         for (let i = 0; i < this.credits.length; i++){
-            let label, newH;
+            let label, newH, fontSize, containerSize;
             if (i < 3) {
-                newH = 320+170*i;
-                label = this.addCreditsLabel(dim/2-150, newH, i);
+                newH = 330+150*i;
+                fontSize = i != 2 ? '23px' : '17px'
+                containerSize = i == 0 ? .72 : .8,
+                label = this.addCreditsLabel(dim/2-180, newH, i, containerSize, fontSize);
             } else {
                 if (i == 3) previousChildCount = 0;
-                newH = 320+170*(i-3);
-                label = this.addCreditsLabel(dim/2+150, newH, i);
+                newH = 330+150*(i-3);
+                fontSize = i != 5 ? '23px' : '17px'
+                containerSize = i == 3 ? .78 : i == 4 ? .55 : .8,
+                label = this.addCreditsLabel(dim/2+150, newH, i, containerSize, fontSize);
             }
             if (previousChildCount < label.list.length - 1) previousChildCount = label.list.length - 1;
             labels.push(label);
         }
 
-        let logo = this.scene.add.image(dim/2, dim-270, 'leapLogo').setScale(.15);
+        let logo = this.scene.add.image(dim/2-20, dim-305, 'leapLogo').setScale(.15);
 
         this.creditsContainer = this.scene.add.container(0, 0, [closeImage, logo]);
         for(let i = 0; i < labels.length; i++){ this.creditsContainer.add(labels[i]); }
         this.creditsContainer.setVisible(false).setDepth(10.1);
     }
 
-    addCreditsLabel(x, y, index){
-        let title = this.scene.add.text(x, y, this.credits[index][0], { 
-            font: '800 25px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
-        title.setStroke('#2D1935', 9);
+    addCreditsLabel(x, y, index, containerSize, fontSize){
+        let img = this.scene.add.image(x, y, 'panelUI', 'creditos_container.png').setScale(containerSize, .72);
+        let title = this.scene.add.text(x, y, this.credits[index][0], {
+            font: '400 23px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
+        title.setFontSize(fontSize);
         
-        y+=30
+        y+=35
         let names = [];
         for(let i = 1; i < this.credits[index].length; i++){
-            let name = this.scene.add.text(x, y+30*i, this.credits[index][i], { 
-                font: '800 25px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
+            let name = this.scene.add.text(x, y+20*i, this.credits[index][i], { 
+                font: '400 18px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
             name.setStroke('#2D1935', 9);
             names.push(name);
         }
 
-        let labelContainer = this.scene.add.container(0, 0, [title]);
+        let labelContainer = this.scene.add.container(0, 0, [img, title]);
         for(let i = 0; i < names.length; i++){ labelContainer.add(names[i]); }
         labelContainer.setDepth(10);
         return labelContainer
     }
 
     createScorePanel(dim){
-        let scoreTitle = this.scene.add.text(dim/2, 255, 'FIN DE PARTIDA', { font: '800 35px Bungee', color: '#FFFFFF', align: 'center' });
-        scoreTitle.setOrigin(0.5).setStroke('#142E1C', 10).setShadow(0, 4, '#738B59', 2, true, false);
+        let scoreTitle = this.scene.add.text(dim/2-10, 230, 'FIN DE PARTIDA', { font: '400 45px Bungee', color: '#FFFFFF', align: 'center' });
+        scoreTitle.setOrigin(0.5);
 
-        let scoreImage = this.scene.add.image(dim/2, dim/2-60, 'panelUI', 'puntaje.png').setScale(.72);
+        let scoreImage = this.scene.add.image(dim/2-10, dim/2-120, 'panelUI', 'puntaje.png').setScale(.72);
 
-        this.scoreText = this.scene.add.text(dim/2, dim/2-50, '10000000', { font: '800 45px Bungee', color: '#FFFFFF' });
-        this.scoreText.setStroke('#2D1935', 5).setOrigin(.5).setShadow(0, 4, '#560F0C', 2, true, false);
+        this.scoreText = this.scene.add.text(dim/2-10, dim/2-110, '10000000', { font: '400 40px Bungee', color: '#FBEAAF' });
+        this.scoreText.setStroke('#2C211F', 5).setOrigin(.5);
 
-        let timeLabel = this.scene.add.text(dim/2-185, dim/2+35, 'Tiempo:', { font: '800 35px Bungee', color: '#FFFFFF' });
-        timeLabel.setStroke('#2D1935', 5).setShadow(0, 4, '#560F0C', 2, true, false);
+        let timeLabel = this.scene.add.text(dim/2-220, dim/2+5, 'Tiempo:', { font: '400 38px Bungee', color: '#FFFFFF' });
+        timeLabel.setStroke('#2C211F', 5);
 
-        this.timeText = this.scene.add.text(dim/2+190, dim/2+85, '00:08:25', { font: '800 35px Bungee', color: '#FFFFFF' });
-        this.timeText.setStroke('#2D1935', 5).setOrigin(1).setShadow(0, 4, '#560F0C', 2, true, false);
+        this.timeText = this.scene.add.text(dim/2+200, dim/2+50, '00:08:25', { font: '400 38px Bungee', color: '#FFFFFF' });
+        this.timeText.setStroke('#2C211F', 5).setOrigin(1);
         
-        let recordLabel = this.scene.add.text(dim/2-185, dim/2+90, 'Récord:', { font: '800 35px Bungee', color: '#FFFFFF' });
-        recordLabel.setStroke('#2D1935', 5).setShadow(0, 4, '#560F0C', 2, true, false);
+        let recordLabel = this.scene.add.text(dim/2-220, dim/2+85, 'Récord:', { font: '400 38px Bungee', color: '#FFFFFF' });
+        recordLabel.setStroke('#2C211F', 5);
 
-        this.recordText = this.scene.add.text(dim/2+190, dim/2+140, '10000000', { font: '800 35px Bungee', color: '#FFFFFF' });
-        this.recordText.setStroke('#2D1935', 5).setOrigin(1).setShadow(0, 4, '#560F0C', 2, true, false);
+        this.recordText = this.scene.add.text(dim/2+210, dim/2+130, '10000000', { font: '400 38px Bungee', color: '#FBEAAF' });
+        this.recordText.setStroke('#2C211F', 5).setOrigin(1);
 
-        let restartButton = this.scene.add.image(dim/2-160, dim/2+300, 'panelUI', 'reiniciar_1.png').setInteractive();
+        let restartButton = this.scene.add.image(dim/2-175, dim/2+320, 'panelUI', 'reiniciar_1.png').setInteractive();
         restartButton.setScale(.72);
         restartButton.on('pointerdown', () => { restartButton.setTexture('panelUI', 'reiniciar_2.png') });
         restartButton.on('pointerup', () => {
@@ -334,7 +337,7 @@ export class Panel
             this.scene.currentScene.restartGame();
         });
 
-        let menuButton = this.scene.add.image(dim/2+175, dim/2+300, 'panelUI', 'salir_1.png').setInteractive();
+        let menuButton = this.scene.add.image(dim/2+230, dim/2+320, 'panelUI', 'salir_1.png').setInteractive();
         menuButton.setScale(.72);
         menuButton.on('pointerdown', () => { menuButton.setTexture('panelUI', 'salir_2.png') });
         menuButton.on('pointerup', () => {
@@ -345,7 +348,7 @@ export class Panel
         });
 
         this.scoreContainer = this.scene.add.container(0, 0, 
-            [shadowTitle, scoreTitle, scoreImage, this.scoreText, timeLabel, this.timeText, recordLabel, this.recordText, restartButton, menuButton]);
+            [scoreTitle, scoreImage, this.scoreText, timeLabel, this.timeText, recordLabel, this.recordText, restartButton, menuButton]);
         this.scoreContainer.setVisible(false).setDepth(10.1);
     }
 
@@ -359,11 +362,11 @@ export class Panel
     }
 
     toggle(target, center){
-        let start = center+165
-        let end = center+205
+        let start = center+285
+        let end = center+325
         if (target.x != start) {
-            start = center+205
-            end = center+165
+            start = center+325
+            end = center+285
         }
         let toggleTween = this.scene.tweens.add({
             targets: target,
@@ -375,11 +378,11 @@ export class Panel
               getEnd: () => end
             },
             onComplete: () => {
-                if (start == center+165){
-                    target.setTexture('panelUI', 'opciones_toggle_on.png');
+                if (start == center+285){
+                    target.setTexture('panelUI', 'toggle_on.png');
                     this.scene.scale.startFullscreen();
                 } else  {
-                    target.setTexture('panelUI', 'opciones_toggle_off.png');
+                    target.setTexture('panelUI', 'toggle_off.png');
                     this.scene.scale.stopFullscreen();
                 }
                 toggleTween?.remove()
@@ -390,8 +393,8 @@ export class Panel
 
     setToggleFullscreen(isFullscreen, center){
         if (!(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)){
-            if (isFullscreen) this.fullscreenToggleBall.setTexture('panelUI', 'opciones_toggle_on.png').setPosition(center+205, this.fullscreenToggleBall.y);
-            else this.fullscreenToggleBall.setTexture('panelUI', 'opciones_toggle_off.png').setPosition(center+165, this.fullscreenToggleBall.y);
+            if (isFullscreen) this.fullscreenToggleBall.setTexture('panelUI', 'toggle_on.png').setPosition(center+325, this.fullscreenToggleBall.y);
+            else this.fullscreenToggleBall.setTexture('panelUI', 'toggle_off.png').setPosition(center+285, this.fullscreenToggleBall.y);
         }
     }
 
@@ -479,19 +482,18 @@ export class Panel
     }
 
     showScore(score, newHighScore, gameplayTime){
-        this.panel.setTexture('panel');
+        this.panel.setTexture('panel').setPosition(this.gameWidth/2-10, this.gameWidth/2-20);
         this.scoreText.setText(score);
         this.recordText.setText(newHighScore);
         this.timeText.setText(this.secondsToString(gameplayTime));
         this.scoreContainer.setVisible(true);
         this.panelContainer.setVisible(true);
-        this.panel.setVisible(false);
     }
 
     hideScore(){
+        this.panel.setTexture('panel').setPosition(this.gameWidth/2, this.gameWidth/2);
         this.scoreContainer.setVisible(false);
         this.panelContainer.setVisible(false);
-        this.panel.setVisible(true);
     }
 
     secondsToString(seconds) {
