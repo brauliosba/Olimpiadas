@@ -8,7 +8,7 @@ export class MenuScene extends Phaser.Scene
     preload(){
         //this.load.image(`square`, `src/images/square.png`);
         this.load.image(`menuBG`, `src/images/inicio-ilustracion.png`);
-        //this.load.atlas(`menuUI`, `src/images/ui/menu_ui.png`, `src/images/ui/menu_ui.json`);
+        this.load.atlas(`menuUI`, `src/images/ui/menu_ui.png`, `src/images/ui/menu_ui.json`);
         this.load.plugin('rextexteditplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js', true);
     }
 
@@ -77,7 +77,7 @@ export class MenuScene extends Phaser.Scene
         this.add.image(140, 80, `menuUI`, `logo_pchujoy.png`).setScale(.72);
         */
 
-        let playButton = this.add.text(this.gameWidth/2, 890, 'JUGAR', { fontFamily: 'Bungee', fontSize : 80, color: '#000000' }).setScale(.72);
+        let playButton = this.add.image(this.gameWidth/2, 890, 'menuUI', 'play.png').setScale(.72);
         playButton.setInteractive().on('pointerup', () => {
             this.uiScene.audioManager.stopMusic();
             this.nextSceneReady = false;
@@ -85,10 +85,10 @@ export class MenuScene extends Phaser.Scene
             //this.uiScene.audioManager.buttonPlay.play();
         });
 
-        let optionsButton = this.add.image(this.gameWidth/2-250, 890, 'menuUI', 'boton_opciones.png').setScale(.72);
+        let optionsButton = this.add.image(this.gameWidth/2-250, 890, 'menuUI', 'settings.png').setScale(.72);
         optionsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showOptions(); /*this.uiScene.audioManager.buttonClick.play();*/ });
 
-        let turotialButton = this.add.image(this.gameWidth/2+250, 890, 'menuUI', 'boton_tutorial.png').setScale(.72);
+        let turotialButton = this.add.image(this.gameWidth/2+250, 890, 'menuUI', 'tutorial.png').setScale(.72);
         turotialButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showInstructions(() => null); /*this.uiScene.audioManager.buttonClick.play();*/ });
 
         let creditsButton = this.add.image(this.gameWidth-120, 105, `menuUI`, `boton_creditos.png`).setScale(.72);
