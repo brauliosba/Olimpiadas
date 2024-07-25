@@ -13,9 +13,9 @@ export class UIScene extends Phaser.Scene
         this.load.image('panel', `./src/images/ui/menus/fondo.png`);
         this.load.image('panelCredits', `./src/images/ui/menus/fondo_creditos.png`);
         this.load.image('panelInstructions', `./src/images/ui/menus/fondo_instrucciones.png`);
-        //this.load.atlas('panelUI', `./src/images/ui/panel_ui.png`, `./src/images/ui/panel_ui.json`);
+        this.load.atlas('panelUI', `./src/images/ui/panel_ui.png`, `./src/images/ui/panel_ui.json`);
         //this.load.atlas('tutorialUI', `./src/images/ui/tutorial_ui.png`, `./src/images/ui/tutorial_ui.json`);
-        //this.load.image('leapLogo', `./src/images/ui/leap_logo.png`);
+        this.load.image('leapLogo', `./src/images/ui/leap_logo.png`);
         //this.load.image('logoPChuJoy', `./src/images/logo_pchujoy.jpg`);
         this.load.image('fade', `./src/images/black_alpha_40.png`);
 

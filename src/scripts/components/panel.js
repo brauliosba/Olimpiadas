@@ -30,17 +30,46 @@ export class Panel
         let pauseTitle = this.scene.add.text(dim/2, 255, 'PAUSA', { font: '800 35px Bungee', color: '#FFFFFF', align: 'center' });
         pauseTitle.setOrigin(0.5).setStroke('#142E1C', 10).setShadow(0, 4, '#738B59', 2, true, false);
 
-        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'salir.png').setInteractive().setScale(.72);
-        closeImage.on('pointerdown', () => { this.scene.audioManager.resumeMusic(); this.scene.currentScene.pauseGame(); });
+        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
+        closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
+        closeImage.on('pointerup', () => {
+            closeImage.setTexture('panelUI', 'cerrar_1.png');
+            this.scene.audioManager.resumeMusic();
+            this.scene.currentScene.pauseGame();
+        });
 
-        let continueButton = this.scene.add.image(dim/2, dim/2-125, 'panelUI', 'boton_continuar.png').setInteractive().setScale(.72);
-        continueButton.on('pointerdown', () => { this.scene.audioManager.resumeMusic(); this.scene.currentScene.pauseGame(); this.scene.audioManager.buttonClick.play();});
+        let continueButton = this.scene.add.image(dim/2, dim/2-125, 'panelUI', 'pausa_continuar_1.png').setInteractive().setScale(.72);
+        continueButton.on('pointerdown', () => {
+            continueButton.setTexture('panelUI', 'pausa_continuar_2.png');
+        });
+        continueButton.on('pointerup', () => {
+            continueButton.setTexture('panelUI', 'pausa_continuar_1.png');
+            this.scene.audioManager.resumeMusic();
+            this.scene.currentScene.pauseGame();
+            this.scene.audioManager.buttonClick.play();
+        });
 
-        let optionsButton = this.scene.add.image(dim/2, dim/2, 'panelUI', 'boton_opciones.png').setInteractive().setScale(.72);
-        optionsButton.on('pointerdown', () => { this.hidePause(); this.showOptions(); /*this.scene.audioManager.buttonClick.play();*/});
+        let optionsButton = this.scene.add.image(dim/2, dim/2, 'panelUI', 'pausa_opciones_1.png').setInteractive().setScale(.72);
+        optionsButton.on('pointerdown', () => {
+            optionsButton.setTexture('panelUI', 'pausa_opciones_2.png');
+        });
+        optionsButton.on('pointerup', () => {
+            optionsButton.setTexture('panelUI', 'pausa_opciones_1.png');
+            //this.scene.audioManager.buttonClick.play();
+            this.hidePause();
+            this.showOptions();
+        });
 
-        let exitButton = this.scene.add.image(dim/2, dim/2+125, 'panelUI', 'boton_salir.png').setInteractive().setScale(.72);
-        exitButton.on('pointerdown', () => { this.hidePause(); /*this.scene.audioManager.buttonExit.play();*/ this.scene.currentScene.backMenu(); });
+        let exitButton = this.scene.add.image(dim/2, dim/2+125, 'panelUI', 'pausa_salir_1.png').setInteractive().setScale(.72);
+        exitButton.on('pointerdown', () => {
+            exitButton.setTexture('panelUI', 'pausa_salir_2.png');
+        });
+        exitButton.on('pointerup', () => {
+            exitButton.setTexture('panelUI', 'pausa_salir_1.png');
+            //this.scene.audioManager.buttonExit.play();
+            this.hidePause();
+            this.scene.currentScene.backMenu();
+        });
 
         this.pauseContainer = this.scene.add.container(0, 0, [pauseTitle, closeImage, continueButton, optionsButton, exitButton]);
         this.pauseContainer.setVisible(false).setDepth(10.1);
@@ -108,8 +137,12 @@ export class Panel
         this.instructionIndex = 0;
         this.instructionTexts = [this.createFirstTutorialPage(dim), this.createSecondTutorialPage(dim)];
 
-        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'salir.png').setInteractive().setScale(.72);
-        closeImage.on('pointerdown', () => this.hideInstructions());
+        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
+        closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
+        closeImage.on('pointerup', () => {
+            closeImage.setTexture('panelUI', 'cerrar_1.png');
+            this.hideInstructions();
+        });
 
         this.leftArrow = this.scene.add.image(dim/2-75, dim-245, 'panelUI', 'boton_izquierda.png').setInteractive().setScale(.72);
         this.leftArrow.on('pointerdown', () => this.leftArrowClicked());
@@ -124,16 +157,20 @@ export class Panel
 
     createOptionsPanel(dim){
         let optionsTitle = this.scene.add.text(dim/2, 255, 'OPCIONES', { font: '800 35px Bungee', color: '#FFFFFF', align: 'center' });
-        optionsTitle.setOrigin(0.5).setStroke('#142E1C', 10).setShadow(0, 4, '#738B59', 2, true, false);
+        optionsTitle.setOrigin(0.5);
 
-        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'salir.png').setInteractive().setScale(.72);
-        closeImage.on('pointerdown', () => this.hideOptions());
+        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
+        closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
+        closeImage.on('pointerup', () => {
+            closeImage.setTexture('panelUI', 'cerrar_1.png');
+            this.hideOptions();
+        });
 
         let musicTitle = this.scene.add.text(dim/2-205, dim/2-115, 'Música', { 
             font: '800 30px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
         musicTitle.setStroke('#560F0C', 10).setShadow(0, 4, '#560F0C', 2, true, false);
 
-        let musicThumb = this.scene.add.sprite(0,dim/2-115,'panelUI','opciones_volumen_deslizable.png').setScale(.72);
+        let musicThumb = this.scene.add.sprite(0,dim/2-115,'panelUI','slider_thumb.png').setScale(.72);
         let musicVolume = this.scene.data.get('musicVolume');
         let musicSlider;
         musicSlider = this.scene.rexUI.add.slider({
@@ -144,8 +181,8 @@ export class Panel
             orientation: 'x',
             value: 0,
 
-            track: this.scene.add.sprite(0,0,'panelUI','opciones_volumen_contenedor.png'),
-            indicator: this.addCropResizeMethod(this.scene.add.sprite(0,0,'panelUI','opciones_volumen_barra.png')),
+            track: this.scene.add.sprite(0,0,'panelUI','slider.png'),
+            indicator: this.addCropResizeMethod(this.scene.add.sprite(0,0,'panelUI','slider_relleno.png')),
             thumb: this.scene.rexUI.add.roundRectangle(0, 0, 40, 50, 0),
 
             input: 'drag'|'click',
@@ -153,7 +190,7 @@ export class Panel
                 this.scene.audioManager.menuMusic.volume = value;
                 this.scene.audioManager.gameplayMusic.volume = value;
                 this.scene.data.set('musicVolume', value);
-                if(musicSlider != null) musicThumb.x = musicSlider.getElement('thumb').x;
+                if(musicSlider != null) musicThumb.x = musicSlider.getElement('thumb').x+5;
             },
 
         }).layout().setScale(1,.72);
@@ -163,7 +200,7 @@ export class Panel
             font: '800 30px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
         sfxTitle.setStroke('#560F0C', 10).setShadow(0, 4, '#560F0C', 2, true, false);
         
-        let sfxThumb = this.scene.add.sprite(0,dim/2-25,'panelUI','opciones_volumen_deslizable.png').setScale(.72);
+        let sfxThumb = this.scene.add.sprite(0,dim/2-25,'panelUI','slider_thumb.png').setScale(.72);
         let sfxVolume = this.scene.data.get('sfxVolume');
         let sfxSlider;
         sfxSlider = this.scene.rexUI.add.slider({
@@ -174,15 +211,15 @@ export class Panel
             orientation: 'x',
             value: 0,
 
-            track: this.scene.add.sprite(0,0,'panelUI','opciones_volumen_contenedor.png'),
-            indicator: this.addCropResizeMethod(this.scene.add.sprite(0,0,'panelUI','opciones_volumen_barra.png')),
+            track: this.scene.add.sprite(0,0,'panelUI','slider.png'),
+            indicator: this.addCropResizeMethod(this.scene.add.sprite(0,0,'panelUI','slider_relleno.png')),
             thumb: this.scene.rexUI.add.roundRectangle(0, 0, 40, 50, 0),
 
             input: 'drag'|'click',
             valuechangeCallback: function (value) {
                 this.scene.audioManager.updateSFXVolume(value);
                 this.scene.data.set('sfxVolume', value);
-                if(sfxSlider != null) sfxThumb.x = sfxSlider.getElement('thumb').x;
+                if(sfxSlider != null) sfxThumb.x = sfxSlider.getElement('thumb').x+5;
             },
 
         }).layout().setScale(1,.72);
@@ -216,8 +253,12 @@ export class Panel
     }
 
     createCreditsPanel(dim){
-        let closeImage = this.scene.add.image(dim-170, 185, 'panelUI', 'salir.png').setInteractive().setScale(.72);
-        closeImage.on('pointerdown', () => this.hideCredits());
+        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
+        closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
+        closeImage.on('pointerup', () => {
+            closeImage.setTexture('panelUI', 'cerrar_1.png');
+            this.hideCredits();
+        });
 
         let labels = []
         let previousChildCount = 0;
@@ -266,7 +307,7 @@ export class Panel
         let scoreTitle = this.scene.add.text(dim/2, 255, 'FIN DE PARTIDA', { font: '800 35px Bungee', color: '#FFFFFF', align: 'center' });
         scoreTitle.setOrigin(0.5).setStroke('#142E1C', 10).setShadow(0, 4, '#738B59', 2, true, false);
 
-        let scoreImage = this.scene.add.image(dim/2, dim/2-60, 'panelUI', 'fin_puntaje.png').setScale(.72);
+        let scoreImage = this.scene.add.image(dim/2, dim/2-60, 'panelUI', 'puntaje.png').setScale(.72);
 
         this.scoreText = this.scene.add.text(dim/2, dim/2-50, '10000000', { font: '800 45px Bungee', color: '#FFFFFF' });
         this.scoreText.setStroke('#2D1935', 5).setOrigin(.5).setShadow(0, 4, '#560F0C', 2, true, false);
@@ -283,13 +324,25 @@ export class Panel
         this.recordText = this.scene.add.text(dim/2+190, dim/2+140, '10000000', { font: '800 35px Bungee', color: '#FFFFFF' });
         this.recordText.setStroke('#2D1935', 5).setOrigin(1).setShadow(0, 4, '#560F0C', 2, true, false);
 
-        let restartButton = this.scene.add.image(dim/2-160, dim/2+300, 'panelUI', 'fin_boton_reiniciar.png').setInteractive();
+        let restartButton = this.scene.add.image(dim/2-160, dim/2+300, 'panelUI', 'reiniciar_1.png').setInteractive();
         restartButton.setScale(.72);
-        restartButton.on('pointerdown', () => { this.hideScore(); /*this.scene.audioManager.buttonPlay.play();*/ this.scene.currentScene.restartGame(); });
+        restartButton.on('pointerdown', () => { restartButton.setTexture('panelUI', 'reiniciar_2.png') });
+        restartButton.on('pointerup', () => {
+            restartButton.setTexture('panelUI', 'reiniciar_1.png');
+            this.hideScore();
+            //this.scene.audioManager.buttonPlay.play();
+            this.scene.currentScene.restartGame();
+        });
 
-        let menuButton = this.scene.add.image(dim/2+175, dim/2+300, 'panelUI', 'fin_boton_salir.png').setInteractive();
+        let menuButton = this.scene.add.image(dim/2+175, dim/2+300, 'panelUI', 'salir_1.png').setInteractive();
         menuButton.setScale(.72);
-        menuButton.on('pointerdown', () => { this.hideScore(); /*this.scene.audioManager.buttonExit.play();*/ this.scene.currentScene.backMenu();});
+        menuButton.on('pointerdown', () => { menuButton.setTexture('panelUI', 'salir_2.png') });
+        menuButton.on('pointerup', () => {
+            menuButton.setTexture('panelUI', 'salir_2.png');
+            this.hideScore();
+            //this.scene.audioManager.buttonExit.play();
+            this.scene.currentScene.backMenu();
+        });
 
         this.scoreContainer = this.scene.add.container(0, 0, 
             [shadowTitle, scoreTitle, scoreImage, this.scoreText, timeLabel, this.timeText, recordLabel, this.recordText, restartButton, menuButton]);
