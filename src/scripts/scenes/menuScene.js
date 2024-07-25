@@ -20,19 +20,19 @@ export class MenuScene extends Phaser.Scene
         this.gameWidth = 1080;
 
         this.data.set('initialSpeed', 4);
-        this.data.set('maxSpeed', 8);
-        this.data.set('clickSpeed', 80);
+        this.data.set('maxSpeed', 9.5);
+        this.data.set('clickSpeed', 100);
         this.data.set('lostSpeed', 100);
-        this.data.set('jumpForce', 600);
+        this.data.set('jumpForce',1050);
         this.data.set('scoreThreshold', 1);
-        this.data.set('powerThreshold', 30);
-        this.data.set('cd1', 15);
-        this.data.set('cd2', 10);
-        this.data.set('cd3', 8);
-        this.data.set('cd4', 8);
-        this.data.set('cd5', 6);
-        this.data.set('gravity', 900);
-        this.data.set('tamaño_fase', 100);
+        this.data.set('powerThreshold', 40);
+        this.data.set('cd1', 18);
+        this.data.set('cd2', 18);
+        this.data.set('cd3', 16);
+        this.data.set('cd4', 14);
+        this.data.set('cd5', 12);
+        this.data.set('gravity', 3000);
+        this.data.set('tamaño_fase', 40);
         
         //UI
         this.uiScene = this.scene.get('UIScene');

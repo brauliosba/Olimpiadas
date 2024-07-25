@@ -18,6 +18,7 @@ export class MainScene extends Phaser.Scene{
         this.load.image('square', './src/images/square.png');
         this.load.image('background', './src/images/background.png');
         this.load.atlas('bg', './src/images/bg.png', './src/images/bg.json');
+        this.load.image('pista', './src/images/pantalla-de-juego-pista.png');
         this.load.image('extra', './src/images/pista-extras.png');
         this.load.image('tapScreen', './src/images/tapScreen.png');
         
