@@ -96,7 +96,7 @@ export class MainScene extends Phaser.Scene{
             this.startButton = null;
         });
         // Player
-        this.player = new Player(this, 400, 800); // Coloca al jugador en el centro de la pantalla
+        this.player = new Player(this, 300, 700); // Coloca al jugador en el centro de la pantalla
 
         //Instances
         this.visualEffectsManager = new VisualEffectsManager(this);
@@ -115,7 +115,7 @@ export class MainScene extends Phaser.Scene{
         this.gameplayUI.create();
 
         // Ground
-        this.ground = this.add.rectangle(500, 950, 1500, 40, 0x00ff00);
+        this.ground = this.add.rectangle(500, 850, 1500, 40, 0x00ff00);
         this.physics.add.existing(this.ground, true);
         
         // Colisiones entre el jugador y el suelo
