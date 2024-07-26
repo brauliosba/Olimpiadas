@@ -1,0 +1,25 @@
+{
+"frames": {
+	"play.png": {
+		"frame": {"x":0, "y":129, "w":231, "h":128},
+		"spriteSourceSize": {"x":0,"y":0,"w":231,"h":128},
+		"sourceSize": {"w":231,"h":128}
+	},
+	"settings.png": {
+		"frame": {"x":0, "y":258, "w":230, "h":128},
+		"spriteSourceSize": {"x":0,"y":0,"w":230,"h":128},
+		"sourceSize": {"w":230,"h":128}
+	},
+	"tutorial.png": {
+		"frame": {"x":0, "y":0, "w":231, "h":128},
+		"spriteSourceSize": {"x":0,"y":0,"w":231,"h":128},
+		"sourceSize": {"w":231,"h":128}
+	}
+
+},
+"meta": {
+	"image": "sprites.png",
+	"size": {"w": 232, "h": 387},
+	"scale": "1"
+}
+}
