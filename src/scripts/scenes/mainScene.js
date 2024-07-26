@@ -96,7 +96,7 @@ export class MainScene extends Phaser.Scene{
         //let keyPause3 = this.input.keyboard.addKey(`R`);
         //keyPause3.on(`down`, () => { this.restartGame();})
 
-        let startText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'Presiona para empezar', { fontFamily: 'Bungee', fontSize : 60, color: '#F5B05F' }).setOrigin(.5).setDepth(8).setStroke('#503530', 10);
+        let startText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'Presiona para empezar',{ font: '400 60px Bungee', color: '#F5B05F' }).setOrigin(.5).setDepth(8).setStroke('#503530', 10);
         this.startButton = this.add.image(0,0,'square').setDisplaySize(this.gameWidth, this.gameHeight).setOrigin(0).setAlpha(.01).setDepth(6.1);
         this.startButton.setInteractive().on('pointerup', () => {
             startText.setVisible(false);
@@ -266,7 +266,7 @@ export class MainScene extends Phaser.Scene{
 
     calculateIncrement(value, baseSpeed) {
         this.gameplayUI.handlePointerDown()
-        if(this.player.isStun)return 0
+        if(this.player.isStun || this.isPaused)return 0
         let aument = ((baseSpeed / (value * 5)))/1000
         console.log("AUMENTO " + aument)
         return aument;
@@ -407,7 +407,7 @@ export class MainScene extends Phaser.Scene{
     
     startAnimation() {
         this.tutorialActive = true;
-        let countText = this.add.text(this.gameWidth/2, this.gameHeight/2, '3', { fontFamily: 'Bungee', fontSize : 400, color: '#F5B05F' }).setStroke('#503530', 20);
+        let countText = this.add.text(this.gameWidth/2, this.gameHeight/2, '3', { font: '400 400px Bungee', color: '#F5B05F' }).setStroke('#503530', 20);
         countText.setOrigin(.5).setDepth(10);
 
         this.regressiveCount(countText);
@@ -449,5 +449,8 @@ export class MainScene extends Phaser.Scene{
         this.uiScene.audioManager.ui_exit.play()
         this.uiScene.audioManager.stopMusic();
         this.scene.start(`MenuScene`, this.data);
+        //this.scene.get(`MenuScene`).events.once(`create`, () => {
+            //this.uiScene.audioManager.resumeMusic();
+        //});
     }
 }   

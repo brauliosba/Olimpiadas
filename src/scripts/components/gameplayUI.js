@@ -154,26 +154,31 @@ export class GameplayUI
     }
 
     updateRedBar(currentZone) {
-        this.currentThreshold += 0.091
-        this.barWidth += this.redBarSize
-        let maskShape = this.scene.make.graphics();
-        maskShape.fillStyle(0xffffff);
+        console.log("zone" +currentZone)
+        if(this.currentThreshold<=(8*.091)){
+      
+            this.currentThreshold += 0.091
+            this.barWidth += this.redBarSize
+            let maskShape = this.scene.make.graphics();
+            maskShape.fillStyle(0xffffff);
 
-        // Definir la forma de la máscara (diagonal en este caso)
-        maskShape.beginPath();
-        maskShape.moveTo(165, 305); 
+            // Definir la forma de la máscara (diagonal en este caso)
+            maskShape.beginPath();
+            maskShape.moveTo(165, 305); 
+            
+            maskShape.lineTo(165+this.barWidth, 305); 
+            maskShape.lineTo(165+this.barWidth-20, 345); 
+            maskShape.lineTo(165, 345); 
+            maskShape.closePath();
+            maskShape.fillPath();
+
+            // Crear una máscara a partir de la forma gráfica
+            let mask = maskShape.createGeometryMask();
+
+            // Aplicar la máscara a la barra
+            this.redBar.setMask(mask);
+        }
         
-        maskShape.lineTo(165+this.barWidth, 305); 
-        maskShape.lineTo(165+this.barWidth-20, 345); 
-        maskShape.lineTo(165, 345); 
-        maskShape.closePath();
-        maskShape.fillPath();
-
-        // Crear una máscara a partir de la forma gráfica
-        let mask = maskShape.createGeometryMask();
-
-        // Aplicar la máscara a la barra
-        this.redBar.setMask(mask);
         
     }
 

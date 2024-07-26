@@ -167,8 +167,8 @@ export class AudioManager
         this.ui_click = this.scene.sound.add('ui_click', { volume: 0.5, loop: false });
         this.sfx.push(this.ui_click);
 
-        this.ui_click = this.scene.sound.add('ui_click', { volume: 0.5, loop: false });
-        this.sfx.push(this.ui_click);
+        this.page_click = this.scene.sound.add('page_click', { volume: 0.5, loop: false });
+        this.sfx.push(this.page_click);
 
         this.estadio_u = this.scene.sound.add('estadio_u', { volume: 0.5, loop: false });
         this.sfx.push(this.estadio_u);

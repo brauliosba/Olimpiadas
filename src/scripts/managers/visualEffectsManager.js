@@ -35,10 +35,10 @@ export class VisualEffectsManager
     }
 
     CreateMilestone(message){
-        let milestoneContainer = this.scene.add.container(0,0).setDepth(6)
-        let milestoneText = this.scene.add.text(0, 0, message, { fontFamily: 'Bungee', fontSize : 60, color: '#F5B05F' }).setOrigin(.5).setDepth(8).setStroke('#503530', 10);
+        let milestoneContainer = this.scene.add.container(0,0).setDepth(6.3)
+        let milestoneText = this.scene.add.text(0, 0, message, { font: '400 200px Bungee', color: '#F5B05F' }).setOrigin(.5).setDepth(8).setStroke('#503530', 10);
         milestoneContainer.add(milestoneText)
-        this.ShowContainerWithFade(this,this.gameWidth/2, this.gameWidth/2, 200, 400, 200, milestoneContainer);
+        this.ShowContainerWithFade(this,this.scene.gameWidth/2, this.scene.gameWidth/2, 200, 400, 200, milestoneContainer);
     }
 
     ShowContainerWithFade(scene, cx,cy, fadeInDuration, displayDuration, fadeOutDuration, container) {

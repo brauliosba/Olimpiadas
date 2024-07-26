@@ -34,6 +34,7 @@ export class Panel
         let closeImage = this.scene.add.image(dim-120, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
         closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
         closeImage.on('pointerup', () => {
+            this.scene.audioManager.ui_click.play();
             closeImage.setTexture('panelUI', 'cerrar_1.png');
             this.scene.audioManager.resumeMusic();
             this.scene.currentScene.pauseGame();
@@ -44,6 +45,7 @@ export class Panel
             continueButton.setTexture('panelUI', 'pausa_continuar_2.png');
         });
         continueButton.on('pointerup', () => {
+            this.scene.audioManager.ui_click.play();
             continueButton.setTexture('panelUI', 'pausa_continuar_1.png');
             this.scene.audioManager.resumeMusic();
             this.scene.currentScene.pauseGame();
@@ -52,9 +54,12 @@ export class Panel
 
         let optionsButton = this.scene.add.image(dim/2, dim/2, 'panelUI', 'pausa_opciones_1.png').setInteractive().setScale(.72);
         optionsButton.on('pointerdown', () => {
+            
             optionsButton.setTexture('panelUI', 'pausa_opciones_2.png');
         });
         optionsButton.on('pointerup', () => {
+            this.scene.audioManager.ui_click.play();
+            this.scene.audioManager.ui_click.play();
             optionsButton.setTexture('panelUI', 'pausa_opciones_1.png');
             //this.scene.audioManager.buttonClick.play();
             this.hidePause();
@@ -67,6 +72,7 @@ export class Panel
         });
         exitButton.on('pointerup', () => {
             exitButton.setTexture('panelUI', 'pausa_salir_1.png');
+            this.scene.audioManager.ui_exit.play();
             //this.scene.audioManager.buttonExit.play();
             this.hidePause();
             this.scene.currentScene.backMenu();
@@ -123,16 +129,17 @@ export class Panel
         let closeImage = this.scene.add.image(dim-110, 210, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
         closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
         closeImage.on('pointerup', () => {
+            this.scene.audioManager.ui_click.play();
             closeImage.setTexture('panelUI', 'cerrar_1.png');
             this.hideInstructions();
         });
 
         this.leftArrow = this.scene.add.image(dim/2-120, dim-200, 'panelUI', 'izq_1.png').setInteractive().setScale(.72);
         this.leftArrow.on('pointerdown', () => { this.leftArrow.setTexture('panelUI', 'izq_2.png') });
-        this.leftArrow.on('pointerup', () => { this.leftArrow.setTexture('panelUI', 'izq_1.png'); this.leftArrowClicked(); });
+        this.leftArrow.on('pointerup', () => { this.leftArrow.setTexture('panelUI', 'izq_1.png'); this.leftArrowClicked(); this.scene.audioManager.page_click.play();});
 
         this.rightArrow = this.scene.add.image(dim/2+95, dim-200, 'panelUI', 'der_1.png').setInteractive().setScale(.72);
-        this.rightArrow.on('pointerup', () => this.rightArrowClicked());
+        this.rightArrow.on('pointerup', () => {this.rightArrowClicked(); this.scene.audioManager.page_click.play();});
 
         this.instructionsContainer = this.scene.add.container(0, 0, 
             [closeImage, this.instructionTexts[0], this.instructionTexts[1], this.leftArrow, this.rightArrow]);
@@ -146,6 +153,7 @@ export class Panel
         let closeImage = this.scene.add.image(dim-120, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
         closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
         closeImage.on('pointerup', () => {
+            this.scene.audioManager.ui_click.play();
             closeImage.setTexture('panelUI', 'cerrar_1.png');
             this.hideOptions();
         });
@@ -170,6 +178,7 @@ export class Panel
 
             input: 'drag'|'click',
             valuechangeCallback: function (value) {
+                //this.scene.audioManager.ui_click.play();
                 this.scene.audioManager.menuMusic.volume = value;
                 this.scene.audioManager.gameplayMusic.volume = value;
                 this.scene.data.set('musicVolume', value);
@@ -199,6 +208,7 @@ export class Panel
 
             input: 'drag'|'click',
             valuechangeCallback: function (value) {
+                //this.scene.audioManager.ui_click.play();
                 this.scene.audioManager.updateSFXVolume(value);
                 this.scene.data.set('sfxVolume', value);
                 if(sfxSlider != null) sfxThumb.x = sfxSlider.getElement('thumb').x+5;
@@ -221,7 +231,7 @@ export class Panel
                 font: '400 45px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
             
             let fullscreenToggleContainer = this.scene.add.image(dim/2+305, dim/2+105, 'panelUI', 'toggle.png').setInteractive();
-            fullscreenToggleContainer.on('pointerdown', () => { this.toggle(this.fullscreenToggleBall, dim/2); }).setScale(.72);
+            fullscreenToggleContainer.on('pointerdown', () => { this.toggle(this.fullscreenToggleBall, dim/2); this.scene.audioManager.ui_click.play();}).setScale(.72);
     
             this.fullscreenToggleBall = this.scene.add.image(dim/2+325, dim/2+105, 'panelUI', 'toggle_off.png').setScale(.72);
             this.setToggleFullscreen(this.scene.scale.isFullscreen, dim/2);
@@ -237,6 +247,7 @@ export class Panel
         let closeImage = this.scene.add.image(dim-190, 210, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
         closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
         closeImage.on('pointerup', () => {
+            this.scene.audioManager.ui_click.play();
             closeImage.setTexture('panelUI', 'cerrar_1.png');
             this.hideCredits();
         });

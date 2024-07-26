@@ -18,6 +18,7 @@ export class MenuScene extends Phaser.Scene
     }
 
     create(){
+        
         this.gameWidth = 1080;
         this.nextSceneReady = false;
 
@@ -40,6 +41,7 @@ export class MenuScene extends Phaser.Scene
         //UI
         this.uiScene = this.scene.get('UIScene');
         this.uiScene.setCurrentScene(this);
+        //this.uiScene.audioManager.resumeMusic();
 
         /*
         this.loadingBG = this.add.image(this.gameWidth/2, this.gameWidth/2, 'loadingBG').setDisplaySize(this.gameWidth, this.gameWidth);
@@ -88,13 +90,13 @@ export class MenuScene extends Phaser.Scene
         });
 
         let optionsButton = this.add.image(this.gameWidth/2-250, 920, 'menuUI', 'settings.png').setScale(.72);
-        optionsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showOptions(); /*this.uiScene.audioManager.buttonClick.play();*/ });
+        optionsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showOptions(); this.uiScene.audioManager.ui_click.play(); });
 
         let turotialButton = this.add.image(this.gameWidth/2+250, 920, 'menuUI', 'tutorial.png').setScale(.72);
-        turotialButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showInstructions(() => null); /*this.uiScene.audioManager.buttonClick.play();*/ });
+        turotialButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showInstructions(() => null); this.uiScene.audioManager.ui_click.play() });
 
         let creditsButton = this.add.image(this.gameWidth-120, 105, `menuUI`, `boton_creditos.png`).setScale(.72);
-        creditsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showCredits(); /*this.uiScene.audioManager.buttonClick.play();*/ });
+        creditsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showCredits(); this.uiScene.audioManager.ui_click.play() });
 
         this.exposedVariables();
         //this.uiScene.audioManager.playMusic();
