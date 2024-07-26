@@ -18,6 +18,7 @@ export class MenuScene extends Phaser.Scene
 
     create(){
         this.gameWidth = 1080;
+        this.nextSceneReady = false;
 
         this.data.set('initialSpeed', 4);
         this.data.set('maxSpeed', 9.5);
@@ -64,11 +65,10 @@ export class MenuScene extends Phaser.Scene
         */
 
         this.isPaused = false;
-       
         
         let bg = this.add.image(this.gameWidth/2, this.gameWidth/2, 'menuBG').setDisplaySize(this.gameWidth, this.gameWidth);
-        /*
         bg.setInteractive().on('pointerdown', () => { this.uiScene.audioManager.resumeMusic(); this.isPaused = false; });
+        /*
         if (this.data.get('sponsor')) {
             // agregar sponsor assets
             this.game.config.metadata.onDataSend({name:`turbo_delivery`, sponsorCounter:1});
@@ -80,7 +80,6 @@ export class MenuScene extends Phaser.Scene
         let playButton = this.add.image(this.gameWidth/2, 890, 'menuUI', 'play.png').setScale(.72);
         playButton.setInteractive().on('pointerup', () => {
             this.uiScene.audioManager.stopMusic();
-            this.nextSceneReady = false;
             this.showLoading();
             //this.uiScene.audioManager.buttonPlay.play();
         });

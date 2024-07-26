@@ -51,26 +51,22 @@ export class MainScene extends Phaser.Scene{
         this.scoreDistance = 0;
         this.scoreThreshold = this.toPixels(this.data.get('scoreThreshold'));
         this.lifes = 2;
-
-        
+     
         //Time
         this.accumulatedTime = 0;
         this.timePerStep = 0.5;
-        this.dt = 1
-        
+        this.dt = 1      
 
         //UI Scene
         this.uiScene = this.scene.get('UIScene');
         this.uiScene.setCurrentScene(this);
         this.uiScene.animationsManager.createGameplayObjects(this.gameWidth);
-
-        /*
+      
         this.panel = this.uiScene.panel;
         this.panel.createInstructionsPanel(this.gameWidth);
         this.panel.createOptionsPanel(this.gameWidth);
         this.panel.createPausePanel(this.gameWidth);
         this.panel.createScorePanel(this.gameWidth);
-        */
 
         //Animations
         this.anims.resumeAll();
@@ -324,10 +320,7 @@ export class MainScene extends Phaser.Scene{
     
     toPixels(n) {
         return n * 108;
-    }
-
-
-    
+    } 
 
     pauseGame(){
         if (this.gameState == 'play'){
@@ -337,23 +330,22 @@ export class MainScene extends Phaser.Scene{
             if (this.isPaused){
                 this.anims.pauseAll();
                 this.uiScene.audioManager.pauseMusic();
-                //this.panel.showPause();
+                this.panel.showPause();
             }
             else{ 
                 this.anims.resumeAll();
-                //this.panel.hidePause();
+                this.panel.hidePause();
             }
         }
     }
-    pauseTimeEvents(){
 
+    pauseTimeEvents(){
+        if (this.loseTimer != null) this.loseTimer.paused = this.isPaused;
     }
     
-
     restartGame(){
         this.uiScene.audioManager.stopMusic();
         this.scene.restart([this.data, false]);
-
     }
 
     finishGame() {
@@ -367,29 +359,17 @@ export class MainScene extends Phaser.Scene{
         if(newScore >= highScore) this.data.set(`highScore`, newScore);
 
         setTimeout(() =>{
-            let loseText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'RESTART', { fontFamily: 'Montserrat', fontSize : 80, color: '#000000' }).setOrigin(.5).setDepth(8);
-            loseText.setInteractive().on('pointerup', () => {
-                this.restartGame();
-            });
-            /*
-            this.uiScene.animationsManager.finishAnimation(() => {
-                this.panel.showScore(newScore, newScore, gameplayTime);
-                this.game.config.metadata.onGameEnd({state:`game_end`, name:`turbo_delivery`, score:newScore, time:gameplayTime});
-            });
-            */
+            this.panel.showScore(newScore, newScore, gameplayTime);
+            this.game.config.metadata.onGameEnd({state:`game_end`, name:`turbo_delivery`, score:newScore, time:gameplayTime}); 
         }, 2000);
     }
 
-    startTutorial(){
-        //this.tutorialActive = false;
-        /*
+    startTutorial(){        
         this.tutorialActive = true;
         this.panel.showInstructions(() => {
-            this.tutorialActive = false; 
             this.isPaused = false;
             this.pauseTimeEvents();
         });
-        */
     }
     
     startAnimation() {

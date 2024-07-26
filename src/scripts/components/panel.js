@@ -290,9 +290,6 @@ export class Panel
     }
 
     createScorePanel(dim){
-        let scoreTitle = this.scene.add.text(dim/2-10, 230, 'FIN DE PARTIDA', { font: '400 45px Bungee', color: '#FFFFFF', align: 'center' });
-        scoreTitle.setOrigin(0.5);
-
         let scoreImage = this.scene.add.image(dim/2-10, dim/2-120, 'panelUI', 'puntaje.png').setScale(.72);
 
         this.scoreText = this.scene.add.text(dim/2-10, dim/2-110, '10000000', { font: '400 40px Bungee', color: '#FBEAAF' });
@@ -331,7 +328,7 @@ export class Panel
         });
 
         this.scoreContainer = this.scene.add.container(0, 0, 
-            [scoreTitle, scoreImage, this.scoreText, timeLabel, this.timeText, recordLabel, this.recordText, restartButton, menuButton]);
+            [scoreImage, this.scoreText, timeLabel, this.timeText, recordLabel, this.recordText, restartButton, menuButton]);
         this.scoreContainer.setVisible(false).setDepth(10.1);
     }
 
@@ -364,7 +361,7 @@ export class Panel
                 if (start == center+285){
                     target.setTexture('panelUI', 'toggle_on.png');
                     this.scene.scale.startFullscreen();
-                } else  {
+                } else {
                     target.setTexture('panelUI', 'toggle_off.png');
                     this.scene.scale.stopFullscreen();
                 }
@@ -471,7 +468,7 @@ export class Panel
     }
 
     showScore(score, newHighScore, gameplayTime){
-        this.panel.setTexture('panel').setPosition(this.gameWidth/2-10, this.gameWidth/2-20);
+        this.panel.setTexture('panelScore').setPosition(this.gameWidth/2-10, this.gameWidth/2-20);
         this.scoreText.setText(score);
         this.recordText.setText(newHighScore);
         this.timeText.setText(this.secondsToString(gameplayTime));
@@ -480,9 +477,9 @@ export class Panel
     }
 
     hideScore(){
-        this.panel.setTexture('panel').setPosition(this.gameWidth/2, this.gameWidth/2);
         this.scoreContainer.setVisible(false);
         this.panelContainer.setVisible(false);
+        this.panel.setTexture('panel').setPosition(this.gameWidth/2, this.gameWidth/2);
     }
 
     secondsToString(seconds) {
