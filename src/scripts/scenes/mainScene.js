@@ -207,6 +207,7 @@ export class MainScene extends Phaser.Scene{
             case `play`:
                 if (!this.isPaused) {      
                     let dt = Math.min(1, deltaTime/1000);
+                    this.gameplayUI.updateThumb();
                     this.backgroundManager.update(dt);
                     this.obstacleManager.update(dt);
                     this.powerUpManager.update(dt);

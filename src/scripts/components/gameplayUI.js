@@ -33,12 +33,18 @@ export class GameplayUI
             height: 50,
             orientation: 'x',
             track: this.scene.add.rectangle(400, 50, 300, 20, 0x91CCBC).setOrigin(0.5).setDepth(5),
-            thumb: this.scene.add.image(400, 0, 'UIgame', 'Group 141.png').setOrigin(0.5,34).setDepth(8.1),
             value: 0.4, // Valor inicial
             space: { top: 4, bottom: 4 },
-            valuechangeCallback: this.onSliderValueChange.bind(this)
+            valuechangeCallback: this.onSliderValueChange.bind(this),
+            onCreate: (slider) => {
+                slider.getElement('thumb').y += 50; // Ajusta el valor según sea necesario
+            }
         }).layout();
+        
+
         this.progressBar.value = this.scene.data.get('initialSpeed')/this.scene.data.get('maxSpeed');
+        this.thumb = this.scene.add.image(400, 360, 'UIgame', 'Group 141.png').setDepth(8.1)
+        this.updateThumb()
 
         let barHeight = 40
         this.barWidth = 300
@@ -129,8 +135,12 @@ export class GameplayUI
             });
         }
     }
-
+    updateThumb(){    
+        console.log("THUMB"+this.thumb.x)
+        this.thumb.x = (this.progressBar.value*750+178)
+    }
     onSliderValueChange(value) {
+        
         if (value <= this.currentThreshold) {
             this.scene.startLoseTimer();
         } else {
@@ -139,6 +149,7 @@ export class GameplayUI
     }
 
     updateScore(score) {
+        //this.progressBar.getElement('thumb').setY(400);
         this.scoreText.setText(score);
     }
 

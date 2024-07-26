@@ -57,7 +57,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     jump() {
         console.log("jump")
 
-        if (this.body.touching.down) {
+        if (this.body.touching.down && !this.isStun) {
             this.scene.uiScene.audioManager.salto.play()
             this.setVelocityY(this.scene.data.get('jumpForce')*-1);           
         }
