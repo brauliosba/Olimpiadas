@@ -13,8 +13,9 @@ export class UIScene extends Phaser.Scene
         this.load.image('panel', `./src/images/ui/menus/fondo.png`);
         this.load.image('panelCredits', `./src/images/ui/menus/fondo_creditos.png`);
         this.load.image('panelInstructions', `./src/images/ui/menus/fondo_instrucciones.png`);
+        this.load.image('panelScore', `./src/images/ui/menus/fondo_fin.png`);
         this.load.atlas('panelUI', `./src/images/ui/panel_ui.png`, `./src/images/ui/panel_ui.json`);
-        //this.load.atlas('tutorialUI', `./src/images/ui/tutorial_ui.png`, `./src/images/ui/tutorial_ui.json`);
+        this.load.atlas('tutorialUI', `./src/images/ui/tutorial_ui.png`, `./src/images/ui/tutorial_ui.json`);
         this.load.image('leapLogo', `./src/images/ui/leap_logo.png`);
         //this.load.image('logoPChuJoy', `./src/images/logo_pchujoy.jpg`);
         this.load.image('fade', `./src/images/black_alpha_40.png`);
@@ -39,13 +40,13 @@ export class UIScene extends Phaser.Scene
 
         this.panel = new Panel(this);
         this.panel.create(this.gameWidth);
-        //this.panel.createInstructionsPanel(this.gameWidth);
+        this.panel.createInstructionsPanel(this.gameWidth);
         this.panel.createOptionsPanel(this.gameWidth);
         this.panel.createCreditsPanel(this.gameWidth);
 
         this.graphics = this.add.graphics().setDepth(10).setVisible(false);
         this.graphics.fillStyle(0x000000, 1);
-        this.graphics.fillRect(0, 0, this.dim, this.dim);
+        this.graphics.fillRect(0, 0, this.gameWidth, this.gameWidth);
         
         //this.splashScreen = this.add.image(this.dim/2, this.dim/2, 'logoPChuJoy')
         //    .setDisplaySize(this.dim, this.dim).setDepth(10).setAlpha(0).setInteractive();
@@ -65,7 +66,7 @@ export class UIScene extends Phaser.Scene
             }
 
             if (this.panel && document.fullscreenElement === null) {
-                this.panel.setToggleFullscreen(false, this.dim/2);
+                this.panel.setToggleFullscreen(false, this.gameWidth/2);
             }
         });
     }
