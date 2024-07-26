@@ -41,7 +41,7 @@ export class MenuScene extends Phaser.Scene
         //UI
         this.uiScene = this.scene.get('UIScene');
         this.uiScene.setCurrentScene(this);
-        //this.uiScene.audioManager.resumeMusic();
+        this.uiScene.audioManager?.playMusic();
 
         /*
         this.loadingBG = this.add.image(this.gameWidth/2, this.gameWidth/2, 'loadingBG').setDisplaySize(this.gameWidth, this.gameWidth);
