@@ -77,60 +77,42 @@ export class Panel
     }
 
     createFirstTutorialPage(dim){
-        let text1 = this.scene.add.text(dim/2, 380, 'COMBINA DOS BOCADITOS IGUALES PARA \nCREAR UNO MÁS GRANDE Y GANAR PUNTOS', { 
-            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-        text1.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
+        let text1 = this.scene.add.text(dim/2-20, 310, 'TOCA LA PANTALLA, CLICK O BARRA ESPACIADORA\nTAN RÁPIDO COMO PUEDAS PARA AUMENTAR TU VELOCIDAD', { 
+            font: '400 25px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+        text1.setStroke('#2C211F', 8).setLineSpacing(-5).setWordWrapWidth(this.panel.displayWidth);
 
-        let image1 = this.scene.add.image(dim/2-200, 450, 'tutorialUI', 'dish_01.png').setScale(.65);
-        let sumText1 = this.scene.add.text(dim/2-100, 450, '+', { 
-            font: '400 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-        sumText1.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
-        let image2 = this.scene.add.image(dim/2, 450, 'tutorialUI', 'dish_01.png').setScale(.65);
-        let equalText1 = this.scene.add.text(dim/2+100, 450, '=', { 
-            font: '400 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-        equalText1.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
-        let image3 = this.scene.add.image(dim/2+200, 450, 'tutorialUI', 'dish_02.png').setScale(.65);
+        let image1 = this.scene.add.image(dim/2-235, 460, 'tutorialUI', 'run.png').setScale(.72);
+        let image2 = this.scene.add.image(dim/2-30, 460, 'tutorialUI', 'tap.png').setScale(.72);
+        let image3 = this.scene.add.image(dim/2+130, 460, 'tutorialUI', 'leftclick.png').setScale(.72);
+        let image4 = this.scene.add.image(dim/2+295, 460, 'tutorialUI', 'spacebar.png').setScale(.72);
+     
+        let text2 = this.scene.add.text(dim/2-20, 650, 'ACELERA PARA QUE TU VELOCIDAD NO CAIGA EN LA ZONA\nROJA DE LA BARRA O TROPEZARÁS Y PERDERÁS\n¡LLEGA TAN LEJOS COMO PUEDAS!', { 
+            font: '400 25px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+        text2.setStroke('#2C211F', 8).setLineSpacing(-5);
 
-        let image4 = this.scene.add.image(dim/2-200, 530, 'tutorialUI', 'dish_02.png').setScale(.65);
-        let sumText2 = this.scene.add.text(dim/2-100, 530, '+', { 
-            font: '400 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-        sumText2.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
-        let image5 = this.scene.add.image(dim/2, 530, 'tutorialUI', 'dish_02.png').setScale(.65);
-        let equalText2 = this.scene.add.text(dim/2+100, 530, '=', { 
-            font: '400 50px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-            equalText2.setStroke('#560F0C', 13).setShadow(0, 4, '#560F0C', 2, true, false);
-        let image6 = this.scene.add.image(dim/2+200, 530, 'tutorialUI', 'dish_03.png').setScale(.55);
+        let image5 = this.scene.add.image(dim/2, 760, 'tutorialUI', 'speedbar.png').setScale(.72);
 
-        let text2 = this.scene.add.text(dim/2, 620, 'EVITA QUE SE LLENE EL ESCENARIO PARA \nNO PERDER Y ROMPER TUS RECORDS', { 
-            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-        text2.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
-
-        let image7 = this.scene.add.image(dim/2, 705, 'tutorialUI', 'dish_05.png').setScale(.55);
-        let image8 = this.scene.add.image(dim/2, 705, 'tutorialUI', 'barra.png').setScale(.55);
-
-        const textContainer1 = this.scene.add.container(0, 0, 
-            [text1, image1, sumText1, image2,  equalText1, image3, image4, sumText2, image5, equalText2, image6, text2, image7, image8]).setVisible(false);
+        const textContainer1 = this.scene.add.container(0, 0, [text1, image1, image2, image3, image4, text2, image5]).setVisible(false);
         return textContainer1
     }
 
     createSecondTutorialPage(dim){
-        let text1 = this.scene.add.text(dim/2, 380, 'APROVECHA LOS ITEMS DE APOYO PARA \nEVITAR SER DERROTADO', { 
-            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-        text1.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
+        let text1 = this.scene.add.text(dim/2-20, 325, 'NO CHOQUES CON LOS OBATÁCULOS O PERDERÁS UN CORAZÓN\nUSA EL BOTÓN DE SALTO EN LA PANTALL O "ARRIBA" EN EL \n TECLADO PARA ESQUIVARLOS', { 
+            font: '400 25px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+        text1.setStroke('#2C211F', 8).setLineSpacing(-5);
 
-        let image1 = this.scene.add.image(dim/2, 460, 'tutorialUI', 'bomb.png').setScale(.65);
+        let image1 = this.scene.add.image(dim/2-240, 490, 'tutorialUI', 'jumping.png').setScale(.72);
+        let image2 = this.scene.add.image(dim/2+55, 485, 'tutorialUI', 'jumpbtn.png').setScale(.72);
+        let image3 = this.scene.add.image(dim/2+240, 480, 'tutorialUI', 'upbtn.png').setScale(.72);
         
-        let text2 = this.scene.add.text(dim/2, 530, 'COLOCA EL AJÍ BOMBA Y HAZLE CLICK \nPARA QUE ESTALLE EMPUJANDO TODO \nPERO NO DEJES QUE DOS SE TOQUEN', { 
-            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-        text2.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
+        let text2 = this.scene.add.text(dim/2-20, 645, 'APROVECHA LOS ZAPATOS TURBO PARA SUBIR TU VELOCIDAD\nO RECUPERA CORAZONES PARA NO PERDER', { 
+            font: '400 25px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
+        text2.setStroke('#2C211F', 8).setLineSpacing(-5);
+        
+        let image4 = this.scene.add.image(dim/2-130, 760, 'tutorialUI', 'pupturbo.png').setScale(.72);
+        let image5 = this.scene.add.image(dim/2+125, 760, 'tutorialUI', 'pupheart.png').setScale(.72);
 
-        let image2 = this.scene.add.image(dim/2, 630, 'tutorialUI', 'palillos.png').setScale(.65);
-        
-        let text3 = this.scene.add.text(dim/2, 710, 'RECIBE LOS PALILLOS Y HAZ CLICK A UNA \nFICHA PROBLEMÁTICA PARA ELIMINARLA', { 
-            font: '400 20px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
-        text3.setStroke('#560F0C', 8).setLineSpacing(-5).setShadow(0, 4, '#560F0C', 2, true, false).setWordWrapWidth(this.panel.displayWidth-450);
-        
-        const textContainer2 = this.scene.add.container(0, 0, [text1, image1, text2, image2, text3]).setVisible(false);
+        const textContainer2 = this.scene.add.container(0, 0, [text1, image1, image2, image3, text2, image4, image5]).setVisible(false);
         return textContainer2
     }
 
@@ -138,18 +120,19 @@ export class Panel
         this.instructionIndex = 0;
         this.instructionTexts = [this.createFirstTutorialPage(dim), this.createSecondTutorialPage(dim)];
 
-        let closeImage = this.scene.add.image(dim-170, 250, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
+        let closeImage = this.scene.add.image(dim-110, 210, 'panelUI', 'cerrar_1.png').setInteractive().setScale(.72);
         closeImage.on('pointerdown', () => { closeImage.setTexture('panelUI', 'cerrar_2.png'); });
         closeImage.on('pointerup', () => {
             closeImage.setTexture('panelUI', 'cerrar_1.png');
             this.hideInstructions();
         });
 
-        this.leftArrow = this.scene.add.image(dim/2-75, dim-245, 'panelUI', 'boton_izquierda.png').setInteractive().setScale(.72);
-        this.leftArrow.on('pointerdown', () => this.leftArrowClicked());
+        this.leftArrow = this.scene.add.image(dim/2-120, dim-200, 'panelUI', 'izq_1.png').setInteractive().setScale(.72);
+        this.leftArrow.on('pointerdown', () => { this.leftArrow.setTexture('panelUI', 'izq_2.png') });
+        this.leftArrow.on('pointerup', () => { this.leftArrow.setTexture('panelUI', 'izq_1.png'); this.leftArrowClicked(); });
 
-        this.rightArrow = this.scene.add.image(dim/2+75, dim-245, 'panelUI', 'boton_derecha.png').setInteractive().setScale(.72);
-        this.rightArrow.on('pointerdown', () => this.rightArrowClicked());
+        this.rightArrow = this.scene.add.image(dim/2+95, dim-200, 'panelUI', 'der_1.png').setInteractive().setScale(.72);
+        this.rightArrow.on('pointerup', () => this.rightArrowClicked());
 
         this.instructionsContainer = this.scene.add.container(0, 0, 
             [closeImage, this.instructionTexts[0], this.instructionTexts[1], this.leftArrow, this.rightArrow]);
@@ -296,7 +279,7 @@ export class Panel
         for(let i = 1; i < this.credits[index].length; i++){
             let name = this.scene.add.text(x, y+20*i, this.credits[index][i], { 
                 font: '400 18px Bungee', color: '#FFFFFF', align: 'center' }).setOrigin(0.5);
-            name.setStroke('#2D1935', 9);
+            name.setStroke('#2C211F', 9);
             names.push(name);
         }
 
@@ -416,14 +399,19 @@ export class Panel
             this.instructionTexts[i].setVisible(false);
         }
         this.leftArrow.setVisible(this.instructionIndex != 0);
-        this.rightArrow.setTexture('panelUI', this.instructionIndex != this.instructionTexts.length - 1 ? 'boton_derecha.png' : 'boton_cerrar.png');
+        if (this.instructionIndex != this.instructionTexts.length - 1) {
+            this.rightArrow.setTexture('panelUI', 'der_1.png');
+            this.rightArrow.on('pointerdown', () => { this.rightArrow.setTexture('panelUI', 'der_2.png'); });
+        } else {
+            this.rightArrow.setTexture('panelUI', 'x_1.png');
+            this.rightArrow.on('pointerdown', () => { this.rightArrow.setTexture('panelUI', 'x_2.png'); });
+        }
+
         this.instructionTexts[this.instructionIndex].setVisible(true);
-        this.intructionsTitle.setText('Tutorial ' + (this.instructionIndex + 1) + '/2');
-        this.instructionsShadowTitle.setText('Tutorial ' + (this.instructionIndex + 1) + '/2');
     }
 
     showInstructions(callback){
-        this.panel.setTexture('panelInstructions');
+        this.panel.setTexture('panelInstructions').setPosition(this.gameWidth/2, this.gameWidth/2-20);
         this.instructionIndex = 0;
         this.setInstructionsText();
         if (callback != null) this.hideInstructions.callback = callback;
@@ -437,6 +425,7 @@ export class Panel
         //this.scene.audioManager.buttonClick.play();
         this.instructionsContainer.setVisible(false);
         this.panelContainer.setVisible(false);
+        this.panel.setTexture('panel').setPosition(this.gameWidth/2, this.gameWidth/2);
         if (this.hideInstructions.callback) this.hideInstructions.callback();
     }
 
