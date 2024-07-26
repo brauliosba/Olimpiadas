@@ -85,8 +85,8 @@ export class ObstacleManager
 
                 console.log("ESQUIVO ")
                 this.scene.uiScene.audioManager.playRandomStadioSound()
-                this.scene.score += 1000
-                this.scene.visualEffectsManager.CreateNumbersText(1000)
+                this.scene.score += 100
+                this.scene.visualEffectsManager.CreateNumbersText(100)
                 obstacle.colissionPlayer = true
             }
             if (obstacle.sprite.x <= -obstacle.sprite.displayWidth) {
