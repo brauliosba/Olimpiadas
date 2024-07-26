@@ -43,12 +43,7 @@ module.exports = {
          CANVAS_RENDERER: JSON.stringify(true),
          WEBGL_RENDERER: JSON.stringify(true),
       }), // config webpack to handle renderer swapping in our app
-      new CopyWebpackPlugin({
-         patterns: [
-            { from: './src/images', to: './src/images' },
-            { from: './src/audios', to: './src/audios' },
-         ],
-       }),
+     
       new HtmlWebpackPlugin({
          template: './index.html',
       }), // specify where your HTML template is located

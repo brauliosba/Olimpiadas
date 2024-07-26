@@ -1,7 +1,10 @@
+
 import {Panel} from '../components/panel.js';
 import {AnimationsManager} from '../managers/animationManager.js';
 import {AudioManager} from '../managers/audioManager.js';
 import * as Phaser from 'phaser';
+import { config } from '../../config.js';
+const { pchujoyPublicFilesPath } = config; 
 
 export class UIScene extends Phaser.Scene
 {
@@ -10,15 +13,15 @@ export class UIScene extends Phaser.Scene
     }
 
     preload(){
-        this.load.image('panel', `./src/images/ui/menus/fondo.png`);
-        this.load.image('panelCredits', `./src/images/ui/menus/fondo_creditos.png`);
-        this.load.image('panelInstructions', `./src/images/ui/menus/fondo_instrucciones.png`);
-        this.load.image('panelScore', `./src/images/ui/menus/fondo_fin.png`);
-        this.load.atlas('panelUI', `./src/images/ui/panel_ui.png`, `./src/images/ui/panel_ui.json`);
-        this.load.atlas('tutorialUI', `./src/images/ui/tutorial_ui.png`, `./src/images/ui/tutorial_ui.json`);
-        this.load.image('leapLogo', `./src/images/ui/leap_logo.png`);
-        //this.load.image('logoPChuJoy', `./src/images/logo_pchujoy.jpg`);
-        this.load.image('fade', `./src/images/black_alpha_40.png`);
+        this.load.image('panel', `${pchujoyPublicFilesPath}/images/ui/menus/fondo.png`);
+        this.load.image('panelCredits', `${pchujoyPublicFilesPath}/images/ui/menus/fondo_creditos.png`);
+        this.load.image('panelInstructions', `${pchujoyPublicFilesPath}/images/ui/menus/fondo_instrucciones.png`);
+        this.load.image('panelScore', `${pchujoyPublicFilesPath}/images/ui/menus/fondo_fin.png`);
+        this.load.atlas('panelUI', `${pchujoyPublicFilesPath}/images/ui/panel_ui.png`, `${pchujoyPublicFilesPath}/images/ui/panel_ui.json`);
+        this.load.atlas('tutorialUI', `${pchujoyPublicFilesPath}/images/ui/tutorial_ui.png`, `${pchujoyPublicFilesPath}/images/ui/tutorial_ui.json`);
+        this.load.image('leapLogo', `${pchujoyPublicFilesPath}/images/ui/leap_logo.png`);
+        //this.load.image('logoPChuJoy', `${pchujoyPublicFilesPath}/images/logo_pchujoy.jpg`);
+        this.load.image('fade', `${pchujoyPublicFilesPath}/images/black_alpha_40.png`);
 
         //sounds
         this.audioManager = new AudioManager(this);

@@ -5,6 +5,8 @@ import { BackgroundManager } from '../managers/backgroundManager.js';
 import { ObstacleManager } from '../managers/obstacleManager.js';
 import { PowerUpsManager } from '../managers/powerUpsManager.js';
 import { GameplayUI } from '../components/gameplayUI.js';
+import { config } from '../../config.js';
+const { pchujoyPublicFilesPath } = config; 
 
 export class MainScene extends Phaser.Scene{
     constructor()
@@ -15,29 +17,29 @@ export class MainScene extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('square', './src/images/square.png');
-        this.load.image('background', './src/images/background.png');
-        this.load.atlas('bg', './src/images/bg.png', './src/images/bg.json');
-        this.load.image('pista', './src/images/pantalla-de-juego-pista.png');
-        this.load.image('extra', './src/images/pista-extras.png');
-        this.load.image('tapScreen', './src/images/tapScreen.png');
+        this.load.image(`square`, `${pchujoyPublicFilesPath}/images/square.png`);
+        this.load.image(`background`, `${pchujoyPublicFilesPath}/images/background.png`);
+        this.load.atlas(`bg`, `${pchujoyPublicFilesPath}/images/bg.png`, `${pchujoyPublicFilesPath}/images/bg.json`);
+        this.load.image(`pista`, `${pchujoyPublicFilesPath}/images/pantalla-de-juego-pista.png`);
+        this.load.image(`extra`, `${pchujoyPublicFilesPath}/images/pista-extras.png`);
+        this.load.image(`tapScreen`, `${pchujoyPublicFilesPath}/images/tapScreen.png`);
         
-        this.load.atlas('clouds', './src/images/clouds.png', './src/images/clouds.json');
-        this.load.atlas('inputs', './src/images/inputs.png', './src/images/inputs.json');
-        this.load.atlas('UIgame', './src/images/UIgame.png', './src/images/UIgame.json');
-        this.load.atlas('people', './src/images/people.png', './src/images/people.json');
-        this.load.atlas('textos', './src/images/text.png', './src/images/text.json');
+        this.load.atlas(`clouds`, `${pchujoyPublicFilesPath}/images/clouds.png`, `${pchujoyPublicFilesPath}/images/clouds.json`);
+        this.load.atlas(`inputs`, `${pchujoyPublicFilesPath}/images/inputs.png`, `${pchujoyPublicFilesPath}/images/inputs.json`);
+        this.load.atlas(`UIgame`, `${pchujoyPublicFilesPath}/images/UIgame.png`, `${pchujoyPublicFilesPath}/images/UIgame.json`);
+        this.load.atlas(`people`, `${pchujoyPublicFilesPath}/images/people.png`, `${pchujoyPublicFilesPath}/images/people.json`);
+        this.load.atlas(`textos`, `${pchujoyPublicFilesPath}/images/text.png`, `${pchujoyPublicFilesPath}/images/text.json`);
         //powerups
-        this.load.image('corazon', './src/images/power-up-corazon.png');
-        this.load.image('zapatilla', './src/images/power-up-zapatilla.png');
+        this.load.image(`corazon`, `${pchujoyPublicFilesPath}/images/power-up-corazon.png`);
+        this.load.image(`zapatilla`, `${pchujoyPublicFilesPath}/images/power-up-zapatilla.png`);
         //player
-        this.load.spritesheet('playerIdle', './src/images/playerIdle.png', {frameWidth: 700, frameHeight: 500});
-        this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 700, frameHeight: 500});
-        this.load.spritesheet('playerStun', './src/images/playerStun.png', {frameWidth: 700, frameHeight: 500});
-        this.load.spritesheet('playerHit', './src/images/playerHit.png', {frameWidth: 700, frameHeight: 500});
-        this.load.image('playerJump', './src/images/playerJump.png');
-        this.load.image('playerReady', './src/images/playerReady.png');
-        this.load.image('playerSet', './src/images/playerSet.png');
+        this.load.spritesheet(`playerIdle`, `${pchujoyPublicFilesPath}/images/player-idle.png`, {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet(`playerRun`, `${pchujoyPublicFilesPath}/images/player.png`, {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet(`playerStun`, `${pchujoyPublicFilesPath}/images/player-stun.png`, {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet(`playerHit`, `${pchujoyPublicFilesPath}/images/player-hit.png`, {frameWidth: 700, frameHeight: 500});
+        this.load.image(`playerJump`, `${pchujoyPublicFilesPath}/images/player-jump.png`);
+        this.load.image(`playerReady`, `${pchujoyPublicFilesPath}/images/player-ready.png`);
+        this.load.image(`playerSet`, `${pchujoyPublicFilesPath}/images/player-set.png`);
     }
     create(){
         this.gameState = 'init';
@@ -208,7 +210,7 @@ export class MainScene extends Phaser.Scene{
                     this.uiScene.audioManager.playMusic();
                     this.isPaused = false;
                     this.gameState = 'play';
-                    this.game.config.metadata.onGameStart({state:`game_start`, name:`olimpiadas`});
+                    this.game.config.metadata.onGameStart({state:`game_start`, name:`tapatlon`});
                 }
                 break;
             case `play`:
@@ -380,6 +382,12 @@ export class MainScene extends Phaser.Scene{
         this.uiScene.audioManager.stopMusic();
         this.scene.restart([this.data, false]);
     }
+    encrypt(data) {
+        const encrypt = new JSEncrypt();
+        encrypt.setPublicKey(process.env.GAME_PUBLIC_KEY);
+
+        return encrypt.encrypt(data);
+    }
 
     finishGame() {
         this.isPaused = true
@@ -391,9 +399,16 @@ export class MainScene extends Phaser.Scene{
 
         if(newScore >= highScore) this.data.set(`highScore`, newScore);
 
+        const payload = {
+            score: newScore,
+            game_id: this.data.get(`gameId`),
+            season_id: this.data.get(`seasonId`)
+        }
+        let encryptedObject = this.encrypt(JSON.stringify(payload));
+
         setTimeout(() =>{
             this.panel.showScore(newScore, newScore, gameplayTime);
-            this.game.config.metadata.onGameEnd({state:`game_end`, name:`turbo_delivery`, score:newScore, time:gameplayTime}); 
+            this.game.config.metadata.onGameEnd(encryptedObject);
         }, 2000);
     }
 

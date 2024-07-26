@@ -26,17 +26,12 @@ module.exports = merge(base, { // Merging this config with base.js        // con
       ],
    },
    plugins: [
-      new CopyPlugin({ 
-         patterns: [
-            { from: './src/images', to: './src/images' },
-            { from: './src/audios', to: './src/audios' },
-         ],
-      }),
-      /*
+      
+      
       new JavaScriptObfuscator({
          compact: true,
          controlFlowFlattening: true,
       }),
-      */
+      
    ],
 });

@@ -1,4 +1,5 @@
-import { getGPUTier } from 'detect-gpu';
+import { config } from '../../config.js';
+const { pchujoyPublicFilesPath } = config; 
 
 export class BootScene extends Phaser.Scene
 {
@@ -19,21 +20,17 @@ export class BootScene extends Phaser.Scene
     }
 
     create(){
-        (async () => {
-            this.gpuTier = await getGPUTier();
-
-            console.log(this.gpuTier.fps)
-            if (this.gpuTier.fps == null) console.log('gpu no')
+        
             
             let gameWidth = this.game.config.width;
-
+            this.data.set('seasonId', this.game.config.metadata.seasonId);
+            this.data.set('gameId', this.game.config.metadata.gameId);
             this.data.set(`highScore`, this.game.config.metadata.highScore);
             this.data.set('sponsor', this.game.config.metadata.sponsor);
             this.data.set(`musicVolume`, .2);
             this.data.set(`sfxVolume`, .2);
             let phaserDiv = document.getElementById(`phaser-div`);
             this.data.set(`parentSize`, phaserDiv.style.width);
-            this.data.set(`fps`, this.gpuTier.fps);
             this.data.set('IS_TOUCH', false);
 
             window.addEventListener('touchstart', () => {this.data.set('IS_TOUCH', true); });
@@ -94,7 +91,6 @@ export class BootScene extends Phaser.Scene
             });
 
             this.uiScene = this.scene.get(`UIScene`);
-        })();
     }
 
     update(){

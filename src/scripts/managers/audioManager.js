@@ -1,4 +1,7 @@
 import * as Phaser from 'phaser';
+import { config } from '../../config.js';
+const { pchujoyPublicFilesPath } = config; 
+
 export class AudioManager
 {
     constructor(scene){
@@ -8,47 +11,47 @@ export class AudioManager
     load(){
         //main Themes
         //this.scene.load.audio(`mainTheme`, [ `./src/audios/menu_loop.ogg`, `./src/audios/menu_loop.m4a` ]);
-        //this.scene.load.audio(`gameplayTheme`, [ `./src/audios/gameplay_loop.ogg`, `./src/audios/gameplay_loop.m4a` ]);
-        this.scene.load.audio(`mainTheme`, [ `./src/audios/m4a/mus_Carreras_Title_loop.m4a`, `./src/audios/ogg/mus_Carreras_Title_loop.ogg` ]);
-        this.scene.load.audio(`gameplayTheme`, [ `./src/audios/m4a/mus_Carreras_Gameplay_loop.m4a`, `./src/audios/ogg/mus_Carreras_Gameplay_loop.ogg` ]);
+        //this.scene.load.audio(`gameplayTheme`, [ `${pchujoyPublicFilesPath}/audios/gameplay_loop.ogg`, `${pchujoyPublicFilesPath}/audios/gameplay_loop.m4a` ]);
+        this.scene.load.audio(`mainTheme`, [ `${pchujoyPublicFilesPath}/audios/m4a/maintheme.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/maintheme.ogg` ]);
+        this.scene.load.audio(`gameplayTheme`, [ `${pchujoyPublicFilesPath}/audios/m4a/gameplay.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/gameplay.ogg` ]);
         //sfx
-        this.scene.load.audio(`aterrizaje`, [ `./src/audios/m4a/sfx_aterrizaje.m4a`, `./src/audios/ogg/sfx_aterrizaje.ogg` ]);
-        this.scene.load.audio(`golpe`, [ `./src/audios/m4a/sfx_golpe.m4a`, `./src/audios/ogg/sfx_golpe.ogg` ]);
-        this.scene.load.audio(`salto`, [ `./src/audios/m4a/sfx_salto.m4a`, `./src/audios/ogg/sfx_salto.ogg` ]);
+        this.scene.load.audio(`aterrizaje`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_aterrizaje.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_aterrizaje.ogg` ]);
+        this.scene.load.audio(`golpe`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_golpe.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_golpe.ogg` ]);
+        this.scene.load.audio(`salto`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_salto.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_salto.ogg` ]);
         
 
-        this.scene.load.audio(`trote_1`, [ `./src/audios/m4a/sfx_trote_1.m4a`, `./src/audios/ogg/sfx_trote_1.ogg` ]);
-        this.scene.load.audio(`trote_2`, [ `./src/audios/m4a/sfx_trote_2.m4a`, `./src/audios/ogg/sfx_trote_2.ogg` ]);
-        this.scene.load.audio(`trote_3`, [ `./src/audios/m4a/sfx_trote_3.m4a`, `./src/audios/ogg/sfx_trote_3.ogg` ]);
-        this.scene.load.audio(`trote_4`, [ `./src/audios/m4a/sfx_trote_4.m4a`, `./src/audios/ogg/sfx_trote_4.ogg` ]);
-        this.scene.load.audio(`trote_5`, [ `./src/audios/m4a/sfx_trote_5.m4a`, `./src/audios/ogg/sfx_trote_5.ogg` ]);
-        this.scene.load.audio(`trote_6`, [ `./src/audios/m4a/sfx_trote_6.m4a`, `./src/audios/ogg/sfx_trote_6.ogg` ]);
-        this.scene.load.audio(`trote_7`, [ `./src/audios/m4a/sfx_trote_7.m4a`, `./src/audios/ogg/sfx_trote_7.ogg` ]);
-        this.scene.load.audio(`trote_8`, [ `./src/audios/m4a/sfx_trote_8.m4a`, `./src/audios/ogg/sfx_trote_8.ogg` ]);
+        this.scene.load.audio(`trote_1`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_trote_1.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_trote_1.ogg` ]);
+        this.scene.load.audio(`trote_2`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_trote_2.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_trote_2.ogg` ]);
+        this.scene.load.audio(`trote_3`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_trote_3.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_trote_3.ogg` ]);
+        this.scene.load.audio(`trote_4`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_trote_4.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_trote_4.ogg` ]);
+        this.scene.load.audio(`trote_5`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_trote_5.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_trote_5.ogg` ]);
+        this.scene.load.audio(`trote_6`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_trote_6.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_trote_6.ogg` ]);
+        this.scene.load.audio(`trote_7`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_trote_7.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_trote_7.ogg` ]);
+        this.scene.load.audio(`trote_8`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_trote_8.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_trote_8.ogg` ]);
 
-        this.scene.load.audio(`ui_click`, [ `./src/audios/m4a/sfx_ui_button_click.m4a`, `./src/audios/ogg/sfx_ui_button_click.ogg` ]);
-        this.scene.load.audio(`page_click`, [ `./src/audios/m4a/sfx_ui_button_page.m4a`, `./src/audios/ogg/sfx_ui_button_page.ogg` ]);
+        this.scene.load.audio(`ui_click`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_ui_button_click.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_ui_button_click.ogg` ]);
+        this.scene.load.audio(`page_click`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_ui_button_page.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_ui_button_page.ogg` ]);
 
-        this.scene.load.audio(`estadio_u`, [ `./src/audios/m4a/sfx_estadio_uhh.m4a`, `./src/audios/ogg/sfx_estadio_uhh.ogg` ]);
-        this.scene.load.audio(`corazon`, [ `./src/audios/m4a/sfx_powerup_corazon.m4a`, `./src/audios/ogg/sfx_powerup_corazon.ogg` ]);
-        this.scene.load.audio(`zapatilla`, [ `./src/audios/m4a/sfx_powerup_zapatilla.m4a`, `./src/audios/ogg/sfx_powerup_zapatilla.ogg` ]);
+        this.scene.load.audio(`estadio_u`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_estadio_uhh.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_estadio_uhh.ogg` ]);
+        this.scene.load.audio(`corazon`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_powerup_corazon.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_powerup_corazon.ogg` ]);
+        this.scene.load.audio(`zapatilla`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_powerup_zapatilla.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_powerup_zapatilla.ogg` ]);
 
-        this.scene.load.audio(`cd_1`, [ `./src/audios/m4a/sfx_countdown_1.m4a`, `./src/audios/ogg/sfx_countdown_1.ogg` ]);
-        this.scene.load.audio(`cd_2`, [ `./src/audios/m4a/sfx_countdown_2.m4a`, `./src/audios/ogg/sfx_countdown_2.ogg` ]);
-        this.scene.load.audio(`cd_3`, [ `./src/audios/m4a/sfx_countdown_3.m4a`, `./src/audios/ogg/sfx_countdown_3.ogg` ]);
+        this.scene.load.audio(`cd_1`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_countdown_1.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_countdown_1.ogg` ]);
+        this.scene.load.audio(`cd_2`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_countdown_2.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_countdown_2.ogg` ]);
+        this.scene.load.audio(`cd_3`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_countdown_3.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_countdown_3.ogg` ]);
 
-        this.scene.load.audio(`tambaleo`, [ `./src/audios/m4a/sfx_tambaleo.m4a`, `./src/audios/ogg/sfx_tambaleo.ogg` ]);
+        this.scene.load.audio(`tambaleo`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_tambaleo.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_tambaleo.ogg` ]);
 
-        this.scene.load.audio(`ui_play`, [ `./src/audios/m4a/sfx_ui_button_play.m4a`, `./src/audios/ogg/sfx_ui_button_play.ogg` ]);
-        this.scene.load.audio(`ui_reload`, [ `./src/audios/m4a/sfx_ui_button_reiniciar.m4a`, `./src/audios/ogg/sfx_ui_button_reiniciar.ogg` ]);
-        this.scene.load.audio(`ui_exit`, [ `./src/audios/m4a/sfx_ui_button_salir.m4a`, `./src/audios/ogg/sfx_ui_button_salir.ogg` ]);
+        this.scene.load.audio(`ui_play`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_ui_button_play.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_ui_button_play.ogg` ]);
+        this.scene.load.audio(`ui_reload`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_ui_button_reiniciar.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_ui_button_reiniciar.ogg` ]);
+        this.scene.load.audio(`ui_exit`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_ui_button_salir.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_ui_button_salir.ogg` ]);
 
-        this.scene.load.audio(`milestone`, [ `./src/audios/m4a/sfx_milestone.m4a`, `./src/audios/ogg/sfx_milestone.ogg` ]);
-        this.scene.load.audio(`gunshot`, [ `./src/audios/m4a/sfx_countdown_gunshot.m4a`, `./src/audios/ogg/sfx_countdown_gunshot.ogg` ]);
+        this.scene.load.audio(`milestone`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_milestone.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_milestone.ogg` ]);
+        this.scene.load.audio(`gunshot`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_countdown_gunshot.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_countdown_gunshot.ogg` ]);
 
-        this.scene.load.audio(`estadio_1`, [ `./src/audios/m4a/sfx_estadio_1.m4a`, `./src/audios/ogg/sfx_estadio_1.ogg` ]);
-        this.scene.load.audio(`estadio_2`, [ `./src/audios/m4a/sfx_estadio_2.m4a`, `./src/audios/ogg/sfx_estadio_2.ogg` ]);
-        this.scene.load.audio(`estadio_3`, [ `./src/audios/m4a/sfx_estadio_3.m4a`, `./src/audios/ogg/sfx_estadio_3.ogg` ]);
+        this.scene.load.audio(`estadio_1`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_estadio_1.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_estadio_1.ogg` ]);
+        this.scene.load.audio(`estadio_2`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_estadio_2.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_estadio_2.ogg` ]);
+        this.scene.load.audio(`estadio_3`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_estadio_3.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_estadio_3.ogg` ]);
 
 
 
