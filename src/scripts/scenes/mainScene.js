@@ -25,6 +25,7 @@ export class MainScene extends Phaser.Scene{
         this.load.atlas('clouds', './src/images/clouds.png', './src/images/clouds.json');
         this.load.atlas('inputs', './src/images/inputs.png', './src/images/inputs.json');
         this.load.atlas('UIgame', './src/images/UIgame.png', './src/images/UIgame.json');
+        this.load.atlas('people', './src/images/people.png', './src/images/people.json');
         //powerups
         this.load.image('corazon', './src/images/power-up-corazon.png');
         this.load.image('zapatilla', './src/images/power-up-zapatilla.png');
@@ -32,6 +33,7 @@ export class MainScene extends Phaser.Scene{
         this.load.spritesheet('playerIdle', './src/images/playerIdle.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerStun', './src/images/playerStun.png', {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerHit', './src/images/playerHit.png', {frameWidth: 700, frameHeight: 500});
         this.load.image('playerJump', './src/images/playerJump.png');
         this.load.image('playerReady', './src/images/playerReady.png');
         this.load.image('playerSet', './src/images/playerSet.png');
@@ -251,7 +253,7 @@ export class MainScene extends Phaser.Scene{
 
     mapSpeedToRange(speed) {
         const minSpeed = 0;
-        const maxSpeed = 864;
+        const maxSpeed = 1030;
         const minRange = 0.1;
         const maxRange = 0.6;
         
@@ -297,10 +299,11 @@ export class MainScene extends Phaser.Scene{
     startLoseTimer(){
         // Si ya estamos rastreando la colisión, no hacer nada
         if (this.loseTimer !== null) return;
-    
+        this.player.playerRunTexture = 'playerStun'
+        this.player.playerRunAnimation = 'stun'
         // Si no estamos rastreando la colisión, iniciar el temporizador
         this.loseTimer = this.time.addEvent({
-            delay: 3000, // Duración del temporizador en milisegundos (5 segundos)
+            delay: 1500, // Duración del temporizador en milisegundos (5 segundos)
             callback: () => {
                 this.gameState = 'game_over';
             },
@@ -309,6 +312,8 @@ export class MainScene extends Phaser.Scene{
     }
 
     stopLoseTimer() {
+        this.player.playerRunTexture = 'playerRun'
+        this.player.playerRunAnimation = 'run'
         this.loseTimer?.remove();
         this.loseTimer = null;
     }

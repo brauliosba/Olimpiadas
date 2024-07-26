@@ -12,7 +12,7 @@ export class BackgroundManager
     create() {
         this.scene.add.image(0,0,'background').setOrigin(0).setScale(.72).setDepth(0);
         this.scene.add.image(0,170,'bg','gradas.png').setOrigin(0).setScale(.72).setDepth(0.1);
-        this.seats = this.scene.add.tileSprite(0,235,0,0,'bg','asientos.png').setOrigin(0).setScale(.72).setDepth(0.2);
+        //this.seats = this.scene.add.tileSprite(0,235,0,0,'bg','asientos.png').setOrigin(0).setScale(.72).setDepth(0.2);
         
         this.scene.add.image(0,this.gameWidth-570,'bg','muro.png').setOrigin(0).setScale(.72).setDepth(0.3);
         this.logo = this.scene.add.tileSprite(0,this.gameWidth-515,0,0,'bg','logo.png').setOrigin(0).setScale(.72).setDepth(0.4);
@@ -30,16 +30,42 @@ export class BackgroundManager
         let cloud4 = this.scene.add.image(1500, -10, 'clouds', '2.png').setOrigin(.5).setScale(.72);
         this.clouds.push(cloud4);
 
+
+        // Create an array to hold the crowd images
+        this.crowdImages = [];
+
+        // Initial positions for the images
+        let positions = [0, 1100, 2200, 3300]; // Adjust based on your image width and desired spacing
+
+        // Create image sprites and add them to the array
+        for (let i = 0; i < 4; i++) {
+            let image = this.scene.add.sprite(positions[i], 335, 'people', `tapatlon_publico_0${i+1}`+'.png').setScale(.72).setDepth(0.2).setOrigin(0,.5);
+            this.crowdImages.push(image);
+        }
+
+        
+
     }
 
     update(dt) {
         
         this.extra.tilePositionX += this.horizontalSpeed * dt * 1.9 ;
-        this.seats.tilePositionX += this.horizontalSpeed * dt* 1.9 *.8  ;
+        //this.seats.tilePositionX += this.horizontalSpeed * dt* 1.9 *.8  ;
         this.logo.tilePositionX += this.horizontalSpeed * dt* 1.9 ;
+        this.crowdImages.forEach(image => {
+            image.x -=  this.horizontalSpeed * dt*.8 ;
 
+            // If the image moves off-screen to the left, reposition it to the right
+            if (image.x < -image.width) {
+                let maxX = Math.max(...this.crowdImages.map(img => img.x));
+                // Reposiciona la imagen fuera de la pantalla a la derecha de la más a la derecha
+                image.x = maxX + image.width;
+            }
+        });
         this.cloudsUpdate(dt);
     }
+
+   
 
     cloudsUpdate(dt){
         for(let i = 0; i < this.clouds.length; i++){

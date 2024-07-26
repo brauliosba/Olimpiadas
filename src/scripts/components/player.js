@@ -1,6 +1,8 @@
 export class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, 'playerRun');
+      this.playerRunAnimation = 'run'
+      this.playerRunTexture = 'playerRun'
       this.isStun = false
       this.setDepth(3)
       scene.add.existing(this);
@@ -30,12 +32,19 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 key: 'stun',
                 frames: this.scene.anims.generateFrameNumbers('playerStun', { start: 0, end: 3, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
+                repeat: -1 
+            });
+            scene.anims.create({
+                key: 'hit',
+                frames: this.scene.anims.generateFrameNumbers('playerHit', { start: 0, end: 2, first: 0 }), // Frames del 0 al 9
+                frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: 1 
             });
 
+
         }
         this.on('animationcomplete', function (animation, frame) {
-            if (animation.key === 'stun') {
+            if (animation.key === 'hit') {
                 this.isStun = false
             }
         });
@@ -58,9 +67,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         if(!this.isStun){
             if(this.body.touching.down){
                 this.isGrounded = true
-                if (this.texture.key !== 'playerRun') {
-                    this.setTexture('playerRun');
-                    this.play('run');
+                if (this.texture.key !== this.playerRunTexture) {
+                    this.setTexture(this.playerRunTexture);
+                    this.play(this.playerRunAnimation);
                     this.scene.uiScene.audioManager.aterrizaje.play()
                   }
             }else{
@@ -75,8 +84,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
     setStun(){
         this.isStun= true
-        this.setTexture('playerStun');
-        this.play('stun');
+        this.setTexture('playerHit');
+        this.play('hit');
     }
 
     fixPlayer(){

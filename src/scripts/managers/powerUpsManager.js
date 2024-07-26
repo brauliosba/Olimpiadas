@@ -18,7 +18,7 @@ export class PowerUpsManager
     }
 
     create(){
-        let sprite = this.scene.physics.add.sprite(0, 0, 'square').setOrigin(0).setScale( .5).setVisible(false).setDepth(5);
+        let sprite = this.scene.physics.add.sprite(0, 0, 'corazon').setOrigin(0).setScale( .5).setVisible(false).setDepth(5).setSize(100,150).setOffset(120, 100);
         sprite.body.allowGravity = false;
         this.powerUp = new PowerUp(sprite);
 
@@ -49,8 +49,8 @@ export class PowerUpsManager
     activePowerUp() {
         this.powerUp.sprite.enableBody();
         let isObstacle = this.scene.obstacleManager.checkActiveObstacles();
-        let posY = isObstacle ? this.gameWidth-340 : this.gameWidth-220;
-        this.powerUp.sprite.setPosition(this.gameWidth, posY).setVisible(true);
+        let posX = isObstacle ? this.gameWidth+40 : this.gameWidth;
+        this.powerUp.sprite.setPosition(posX, this.gameWidth-390).setVisible(true);
         this.powerUp.status = 'active';
 
         let rand = Phaser.Math.Between(0, 1);
