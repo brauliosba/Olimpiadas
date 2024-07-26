@@ -26,6 +26,7 @@ export class MainScene extends Phaser.Scene{
         this.load.atlas('inputs', './src/images/inputs.png', './src/images/inputs.json');
         this.load.atlas('UIgame', './src/images/UIgame.png', './src/images/UIgame.json');
         this.load.atlas('people', './src/images/people.png', './src/images/people.json');
+        this.load.atlas('textos', './src/images/text.png', './src/images/text.json');
         //powerups
         this.load.image('corazon', './src/images/power-up-corazon.png');
         this.load.image('zapatilla', './src/images/power-up-zapatilla.png');
@@ -47,10 +48,12 @@ export class MainScene extends Phaser.Scene{
         this.startRunning = true;
         this.clickSpeed = this.data.get('clickSpeed');
         this.lostSpeed = this.data.get('lostSpeed');
+        this.lostSpeedAir = this.data.get('lostSpeedAir');
         this.score = 0;
         this.scoreDistance = 0;
         this.scoreThreshold = this.toPixels(this.data.get('scoreThreshold'));
         this.lifes = 2;
+        this.milestone = 10000;
      
         //Time
         this.accumulatedTime = 0;
@@ -67,6 +70,14 @@ export class MainScene extends Phaser.Scene{
         this.panel.createOptionsPanel(this.gameWidth);
         this.panel.createPausePanel(this.gameWidth);
         this.panel.createScorePanel(this.gameWidth);
+
+        this.pauseButton = this.add.image(1010, 73, 'UIgame', 'Pausa_Default.png').setInteractive().setDepth(6.1);
+        //this.pauseButton.setScale(.8);
+        this.pauseButton.on('pointerdown', () => 
+            {
+                this.pauseGame();
+                //this.uiScene.audioManager.playButtonClick.play();
+            });
 
         //Animations
         this.anims.resumeAll();
@@ -85,7 +96,7 @@ export class MainScene extends Phaser.Scene{
         //let keyPause3 = this.input.keyboard.addKey(`R`);
         //keyPause3.on(`down`, () => { this.restartGame();})
 
-        let startText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'Presiona para empezar', { fontFamily: 'Montserrat', fontSize : 80, color: '#000000' }).setOrigin(.5).setDepth(8);
+        let startText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'Presiona para empezar', { fontFamily: 'Bungee', fontSize : 60, color: '#F5B05F' }).setOrigin(.5).setDepth(8).setStroke('#503530', 10);
         this.startButton = this.add.image(0,0,'square').setDisplaySize(this.gameWidth, this.gameHeight).setOrigin(0).setAlpha(.01).setDepth(6.1);
         this.startButton.setInteractive().on('pointerup', () => {
             startText.setVisible(false);
@@ -231,13 +242,26 @@ export class MainScene extends Phaser.Scene{
          this.accumulatedTime += deltaTime / 1000; // Convierte delta a segundos
         
          // Comprobar si ha pasado suficiente tiempo para un paso
-         if (this.accumulatedTime >= this.timePerStep && this.player.isGrounded) {
-             // Reproducir un sonido "trote" aleatorio
-             this.uiScene.audioManager.playRandomTroteSound();
-             
-             // Restablecer el tiempo acumulado
-             this.accumulatedTime -= this.timePerStep;
+         if(this.player.playerRunAnimation == 'run'){
+            if (this.accumulatedTime >= this.timePerStep && this.player.isGrounded) {
+                // Reproducir un sonido "trote" aleatorio
+                this.uiScene.audioManager.playRandomTroteSound();
+                
+                // Restablecer el tiempo acumulado
+                this.accumulatedTime -= this.timePerStep;
+            }
          }
+         else{
+            if (this.accumulatedTime >=.3 && this.player.isGrounded) {
+                // Reproducir un sonido "trote" aleatorio
+                this.uiScene.audioManager.tambaleo.play()
+                
+                // Restablecer el tiempo acumulado
+                this.accumulatedTime -=.3
+            }
+            
+         }
+         
     }
 
     calculateIncrement(value, baseSpeed) {
@@ -276,7 +300,8 @@ export class MainScene extends Phaser.Scene{
 
     UpdateBar(dt){
         console.log("DELTA TIME " + dt)
-        this.gameplayUI.progressBar.value -= (this.lostSpeed * (dt/1000)); 
+        if(this.player.isGrounded)this.gameplayUI.progressBar.value -= (this.lostSpeed * (dt/1000)); 
+        else this.gameplayUI.progressBar.value -= (this.lostSpeedAir * (dt/1000)); 
 
         if (this.gameplayUI.progressBar.value < 0.001) {
             this.gameplayUI.progressBar.value = 0.001;
@@ -290,6 +315,12 @@ export class MainScene extends Phaser.Scene{
             this.scoreDistance = 0;
             this.score += Math.floor(this.gameplayUI.progressBar.value * 100);
             this.gameplayUI.updateScore(this.score);
+            if(this.score > this.milestone){
+                this.visualEffectsManager.CreateMilestone(this.milestone.toString())
+                this.milestone += 10000
+                this.uiScene.audioManager.milestone.play()
+
+            }
         }
     }
 
@@ -345,6 +376,7 @@ export class MainScene extends Phaser.Scene{
     }
     
     restartGame(){
+        this.uiScene.audioManager.ui_reload.play()
         this.uiScene.audioManager.stopMusic();
         this.scene.restart([this.data, false]);
     }
@@ -375,17 +407,25 @@ export class MainScene extends Phaser.Scene{
     
     startAnimation() {
         this.tutorialActive = true;
-        let countText = this.add.text(this.gameWidth/2, this.gameHeight/2, '3', { fontFamily: 'Montserrat', fontSize : 400, color: '#000000' });
+        let countText = this.add.text(this.gameWidth/2, this.gameHeight/2, '3', { fontFamily: 'Bungee', fontSize : 400, color: '#F5B05F' }).setStroke('#503530', 20);
         countText.setOrigin(.5).setDepth(10);
 
         this.regressiveCount(countText);
     }
 
     regressiveCount(countText) {
+        this.uiScene.audioManager.cd_3.play()
         setTimeout(() => {
             this.startCounter -= 1;
-            if(this.startCounter == 2)this.player.setImage('playerSet')
-            if(this.startCounter == 1)this.player.setImage('playerReady')
+            if(this.startCounter == 3)
+            if(this.startCounter == 2){
+                this.player.setImage('playerSet')
+                this.uiScene.audioManager.cd_2.play()
+            }
+            if(this.startCounter == 1){
+                this.player.setImage('playerReady')
+                this.uiScene.audioManager.cd_1.play()
+            }
             countText.setText(this.startCounter);
             if (this.startCounter > 0){
                 
@@ -393,6 +433,7 @@ export class MainScene extends Phaser.Scene{
                 
             }
             else {
+                this.uiScene.audioManager.gunshot.play()
                 countText.setVisible(false);
                 this.tutorialActive = false;
                 this.gameStarting()
@@ -405,7 +446,8 @@ export class MainScene extends Phaser.Scene{
     }
 
     backMenu(){
-        //this.uiScene.audioManager.stopMusic();
+        this.uiScene.audioManager.ui_exit.play()
+        this.uiScene.audioManager.stopMusic();
         this.scene.start(`MenuScene`, this.data);
     }
 }   

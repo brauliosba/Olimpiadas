@@ -2,6 +2,7 @@ class Obstacle {
     constructor(sprite){
         this.sprite = sprite;
         this.status = 'free';
+        this.colissionPlayer = false;
     }
 }
 
@@ -80,9 +81,18 @@ export class ObstacleManager
         for (let i = 0; i < this.activeObstacles.length; i++) {
             let obstacle = this.activeObstacles[i];
             obstacle.sprite.x -= this.horizontalSpeed * dt;
+            if (obstacle.sprite.x <=this.scene.player.x-40 && !obstacle.colissionPlayer){
 
+                console.log("ESQUIVO ")
+                this.scene.uiScene.audioManager.playRandomStadioSound()
+                this.scene.score += 1000
+                this.scene.visualEffectsManager.CreateNumbersText(1000)
+                obstacle.colissionPlayer = true
+            }
             if (obstacle.sprite.x <= -obstacle.sprite.displayWidth) {
+                
                 obstacle.sprite.setVisible(false);
+                obstacle.colissionPlayer = false
                 obstacle.status = 'free';
                 this.activeObstacles.shift();
             }
@@ -107,9 +117,11 @@ export class ObstacleManager
     }
 
     collisionHandler(playerBody, obstacleBody) {
+        this.scene.uiScene.audioManager.estadio_u.play()
         this.scene.uiScene.audioManager.golpe.play()
         this.scene.player.setStun()
         obstacleBody.disableBody(true, false);
+        this.obstacles[0].colissionPlayer = true;
         this.scene.lifes -= 1;
         this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(false);
         if (this.scene.lifes == 0) this.scene.gameState = 'game_over';

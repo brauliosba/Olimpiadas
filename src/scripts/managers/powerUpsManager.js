@@ -81,12 +81,16 @@ export class PowerUpsManager
 
         switch (powerUp.id) {
             case 0:
+                this.scene.uiScene.audioManager.corazon.play()
+                this.scene.visualEffectsManager.CreateMessage('¡Vida Extra!')
                 if (this.scene.lifes < 2) {
                     this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(true);
                     this.scene.lifes += 1;
                 }
                 break;
             case 1:
+                this.scene.uiScene.audioManager.zapatilla.play()
+                this.scene.visualEffectsManager.CreateMessage('¡Turbo Activado!')
                 this.scene.gameplayUI.progressBar.value = 1;
                 break;
             default:

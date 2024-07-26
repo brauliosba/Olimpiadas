@@ -28,6 +28,30 @@ export class AudioManager
 
         this.scene.load.audio(`ui_click`, [ `./src/audios/m4a/sfx_ui_button_click.m4a`, `./src/audios/ogg/sfx_ui_button_click.ogg` ]);
         this.scene.load.audio(`page_click`, [ `./src/audios/m4a/sfx_ui_button_page.m4a`, `./src/audios/ogg/sfx_ui_button_page.ogg` ]);
+
+        this.scene.load.audio(`estadio_u`, [ `./src/audios/m4a/sfx_estadio_uhh.m4a`, `./src/audios/ogg/sfx_estadio_uhh.ogg` ]);
+        this.scene.load.audio(`corazon`, [ `./src/audios/m4a/sfx_powerup_corazon.m4a`, `./src/audios/ogg/sfx_powerup_corazon.ogg` ]);
+        this.scene.load.audio(`zapatilla`, [ `./src/audios/m4a/sfx_powerup_zapatilla.m4a`, `./src/audios/ogg/sfx_powerup_zapatilla.ogg` ]);
+
+        this.scene.load.audio(`cd_1`, [ `./src/audios/m4a/sfx_countdown_1.m4a`, `./src/audios/ogg/sfx_countdown_1.ogg` ]);
+        this.scene.load.audio(`cd_2`, [ `./src/audios/m4a/sfx_countdown_2.m4a`, `./src/audios/ogg/sfx_countdown_2.ogg` ]);
+        this.scene.load.audio(`cd_3`, [ `./src/audios/m4a/sfx_countdown_3.m4a`, `./src/audios/ogg/sfx_countdown_3.ogg` ]);
+
+        this.scene.load.audio(`tambaleo`, [ `./src/audios/m4a/sfx_tambaleo.m4a`, `./src/audios/ogg/sfx_tambaleo.ogg` ]);
+
+        this.scene.load.audio(`ui_play`, [ `./src/audios/m4a/sfx_ui_button_play.m4a`, `./src/audios/ogg/sfx_ui_button_play.ogg` ]);
+        this.scene.load.audio(`ui_reload`, [ `./src/audios/m4a/sfx_ui_button_reiniciar.m4a`, `./src/audios/ogg/sfx_ui_button_reiniciar.ogg` ]);
+        this.scene.load.audio(`ui_exit`, [ `./src/audios/m4a/sfx_ui_button_salir.m4a`, `./src/audios/ogg/sfx_ui_button_salir.ogg` ]);
+
+        this.scene.load.audio(`milestone`, [ `./src/audios/m4a/sfx_milestone.m4a`, `./src/audios/ogg/sfx_milestone.ogg` ]);
+        this.scene.load.audio(`gunshot`, [ `./src/audios/m4a/sfx_countdown_gunshot.m4a`, `./src/audios/ogg/sfx_countdown_gunshot.ogg` ]);
+
+        this.scene.load.audio(`estadio_1`, [ `./src/audios/m4a/sfx_estadio_1.m4a`, `./src/audios/ogg/sfx_estadio_1.ogg` ]);
+        this.scene.load.audio(`estadio_2`, [ `./src/audios/m4a/sfx_estadio_2.m4a`, `./src/audios/ogg/sfx_estadio_2.ogg` ]);
+        this.scene.load.audio(`estadio_3`, [ `./src/audios/m4a/sfx_estadio_3.m4a`, `./src/audios/ogg/sfx_estadio_3.ogg` ]);
+
+
+
         
     }
 
@@ -36,10 +60,11 @@ export class AudioManager
 
         //trotes
         this.trotesSfx = [];
-
+        this.estadioSfx = [];
         //sfx
         this.sfx = [];
         this.driverSfx = [];
+
         this.addSFX();
         
         
@@ -145,6 +170,54 @@ export class AudioManager
         this.ui_click = this.scene.sound.add('ui_click', { volume: 0.5, loop: false });
         this.sfx.push(this.ui_click);
 
+        this.estadio_u = this.scene.sound.add('estadio_u', { volume: 0.5, loop: false });
+        this.sfx.push(this.estadio_u);
+
+        this.corazon = this.scene.sound.add('corazon', { volume: 0.5, loop: false });
+        this.sfx.push(this.corazon);
+
+        this.zapatilla = this.scene.sound.add('zapatilla', { volume: 0.5, loop: false });
+        this.sfx.push(this.zapatilla);
+
+        this.cd_1 = this.scene.sound.add('cd_1', { volume: 0.5, loop: false });
+        this.sfx.push(this.cd_1);
+
+        this.cd_2 = this.scene.sound.add('cd_2', { volume: 0.5, loop: false });
+        this.sfx.push(this.cd_2);
+
+        this.cd_3 = this.scene.sound.add('cd_3', { volume: 0.5, loop: false });
+        this.sfx.push(this.cd_3);
+
+        this.tambaleo = this.scene.sound.add('tambaleo', { volume: 0.5, loop: false });
+        this.sfx.push(this.tambaleo);
+
+        this.ui_play = this.scene.sound.add('ui_play', { volume: 0.5, loop: false });
+        this.sfx.push(this.ui_play);
+
+        this.ui_reload = this.scene.sound.add('ui_reload', { volume: 0.5, loop: false });
+        this.sfx.push(this.ui_reload);
+
+        this.ui_exit = this.scene.sound.add('ui_exit', { volume: 0.5, loop: false });
+        this.sfx.push(this.ui_exit);
+
+        this.milestone = this.scene.sound.add('milestone', { volume: 0.5, loop: false });
+        this.sfx.push(this.milestone);
+
+        this.gunshot = this.scene.sound.add('gunshot', { volume: 0.5, loop: false });
+        this.sfx.push(this.gunshot);
+
+        this.estadio_1 = this.scene.sound.add('estadio_1', { volume: 0.5, loop: false });
+        this.sfx.push(this.estadio_1);
+        this.estadioSfx.push(this.estadio_1)
+
+        this.estadio_2 = this.scene.sound.add('estadio_2', { volume: 0.5, loop: false });
+        this.sfx.push(this.estadio_2);
+        this.estadioSfx.push(this.estadio_2)
+
+        this.estadio_3 = this.scene.sound.add('estadio_3', { volume: 0.5, loop: false });
+        this.sfx.push(this.estadio_3);
+        this.estadioSfx.push(this.estadio_3)
+
     }
 
     getCurrentTheme(){
@@ -214,7 +287,14 @@ export class AudioManager
     playRandomTroteSound() {
         let randomIndex = Phaser.Math.Between(0, this.trotesSfx.length - 1);
         let randomTroteSound = this.trotesSfx[randomIndex];
+        
         randomTroteSound.play();
+    }
+    playRandomStadioSound(){
+        let randomIndex = Phaser.Math.Between(0, this.estadioSfx.length - 1);
+        let randomStadioSound = this.estadioSfx[randomIndex];
+        
+        randomStadioSound.play();
     }
 
     pauseMusic(){

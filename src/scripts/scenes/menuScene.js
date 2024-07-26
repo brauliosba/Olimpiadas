@@ -8,6 +8,7 @@ export class MenuScene extends Phaser.Scene
     preload(){
         //this.load.image(`square`, `src/images/square.png`);
         this.load.image(`menuBG`, `src/images/inicio-ilustracion.png`);
+        this.load.image(`logoPchujoy`, `src/images/inicio-logo-pchujoy.png`);
         this.load.atlas(`menuUI`, `src/images/ui/menu_ui.png`, `src/images/ui/menu_ui.json`);
         this.load.plugin('rextexteditplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js', true);
     }
@@ -34,6 +35,7 @@ export class MenuScene extends Phaser.Scene
         this.data.set('cd5', 12);
         this.data.set('gravity', 3000);
         this.data.set('tamaño_fase', 40);
+        this.data.set('lostSpeedAir', 100);
         
         //UI
         this.uiScene = this.scene.get('UIScene');
@@ -67,6 +69,7 @@ export class MenuScene extends Phaser.Scene
         this.isPaused = false;
         
         let bg = this.add.image(this.gameWidth/2, this.gameWidth/2, 'menuBG').setDisplaySize(this.gameWidth, this.gameWidth);
+        let logo = this.add.image(300, 820, 'logoPchujoy').setScale(.8);
         bg.setInteractive().on('pointerdown', () => { this.uiScene.audioManager.resumeMusic(); this.isPaused = false; });
         /*
         if (this.data.get('sponsor')) {
@@ -77,24 +80,24 @@ export class MenuScene extends Phaser.Scene
         this.add.image(140, 80, `menuUI`, `logo_pchujoy.png`).setScale(.72);
         */
 
-        let playButton = this.add.image(this.gameWidth/2, 890, 'menuUI', 'play.png').setScale(.72);
+        let playButton = this.add.image(this.gameWidth/2, 920, 'menuUI', 'play.png').setScale(.72);
         playButton.setInteractive().on('pointerup', () => {
             this.uiScene.audioManager.stopMusic();
             this.showLoading();
-            //this.uiScene.audioManager.buttonPlay.play();
+            this.uiScene.audioManager.ui_play.play()
         });
 
-        let optionsButton = this.add.image(this.gameWidth/2-250, 890, 'menuUI', 'settings.png').setScale(.72);
+        let optionsButton = this.add.image(this.gameWidth/2-250, 920, 'menuUI', 'settings.png').setScale(.72);
         optionsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showOptions(); /*this.uiScene.audioManager.buttonClick.play();*/ });
 
-        let turotialButton = this.add.image(this.gameWidth/2+250, 890, 'menuUI', 'tutorial.png').setScale(.72);
+        let turotialButton = this.add.image(this.gameWidth/2+250, 920, 'menuUI', 'tutorial.png').setScale(.72);
         turotialButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showInstructions(() => null); /*this.uiScene.audioManager.buttonClick.play();*/ });
 
         let creditsButton = this.add.image(this.gameWidth-120, 105, `menuUI`, `boton_creditos.png`).setScale(.72);
         creditsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showCredits(); /*this.uiScene.audioManager.buttonClick.play();*/ });
 
         this.exposedVariables();
-        this.uiScene.audioManager.playMusic();
+        //this.uiScene.audioManager.playMusic();
     }
 
     update(){
@@ -208,6 +211,7 @@ export class MenuScene extends Phaser.Scene
         this.addVariable(y + space * 11, `Cooldown entre obstaculos en la fase 5`, 'cd5');
         this.addVariable(y + space * 12, `Gravedad`, 'gravity');
         this.addVariable(y + space * 13, `Tamaño en metros de la fase: `, 'tamaño_fase');
+        this.addVariable(y + space * 14, `Velocidad perdida en el aire: `, 'lostSpeedAir');
     }
 
     setData(key, speed){
