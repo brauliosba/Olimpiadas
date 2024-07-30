@@ -51,7 +51,7 @@ export class MenuScene extends Phaser.Scene
         this.loadingBG.setDepth(5).setInteractive().setVisible(false);
         this.loadingThumb = this.add.sprite(0,this.gameWidth/2,'loadingUI','bar_icon.png').setDepth(5.1).setVisible(false);
         this.loadingSlider = this.rexUI.add.slider({
-            x: this.gameWidth/2,
+            x: this.gameWidth/2+40,
             y: this.gameWidth/2,
             width: 811,
             height: 176,
@@ -131,6 +131,7 @@ export class MenuScene extends Phaser.Scene
     showLoading(){
         this.loadingBG.setVisible(true);
         this.loadingSlider.setVisible(true);
+        this.loadingThumb.setVisible(true);
 
         let sliderTween = this.tweens.add({
             targets: this.loadingSlider,

@@ -43,7 +43,7 @@ export class BootScene extends Phaser.Scene
         */
         let loadingThumb = this.add.sprite(0,gameWidth/2,'loadingUI','bar_icon.png').setDepth(5.1);
         this.loadingSlider = this.rexUI.add.slider({
-            x: gameWidth/2,
+            x: gameWidth/2+40,
             y: gameWidth/2,
             width: 811,
             height: 176,
