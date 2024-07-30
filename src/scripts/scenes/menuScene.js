@@ -99,7 +99,7 @@ export class MenuScene extends Phaser.Scene
         let creditsButton = this.add.image(this.gameWidth-120, 105, `menuUI`, `boton_creditos.png`).setScale(.72);
         creditsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showCredits(); this.uiScene.audioManager.ui_click.play() });
 
-        //this.exposedVariables();
+        this.exposedVariables();
     }
 
     update(){
