@@ -8,6 +8,7 @@ export class MenuScene extends Phaser.Scene
     preload(){
         //this.load.image(`square`, `src/images/square.png`);
         this.load.image(`menuBG`, `src/images/inicio-ilustracion.png`);
+        this.load.image(`logo`, `src/images/ui/logo.png`);
         this.load.image(`logoPchujoy`, `src/images/inicio-logo-pchujoy.png`);
         this.load.atlas(`menuUI`, `src/images/ui/menu_ui.png`, `src/images/ui/menu_ui.json`);
         this.load.plugin('rextexteditplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js', true);
@@ -18,7 +19,6 @@ export class MenuScene extends Phaser.Scene
     }
 
     create(){
-        
         this.gameWidth = 1080;
         this.nextSceneReady = false;
 
@@ -71,6 +71,7 @@ export class MenuScene extends Phaser.Scene
         this.isPaused = false;
         
         let bg = this.add.image(this.gameWidth/2, this.gameWidth/2, 'menuBG').setDisplaySize(this.gameWidth, this.gameWidth);
+        this.add.image(this.gameWidth/2+20, 200, 'logo');
         let logo = this.add.image(300, 820, 'logoPchujoy').setScale(.8);
         bg.setInteractive().on('pointerdown', () => { this.uiScene.audioManager.resumeMusic(); this.isPaused = false; });
         /*
@@ -98,7 +99,7 @@ export class MenuScene extends Phaser.Scene
         let creditsButton = this.add.image(this.gameWidth-120, 105, `menuUI`, `boton_creditos.png`).setScale(.72);
         creditsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showCredits(); this.uiScene.audioManager.ui_click.play() });
 
-        this.exposedVariables();
+        //this.exposedVariables();
     }
 
     update(){
