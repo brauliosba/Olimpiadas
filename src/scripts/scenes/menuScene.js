@@ -43,30 +43,30 @@ export class MenuScene extends Phaser.Scene
         this.uiScene.setCurrentScene(this);
         this.uiScene.audioManager?.playMusic();
 
-        /*
-        this.loadingBG = this.add.image(this.gameWidth/2, this.gameWidth/2, 'loadingBG').setDisplaySize(this.gameWidth, this.gameWidth);
+        this.loadingBG = this.add.image(this.gameWidth/2, this.gameWidth/2, 'menuBG').setDisplaySize(this.gameWidth, this.gameWidth);
         this.loadingBG.setDepth(5).setInteractive().setVisible(false);
+        this.loadingThumb = this.add.sprite(0,this.gameWidth/2,'loadingUI','bar_icon.png').setDepth(5.1).setVisible(false);
         this.loadingSlider = this.rexUI.add.slider({
             x: this.gameWidth/2,
             y: this.gameWidth/2,
-            width: 650,
-            height: 50,
+            width: 811,
+            height: 176,
             orientation: `x`,
             value: 0,
     
-            track: this.add.sprite(0,0,`loadingUI`,`carga_contenedor.png`),
-            indicator: this.addCropResizeMethod(this.add.sprite(0,0,`loadingUI`,`carga_barra.png`).setScale(.95,1)),
-            thumb: this.add.sprite(0,0,`loadingUI`,`carga_icono.png`).setScale(.9,.9),
+            track: this.add.sprite(0,0,`loadingUI`,`bar_bg.png`),
+            indicator: this.addCropResizeMethod(this.add.sprite(0,0,`loadingUI`,`bar_relleno.png`)),
+            thumb: this.rexUI.add.roundRectangle(0, 0, 40, 50, 0),
     
             input: `none`,
             space: {
-            top: 10,
-            right: 0,
-            left: -23,
-            bottom: 4
-            },
+            top: 15,
+            right: 40,
+            left: -45,
+            bottom: 10
+            }
         }).layout().setDepth(5).setVisible(false);
-        */
+        this.loadingSlider.value = 0;
 
         this.isPaused = false;
         
@@ -99,11 +99,9 @@ export class MenuScene extends Phaser.Scene
         creditsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showCredits(); this.uiScene.audioManager.ui_click.play() });
 
         this.exposedVariables();
-        //this.uiScene.audioManager.playMusic();
     }
 
     update(){
-        /*
         if (this.nextSceneReady && this.loadingSlider.value == .9) {
             this.nextSceneReady = false;
             let sliderTween = this.tweens.add({
@@ -124,15 +122,9 @@ export class MenuScene extends Phaser.Scene
                 }
             });
         }
-        */
-        if (this.nextSceneReady){
-            this.mainScene.startRunning = true;
-            this.scene.stop();
-        }
     }
 
     showLoading(){
-        /*
         this.loadingBG.setVisible(true);
         this.loadingSlider.setVisible(true);
 
@@ -141,22 +133,20 @@ export class MenuScene extends Phaser.Scene
             ease: `sine.inout`,
             duration: 1500,
             repeat: 0,
-            value: {
-              getStart: () => 0,
-              getEnd: () => .9
+            value: .9,
+            onUpdate: () => {
+                if(this.loadingSlider != null) this.loadingThumb.x = this.loadingSlider.getElement('thumb').x+10;
             },
             onComplete: () => {
                 sliderTween?.remove();
                 sliderTween = null;
             }
         });
-        */
 
         this.scene.launch('MainScene', [this.data, true]);
         this.scene.sendToBack('MainScene');
         this.mainScene = this.scene.get("MainScene");
-        this.scene.get(`MainScene`).events.once(`create`, () => {
-            
+        this.scene.get(`MainScene`).events.once(`create`, () => {          
             this.mainScene.startRunning = false;
             this.nextSceneReady = true;
         });

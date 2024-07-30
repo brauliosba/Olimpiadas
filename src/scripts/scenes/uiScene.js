@@ -17,7 +17,7 @@ export class UIScene extends Phaser.Scene
         this.load.atlas('panelUI', `./src/images/ui/panel_ui.png`, `./src/images/ui/panel_ui.json`);
         this.load.atlas('tutorialUI', `./src/images/ui/tutorial_ui.png`, `./src/images/ui/tutorial_ui.json`);
         this.load.image('leapLogo', `./src/images/ui/leap_logo.png`);
-        //this.load.image('logoPChuJoy', `./src/images/logo_pchujoy.jpg`);
+        this.load.image('logoPChuJoy', `./src/images/logo_pchujoy.jpg`);
         this.load.image('fade', `./src/images/black_alpha_40.png`);
 
         //sounds
@@ -48,8 +48,8 @@ export class UIScene extends Phaser.Scene
         this.graphics.fillStyle(0x000000, 1);
         this.graphics.fillRect(0, 0, this.gameWidth, this.gameWidth);
         
-        //this.splashScreen = this.add.image(this.dim/2, this.dim/2, 'logoPChuJoy')
-        //    .setDisplaySize(this.dim, this.dim).setDepth(10).setAlpha(0).setInteractive();
+        this.splashScreen = this.add.image(this.gameWidth/2, this.gameWidth/2, 'logoPChuJoy');
+        this.splashScreen.setDisplaySize(this.gameWidth, this.gameWidth).setDepth(10).setAlpha(0).setInteractive();
 
         window.addEventListener('fullscreenchange', () => {
             let phaserDiv = document.getElementById('phaser-div');
@@ -96,7 +96,6 @@ export class UIScene extends Phaser.Scene
                     onComplete: () => {
                         this.graphics.setVisible(false);
                         this.splashScreen.setVisible(false);
-                        this.scene.get(`MenuScene`).showWarning();
                         splashTween2?.remove();
                         splashTween2 = null;
                     }
