@@ -103,7 +103,7 @@ export class Panel
     }
 
     createSecondTutorialPage(dim){
-        let text1 = this.scene.add.text(dim/2-20, 325, 'NO CHOQUES CON LOS OSBTÁCULOS O PERDERÁS UN CORAZÓN\nUSA EL BOTÓN DE SALTO EN LA PANTALLA O "ARRIBA" EN EL \n TECLADO PARA ESQUIVARLOS', { 
+        let text1 = this.scene.add.text(dim/2-20, 325, 'NO CHOQUES CON LOS OBSTÁCULOS O PERDERÁS UN CORAZÓN\nUSA EL BOTÓN DE SALTO EN LA PANTALLA O "ARRIBA" EN EL \n TECLADO PARA ESQUIVARLOS', { 
             font: '400 25px Bungee', color: '#FCF4D9', align: 'center' }).setOrigin(0.5);
         text1.setStroke('#2C211F', 8).setLineSpacing(-5);
 
