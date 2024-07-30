@@ -16,6 +16,11 @@ export class MainScene extends Phaser.Scene{
         });
     }
 
+    init(data){
+        this.data = data[0]
+        this.tutorial = data[1];
+    }
+
     preload(){
         this.load.image(`square`, `${pchujoyPublicFilesPath}/images/square.png`);
         this.load.image(`background`, `${pchujoyPublicFilesPath}/images/background.png`);
@@ -41,6 +46,7 @@ export class MainScene extends Phaser.Scene{
         this.load.image(`playerReady`, `${pchujoyPublicFilesPath}/images/player-ready.png`);
         this.load.image(`playerSet`, `${pchujoyPublicFilesPath}/images/player-set.png`);
     }
+
     create(){
         this.gameState = 'init';
 
@@ -48,6 +54,7 @@ export class MainScene extends Phaser.Scene{
         this.gameHeight = this.game.config.height;
         this.isPaused = false;
         this.startRunning = true;
+        this.blockStart = true;
         this.clickSpeed = this.data.get('clickSpeed');
         this.lostSpeed = this.data.get('lostSpeed');
         this.lostSpeedAir = this.data.get('lostSpeedAir');
@@ -175,11 +182,6 @@ export class MainScene extends Phaser.Scene{
         }
     }
 
-    init(data){
-        this.data = data[0]
-        this.tutorial = data[1];
-    }
-
     getTypePointer(pointer) {
         if (pointer.pointerType === 'touch') {
             return pointer.touches[0].worldX;
@@ -195,17 +197,15 @@ export class MainScene extends Phaser.Scene{
                 this.gameState = 'restart';
                 break;
             case `restart`:
-                if (this.startRunning && !this.tutorialActive) {
-                    this.tutorialActive = true;
+                if (this.startRunning && this.tutorial) {
+                    this.tutorial = true;
                     this.startRunning = false;
                     this.startCounter = 3;
                     this.isPaused = true;
                     this.pauseTimeEvents();
-                
-                    if (this.tutorial)
-                        this.startTutorial();
+                    this.startTutorial();
                 }
-                else if (!this.tutorialActive) {
+                else if (!this.blockStart) {
                     this.startTime = this.time.now * 0.001;
                     this.uiScene.audioManager.playMusic();
                     this.isPaused = false;
@@ -413,7 +413,7 @@ export class MainScene extends Phaser.Scene{
     }
 
     startTutorial(){        
-        this.tutorialActive = true;
+        this.blockStart = true;
         this.panel.showInstructions(() => {
             this.isPaused = false;
             this.pauseTimeEvents();
@@ -421,7 +421,7 @@ export class MainScene extends Phaser.Scene{
     }
     
     startAnimation() {
-        this.tutorialActive = true;
+        this.blockStart = true;
         let countText = this.add.text(this.gameWidth/2, this.gameHeight/2, '3', { font: '400 400px Bungee', color: '#F5B05F' }).setStroke('#503530', 20);
         countText.setOrigin(.5).setDepth(10);
 
@@ -450,7 +450,7 @@ export class MainScene extends Phaser.Scene{
             else {
                 this.uiScene.audioManager.gunshot.play()
                 countText.setVisible(false);
-                this.tutorialActive = false;
+                this.blockStart = false;
                 this.gameStarting()
             }
         }, 1000)
