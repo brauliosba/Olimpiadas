@@ -89,7 +89,7 @@ export class Panel
 
         let image1 = this.scene.add.image(dim/2-235, 460, 'tutorialUI', 'run.png').setScale(.72);
         let image2 = this.scene.add.image(dim/2-30, 460, 'tutorialUI', 'tap.png').setScale(.72);
-        let image3 = this.scene.add.image(dim/2+130, 460, 'tutorialUI', 'leftclick.png').setScale(.72);
+        let image3 = this.scene.add.image(dim/2+150, 460, 'tutorialUI', 'leftclick.png').setScale(.72);
         let image4 = this.scene.add.image(dim/2+295, 460, 'tutorialUI', 'spacebar.png').setScale(.72);
      
         let text2 = this.scene.add.text(dim/2-20, 650, 'ACELERA PARA QUE TU VELOCIDAD NO CAIGA EN LA ZONA\nROJA DE LA BARRA O TROPEZARÁS Y PERDERÁS\n¡LLEGA TAN LEJOS COMO PUEDAS!', { 
