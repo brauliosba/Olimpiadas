@@ -44,7 +44,7 @@ export class MainScene extends Phaser.Scene{
         this.load.spritesheet('playerHit', './src/images/playerHit.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerFall', './src/images/player_fall.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerJump', './src/images/player_jump.png', {frameWidth: 700, frameHeight: 500});
-
+        this.load.spritesheet('playerlJump', './src/images/player_ljump.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('valla', './src/images/valla.png', {frameWidth: 400, frameHeight: 280});
         
         this.load.image('playerReady', './src/images/playerReady.png');
@@ -173,7 +173,7 @@ export class MainScene extends Phaser.Scene{
                 
             }, this);
         } else {
-            this.jumpButton = this.add.image(380, 780, 'inputs', 'tapatlon_jump_pc.png').setDepth(6.2).setOrigin(0)
+            this.jumpButton = this.add.image(410, 840, 'inputs', 'tapatlon_jump_pc.png').setDepth(6.2).setOrigin(0).setScale(.77)
             this.jumpButton.setAlpha(.9)
             // Manejador para el click en pantalla
             this.tapScreen.on('pointerdown', function (pointer) {
@@ -404,6 +404,8 @@ export class MainScene extends Phaser.Scene{
         this.startCountdown(delayTime)
         this.player.playerRunTexture = 'playerStun'
         this.player.playerRunAnimation = 'stun'
+        this.player.playerJumpTexture = 'playerlJump'
+        this.player.playerJumpAnimation = 'ljump'
         // Si no estamos rastreando la colisión, iniciar el temporizador
         this.loseTimer = this.time.addEvent({
             delay: delayTime, // Duración del temporizador en milisegundos (5 segundos)
@@ -420,6 +422,8 @@ export class MainScene extends Phaser.Scene{
         this.stopCountdown()
         this.player.playerRunTexture = 'playerRun'
         this.player.playerRunAnimation = 'run'
+         this.player.playerJumpTexture = 'playerJump'
+        this.player.playerJumpAnimation = 'jump'
         this.loseTimer?.remove();
         this.loseTimer = null;
     }

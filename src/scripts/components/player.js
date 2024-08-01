@@ -4,6 +4,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.playerJumpCounter = 0
       this.playerRunAnimation = 'run'
       this.playerRunTexture = 'playerRun'
+
+      this.playerJumpAnimation = 'jump'
+      this.playerJumpTexture = 'playerJump'
+
       this.isStun = false
       this.setDepth(5.2)
       scene.add.existing(this);
@@ -32,6 +36,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             scene.anims.create({
                 key: 'stun',
                 frames: this.scene.anims.generateFrameNumbers('playerStun', { start: 0, end: 3, first: 0 }), // Frames del 0 al 9
+                frameRate: this.baseFrameRate, // Velocidad de la animación
+                repeat: -1 
+            });
+            scene.anims.create({
+                key: 'ljump',
+                frames: this.scene.anims.generateFrameNumbers('playerlJump', { start: 0, end: 2, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: -1 
             });
@@ -98,10 +108,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                   }
             }else{
                 this.isGrounded = false
-                if (this.texture.key !== 'playerJump') {
+                if (this.texture.key !== this.playerJumpTexture) {
                     this.anims.pause()
-                    this.setTexture('playerJump');
-                    this.play('jump');
+                    this.setTexture(this.playerJumpTexture);
+                    this.play(this.playerJumpAnimation);
                 }
             }   
         }
