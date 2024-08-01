@@ -88,21 +88,38 @@ export class MenuScene extends Phaser.Scene
         this.add.image(140, 80, `menuUI`, `logo_pchujoy.png`).setScale(.72);
         */
 
-        let playButton = this.add.image(this.gameWidth/2, 920, 'menuUI', 'play.png').setScale(.72);
+        let playButton = this.add.image(this.gameWidth/2, 920, 'menuUI', 'play_1.png').setScale(.72);
+        playButton.setInteractive().on('pointerdown', () => playButton.setTexture('menuUI', 'play_2.png'));
         playButton.setInteractive().on('pointerup', () => {
             this.uiScene.audioManager.stopMusic();
             this.showLoading();
-            this.uiScene.audioManager.ui_play.play()
+            this.uiScene.audioManager.ui_play.play();
+            playButton.setTexture('menuUI', 'play_1.png')
         });
 
-        let optionsButton = this.add.image(this.gameWidth/2-250, 920, 'menuUI', 'settings.png').setScale(.72);
-        optionsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showOptions(); this.uiScene.audioManager.ui_click.play(); });
+        let optionsButton = this.add.image(this.gameWidth/2-250, 920, 'menuUI', 'options_1.png').setScale(.72);
+        optionsButton.setInteractive().on('pointerdown', () => optionsButton.setTexture('menuUI', 'options_2.png'));
+        optionsButton.setInteractive().on('pointerup', () => {
+            this.uiScene.panel.showOptions();
+            this.uiScene.audioManager.ui_click.play();
+            optionsButton.setTexture('menuUI', 'options_1.png');
+        });
 
-        let turotialButton = this.add.image(this.gameWidth/2+250, 920, 'menuUI', 'tutorial.png').setScale(.72);
-        turotialButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showInstructions(() => null); this.uiScene.audioManager.ui_click.play() });
+        let turotialButton = this.add.image(this.gameWidth/2+250, 920, 'menuUI', 'tutorial_1.png').setScale(.72);
+        turotialButton.setInteractive().on('pointerdown', () => turotialButton.setTexture('menuUI', 'tutorial_2.png'));
+        turotialButton.setInteractive().on('pointerup', () => {
+            this.uiScene.panel.showInstructions(() => null);
+            this.uiScene.audioManager.ui_click.play();
+            turotialButton.setTexture('menuUI', 'tutorial_1.png')
+        });
 
-        let creditsButton = this.add.image(this.gameWidth-120, 105, `menuUI`, `boton_creditos.png`).setScale(.72);
-        creditsButton.setInteractive().on('pointerdown', () => { this.uiScene.panel.showCredits(); this.uiScene.audioManager.ui_click.play() });
+        let creditsButton = this.add.image(this.gameWidth-120, 105, `menuUI`, `credits_1.png`).setScale(.72);
+        creditsButton.setInteractive().on('pointerdown', () => creditsButton.setTexture('menuUI', 'credits_2.png'));
+        creditsButton.setInteractive().on('pointerup', () => {
+            this.uiScene.panel.showCredits();
+            this.uiScene.audioManager.ui_click.play();
+            creditsButton.setTexture('menuUI', 'credits_1.png')
+        });
 
         //this.exposedVariables();
     }
