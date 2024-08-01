@@ -76,7 +76,7 @@ export class MenuScene extends Phaser.Scene
         this.isPaused = false;
         
         let bg = this.add.image(this.gameWidth/2, this.gameWidth/2, 'menuBG').setDisplaySize(this.gameWidth, this.gameWidth);
-        this.add.image(this.gameWidth/2+20, 200, 'logo');
+        this.add.image(this.gameWidth/2, 150, 'logo').setScale(.72);
         let logo = this.add.image(300, 820, 'logoPchujoy').setScale(.8);
         bg.setInteractive().on('pointerdown', () => { this.uiScene.audioManager.resumeMusic(); this.isPaused = false; });
         /*
