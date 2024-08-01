@@ -35,12 +35,18 @@ export class MainScene extends Phaser.Scene{
         //powerups
         this.load.image('corazon', './src/images/power-up-corazon.png');
         this.load.image('zapatilla', './src/images/power-up-zapatilla.png');
+        this.load.spritesheet('corazonOff', './src/images/corazon_off.png', {frameWidth: 310, frameHeight: 310});
+        this.load.spritesheet('zapatillaOff', './src/images/zapatilla_off.png', {frameWidth: 310, frameHeight: 310});
         //player
         this.load.spritesheet('playerIdle', './src/images/playerIdle.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerStun', './src/images/playerStun.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerHit', './src/images/playerHit.png', {frameWidth: 700, frameHeight: 500});
-        this.load.image('playerJump', './src/images/playerJump.png');
+        this.load.spritesheet('playerFall', './src/images/player_fall.png', {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerJump', './src/images/player_jump.png', {frameWidth: 700, frameHeight: 500});
+
+        this.load.spritesheet('valla', './src/images/valla.png', {frameWidth: 400, frameHeight: 280});
+        
         this.load.image('playerReady', './src/images/playerReady.png');
         this.load.image('playerSet', './src/images/playerSet.png');
     }
@@ -333,6 +339,7 @@ export class MainScene extends Phaser.Scene{
         this.loseTimer = this.time.addEvent({
             delay: 1500, // Duración del temporizador en milisegundos (5 segundos)
             callback: () => {
+                this.player.setFall()
                 this.gameState = 'game_over';
             },
             callbackScope: this
@@ -382,8 +389,9 @@ export class MainScene extends Phaser.Scene{
     }
 
     finishGame() {
+        
         this.isPaused = true
-        this.anims.pauseAll();
+        //this.anims.pauseAll();
 
         const newScore = this.score;
         const highScore = parseInt(this.data.get(`highScore`));

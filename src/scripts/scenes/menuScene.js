@@ -36,7 +36,7 @@ export class MenuScene extends Phaser.Scene
         this.data.set('cd5', 12);
         this.data.set('gravity', 3000);
         this.data.set('tamaño_fase', 40);
-        this.data.set('lostSpeedAir', 100);
+        this.data.set('lostSpeedAir', 60);
         
         //UI
         this.uiScene = this.scene.get('UIScene');

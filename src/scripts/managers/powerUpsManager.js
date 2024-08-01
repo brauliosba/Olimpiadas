@@ -18,6 +18,20 @@ export class PowerUpsManager
     }
 
     create(){
+
+        this.scene.anims.create({
+            key: 'corazon',
+            frames: this.scene.anims.generateFrameNumbers('corazonOff', { start: 0, end: 4, first: 0 }), // Frames del 0 al 9
+            frameRate: 15, // Velocidad de la animación
+            hideOnComplete: false
+        });
+        this.scene.anims.create({
+            key: 'zapatilla',
+            frames: this.scene.anims.generateFrameNumbers('zapatillaOff', { start: 0, end: 4, first: 0 }), // Frames del 0 al 9
+            frameRate: 15, // Velocidad de la animación
+            hideOnComplete: false
+        });
+
         let sprite = this.scene.physics.add.sprite(0, 0, 'corazon').setOrigin(0).setScale( .5).setVisible(false).setDepth(5).setSize(100,150).setOffset(120, 100);
         sprite.body.allowGravity = false;
         this.powerUp = new PowerUp(sprite);
@@ -49,7 +63,7 @@ export class PowerUpsManager
     activePowerUp() {
         this.powerUp.sprite.enableBody();
         let isObstacle = this.scene.obstacleManager.checkActiveObstacles();
-        let posX = isObstacle ? this.gameWidth+40 : this.gameWidth;
+        let posX = isObstacle ? this.gameWidth+120 : this.gameWidth;
         this.powerUp.sprite.setPosition(posX, this.gameWidth-390).setVisible(true);
         this.powerUp.status = 'active';
 
@@ -64,7 +78,7 @@ export class PowerUpsManager
     }
 
     updatePowerUpPostion(dt) {
-        if (this.powerUp.status == 'active') {
+        if (this.powerUp.status != 'free') {
             this.powerUp.sprite.x -= this.horizontalSpeed * dt;
 
             if (this.powerUp.sprite.x <= -this.powerUp.sprite.displayWidth) {
@@ -75,27 +89,35 @@ export class PowerUpsManager
     }
 
     collisionHandler(playerBody, powerUp) {
-        powerUp.disableBody(true, false);
-        powerUp.setVisible(false);
-        this.scene.score += 1000;
-
-        switch (powerUp.id) {
-            case 0:
-                this.scene.uiScene.audioManager.corazon.play()
-                this.scene.visualEffectsManager.CreateMessage('¡Vida Extra!')
-                if (this.scene.lifes < 2) {
-                    this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(true);
-                    this.scene.lifes += 1;
-                }
-                break;
-            case 1:
-                this.scene.uiScene.audioManager.zapatilla.play()
-                this.scene.visualEffectsManager.CreateMessage('¡Turbo Activado!')
-                this.scene.gameplayUI.progressBar.value = 1;
-                break;
-            default:
-                break;
+        if(this.powerUp.status == 'active'){
+            this.powerUp.status = 'taken'
+            this.scene.score += 1000;
+    
+            switch (powerUp.id) {
+                case 0:
+                    this.scene.uiScene.audioManager.corazon.play()
+                    this.powerUp.sprite.setTexture('corazon')
+                    this.powerUp.sprite.anims.play('corazon')
+                    this.scene.visualEffectsManager.CreateMessage('¡Vida Extra!')
+                    if (this.scene.lifes < 2) {
+                        this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(true);
+                        this.scene.lifes += 1;
+                    }
+                    break;
+                case 1:
+                    this.scene.uiScene.audioManager.zapatilla.play()
+                    this.powerUp.sprite.setTexture('zapatilla')
+                    this.powerUp.sprite.anims.play('zapatilla')
+                    this.scene.visualEffectsManager.CreateMessage('¡Turbo Activado!')
+                    let newValue = this.scene.gameplayUI.progressBar.value + (this.scene.gameplayUI.progressBar.value*.4);
+                    if(newValue< 1)this.scene.gameplayUI.progressBar.value = newValue
+                    else this.scene.gameplayUI.progressBar.value =1
+                    break;
+                default:
+                    break;
+            }
         }
+       
     }
 
     checkActivePowerUp() {
