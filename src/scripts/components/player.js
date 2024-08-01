@@ -1,6 +1,7 @@
 export class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, 'playerRun');
+      this.playerJumpCounter = 0
       this.playerRunAnimation = 'run'
       this.playerRunTexture = 'playerRun'
       this.isStun = false

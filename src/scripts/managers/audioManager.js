@@ -50,6 +50,8 @@ export class AudioManager
         this.scene.load.audio(`estadio_2`, [ `./src/audios/m4a/sfx_estadio_2.m4a`, `./src/audios/ogg/sfx_estadio_2.ogg` ]);
         this.scene.load.audio(`estadio_3`, [ `./src/audios/m4a/sfx_estadio_3.m4a`, `./src/audios/ogg/sfx_estadio_3.ogg` ]);
 
+        this.scene.load.audio(`alarma_1`, [ `./src/audios/m4a/sfx_alarma_1.m4a`, `./src/audios/ogg/sfx_alarma_1.ogg` ]);
+        this.scene.load.audio(`alarma_2`, [ `./src/audios/m4a/sfx_alarma_2.m4a`, `./src/audios/ogg/sfx_alarma_2.ogg` ]);
 
 
         
@@ -205,6 +207,12 @@ export class AudioManager
 
         this.gunshot = this.scene.sound.add('gunshot', { volume: 0.5, loop: false });
         this.sfx.push(this.gunshot);
+
+        this.alarma_1 = this.scene.sound.add('alarma_1', { volume: 0.5, loop: false });
+        this.sfx.push(this.alarma_1);
+
+        this.alarma_2 = this.scene.sound.add('alarma_2', { volume: 0.5, loop: false });
+        this.sfx.push(this.alarma_2);
 
         this.estadio_1 = this.scene.sound.add('estadio_1', { volume: 0.5, loop: false });
         this.sfx.push(this.estadio_1);

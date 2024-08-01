@@ -10,20 +10,32 @@ export class GameplayUI
     create(){
         //Image UI
         //UI
-        this.mobileContainer = this.scene.add.container().setDepth(6.2);
-        this.desktopContainer = this.scene.add.container().setDepth(6.2);
+        this.at = 0
+
+        this.actionContainer = this.scene.add.container().setDepth(6.2);
+        this.hurryContainer = this.scene.add.container().setDepth(6.2);
         this.inGameBoard = this.scene.add.image(550, 150, 'UIgame','TableroInGame.png').setDepth(6)
         this.inGameBar = this.scene.add.image(550, 330, 'UIgame','Bar.png').setDepth(6)
 
         this.tapTimer;
         this.tapInterval = 2000; 
         if (this.scene.data.get('IS_TOUCH')) {
-           
-            this.tapRight = this.scene.add.image(850, 850, 'inputs', 'tapatlon_tap.png').setDepth(6.2).setOrigin(0)
-            this.tapLeft = this.scene.add.image(20, 850, 'inputs', 'tapatlon_tap.png').setDepth(6.2).setOrigin(0).setFlipX(true)
-            this.mobileContainer.add(this.tapRight)
-            this.mobileContainer.add(this.tapLeft)
+            this.tapLeftTexture ='Frame_2.png'
+            this.tapRightTexture='Frame_2.png' 
+            this.tapRight = this.scene.add.image(810, 850, 'inputs', 'Frame_1.png').setDepth(6.2).setOrigin(0).setScale(.8)
+            this.tapLeft = this.scene.add.image(20, 850, 'inputs', 'Frame_1.png').setDepth(6.2).setOrigin(0).setScale(.8).setFlipX(true)
+            this.actionContainer.add(this.tapRight)
+            this.actionContainer.add(this.tapLeft)
         }
+        else{
+            this.tapLeftTexture ='tapatlon_barra_02.png'
+            this.tapRightTexture='tapatlon_click_02.png' 
+            this.tapRight = this.scene.add.image(920, 950, 'inputs', 'tapatlon_click_01.png').setDepth(6.2)
+            this.tapLeft = this.scene.add.image(140, 950, 'inputs', 'tapatlon_barra_01.png').setDepth(6.2)
+            this.actionContainer.add(this.tapRight)
+            this.actionContainer.add(this.tapLeft)
+        }
+
 
         // Progress Bar
         this.progressBar = this.scene.rexUI.add.slider({
@@ -96,6 +108,11 @@ export class GameplayUI
         this.scoreText = this.scene.add.text(this.gameWidth-510, 180, '0', { font: '800 90px Bungee', color: '#FFFFFF' }).setOrigin(0.5)
         this.scoreText.setDepth(8).setAlign('center');
 
+        this.hurryText = this.scene.add.text(this.gameWidth-510, 480, '¡APÚRATE!', { font: '800 60px Bungee', color: '#F5B05F' }).setOrigin(0.5).setAlign('center').setStroke('#503530', 10);
+        this.hurryContainer.add(this.hurryText)
+        this.hurryCount = this.scene.add.text(this.gameWidth-510, 560, '3', { font: '800 80px Bungee', color: '#F5B05F' }).setOrigin(0.5).setAlign('center').setStroke('#503530', 10);
+        this.hurryContainer.add(this.hurryCount)
+        this.hurryContainer.setAlpha(0.01)
         /*
         //Feedback UI
         this.bombMessage = this.scene.add.image(0, 0, 'feedbackUI', 'message_bomb.png').setScale(.72).setDepth(8).setVisible(false);
@@ -115,10 +132,10 @@ export class GameplayUI
         this.tapTimer = setTimeout(() => this.showMobileUI.call(this), this.tapInterval);
     }
     hideMobileUI() {
-        if (this.mobileContainer.alpha === 1) {
+        if (this.actionContainer.alpha === 1) {
             // Crear la animación para hacer desaparecer el contenedor
             this.scene.tweens.add({
-                targets: this.mobileContainer,
+                targets: this.actionContainer,
                 alpha: 0,
                 duration: 500,
                 ease: 'Power2'
@@ -126,16 +143,31 @@ export class GameplayUI
         }
     }
     showMobileUI() {
-        if (this.mobileContainer.alpha === 0) {
+        if (this.actionContainer.alpha === 0 && this.scene.gameState != 'game_over') {
             this.scene.tweens.add({
-                targets: this.mobileContainer,
+                targets: this.actionContainer,
                 alpha: 1,
                 duration: 500,
                 ease: 'Power2'
             });
         }
     }
-    updateThumb(){    
+    updateThumb(dt){    
+        console.log('CAMBIO 0' +this.at)
+        if(this.at>.1){
+            
+            this.at = 0
+            let prevleft = this.tapLeft.frame.name
+            console.log('CAMBIO' + prevleft)
+            let prevright = this.tapRight.frame.name
+            this.tapLeft.setTexture('inputs',this.tapLeftTexture)
+            this.tapRight.setTexture('inputs',this.tapRightTexture)
+            this.tapLeftTexture = prevleft
+            this.tapRightTexture = prevright
+        }
+        else{
+            if(dt != null)this.at+=dt
+        }
         console.log("THUMB"+this.thumb.x)
         this.thumb.x = (this.progressBar.value*750+178)
     }

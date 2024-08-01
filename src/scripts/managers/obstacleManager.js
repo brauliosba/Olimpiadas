@@ -105,6 +105,7 @@ export class ObstacleManager
             if (obstacle.sprite.x <= -obstacle.sprite.displayWidth) {
                 
                 obstacle.sprite.setVisible(false);
+                obstacle.sprite.anims.pause()
                 obstacle.sprite.setFrame(0)
                 obstacle.colissionPlayer = false
                 obstacle.status = 'free';
@@ -134,10 +135,10 @@ export class ObstacleManager
         if(!this.scene.player.getStun()){
             this.scene.uiScene.audioManager.estadio_u.play()
             this.scene.uiScene.audioManager.golpe.play()
-            this.obstacles[0].sprite.anims.play('falling')
+            obstacleBody.anims.play('falling')
             this.scene.player.setStun()
             
-            this.obstacles[0].colissionPlayer = true;
+            obstacleBody.colissionPlayer = true;
         
             this.scene.lifes -= 1;
             this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(false);
