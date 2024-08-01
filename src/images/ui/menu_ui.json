@@ -1,25 +1,50 @@
 {
 "frames": {
-	"play.png": {
-		"frame": {"x":0, "y":129, "w":231, "h":128},
-		"spriteSourceSize": {"x":0,"y":0,"w":231,"h":128},
-		"sourceSize": {"w":231,"h":128}
+	"credits_1.png": {
+		"frame": {"x":235, "y":402, "w":131, "h":131},
+		"spriteSourceSize": {"x":0,"y":0,"w":131,"h":131},
+		"sourceSize": {"w":131,"h":131}
 	},
-	"settings.png": {
-		"frame": {"x":0, "y":258, "w":230, "h":128},
-		"spriteSourceSize": {"x":0,"y":0,"w":230,"h":128},
-		"sourceSize": {"w":230,"h":128}
+	"credits_2.png": {
+		"frame": {"x":235, "y":270, "w":132, "h":131},
+		"spriteSourceSize": {"x":0,"y":0,"w":132,"h":131},
+		"sourceSize": {"w":132,"h":131}
 	},
-	"tutorial.png": {
-		"frame": {"x":0, "y":0, "w":231, "h":128},
-		"spriteSourceSize": {"x":0,"y":0,"w":231,"h":128},
-		"sourceSize": {"w":231,"h":128}
+	"options_1.png": {
+		"frame": {"x":235, "y":135, "w":234, "h":134},
+		"spriteSourceSize": {"x":0,"y":0,"w":234,"h":134},
+		"sourceSize": {"w":234,"h":134}
+	},
+	"options_2.png": {
+		"frame": {"x":0, "y":134, "w":234, "h":133},
+		"spriteSourceSize": {"x":0,"y":0,"w":234,"h":133},
+		"sourceSize": {"w":234,"h":133}
+	},
+	"play_1.png": {
+		"frame": {"x":0, "y":0, "w":234, "h":133},
+		"spriteSourceSize": {"x":0,"y":0,"w":234,"h":133},
+		"sourceSize": {"w":234,"h":133}
+	},
+	"play_2.png": {
+		"frame": {"x":0, "y":402, "w":234, "h":134},
+		"spriteSourceSize": {"x":0,"y":0,"w":234,"h":134},
+		"sourceSize": {"w":234,"h":134}
+	},
+	"tutorial_1.png": {
+		"frame": {"x":235, "y":0, "w":234, "h":134},
+		"spriteSourceSize": {"x":0,"y":0,"w":234,"h":134},
+		"sourceSize": {"w":234,"h":134}
+	},
+	"tutorial_2.png": {
+		"frame": {"x":0, "y":268, "w":234, "h":133},
+		"spriteSourceSize": {"x":0,"y":0,"w":234,"h":133},
+		"sourceSize": {"w":234,"h":133}
 	}
 
 },
 "meta": {
 	"image": "sprites.png",
-	"size": {"w": 232, "h": 387},
+	"size": {"w": 470, "h": 537},
 	"scale": "1"
 }
 }
