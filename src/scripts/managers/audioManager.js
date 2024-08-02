@@ -53,11 +53,8 @@ export class AudioManager
         this.scene.load.audio(`estadio_2`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_estadio_2.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_estadio_2.ogg` ]);
         this.scene.load.audio(`estadio_3`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_estadio_3.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_estadio_3.ogg` ]);
 
-        this.scene.load.audio(`alarma_1`, [ `./src/audios/m4a/sfx_alarma_1.m4a`, `./src/audios/ogg/sfx_alarma_1.ogg` ]);
-        this.scene.load.audio(`alarma_2`, [ `./src/audios/m4a/sfx_alarma_2.m4a`, `./src/audios/ogg/sfx_alarma_2.ogg` ]);
-
-
-        
+        this.scene.load.audio(`alarma_1`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_alarma_1.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_alarma_1.ogg` ]);
+        this.scene.load.audio(`alarma_2`, [ `${pchujoyPublicFilesPath}/audios/m4a/sfx_alarma_2.m4a`, `${pchujoyPublicFilesPath}/audios/ogg/sfx_alarma_2.ogg` ]);     
     }
 
     init(){
