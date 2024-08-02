@@ -27,44 +27,54 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             });
+        }
+        if (!this.scene.anims.exists('idle')){
             scene.anims.create({
                 key: 'idle',
                 frames: this.scene.anims.generateFrameNumbers('playerIdle', { start: 0, end: 7, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             });
+        }
+        if (!this.scene.anims.exists('stun')){
             scene.anims.create({
                 key: 'stun',
                 frames: this.scene.anims.generateFrameNumbers('playerStun', { start: 0, end: 3, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: -1 
             });
+        }
+        if (!this.scene.anims.exists('ljump')){
             scene.anims.create({
                 key: 'ljump',
                 frames: this.scene.anims.generateFrameNumbers('playerlJump', { start: 0, end: 2, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: -1 
             });
+        }
+        if (!this.scene.anims.exists('jump')){
             scene.anims.create({
                 key: 'jump',
                 frames: this.scene.anims.generateFrameNumbers('playerJump', { start: 0, end: 2, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: -1 
             });
+        }
+        if (!this.scene.anims.exists('hit')){
             scene.anims.create({
                 key: 'hit',
                 frames: this.scene.anims.generateFrameNumbers('playerHit', { start: 0, end: 2, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: 1 
             });
+        }
+        if (!this.scene.anims.exists('fall')){
             scene.anims.create({
                 key: 'fall',
                 frames: this.scene.anims.generateFrameNumbers('playerFall', { start: 0, end: 19, first: 0 }), // Frames del 0 al 9
                 frameRate: 20, // Velocidad de la animación
                 repeat: 0
             });
-
-
         }
         this.on('animationcomplete', function (animation, frame) {
             if (animation.key === 'hit') {
