@@ -4,6 +4,7 @@ const path = require('path'); // Node.js module used to manipulate file   // pat
 const HtmlWebpackPlugin = require('html-webpack-plugin'); 
 // generates an HTML file for your application by injecting automatically // all your generated bundles.
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 // this plugin will remove all files inside webpack's output.path         // directory, as well as all unused webpack assets after every            // successful rebuild.
 module.exports = { 
    mode: 'development', // enable webpack's built-in optimizations        // that correspond to development
@@ -47,5 +48,6 @@ module.exports = {
       new HtmlWebpackPlugin({
          template: './index.html',
       }), // specify where your HTML template is located
+      new Dotenv(),
    ],
 }
