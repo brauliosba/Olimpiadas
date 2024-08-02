@@ -151,7 +151,7 @@ export class MainScene extends Phaser.Scene{
 
         //Player Input
         if (this.data.get('IS_TOUCH')) {
-           
+            this.input.addPointer(3)
            
             this.jumpButton = this.add.image(380, 780, 'inputs', 'tapatlon_jump_mobile.png').setDepth(6.2).setInteractive().setOrigin(0)
             this.jumpButton.setAlpha(.9)
