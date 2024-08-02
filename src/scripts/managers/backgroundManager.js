@@ -15,7 +15,7 @@ export class BackgroundManager
         //this.seats = this.scene.add.tileSprite(0,235,0,0,'bg','asientos.png').setOrigin(0).setScale(.72).setDepth(0.2);
         
         this.scene.add.image(0,this.gameWidth-570,'bg','muro.png').setOrigin(0).setScale(.72).setDepth(0.3);
-        this.logo = this.scene.add.tileSprite(0,this.gameWidth-515,0,0,'bg','logo.png').setOrigin(0).setScale(.72).setDepth(0.4);
+        this.logo = this.scene.add.tileSprite(0,this.gameWidth-515,0,0,'logoTexture').setOrigin(0).setScale(.72).setDepth(0.4);
         this.scene.add.image(0,this.gameWidth-350,'pista').setOrigin(0).setScale(.72).setDepth(0.5);
         this.extra = this.scene.add.tileSprite(0,620,0,0,'extra').setOrigin(0).setScale(.72).setDepth(0.6);
         let cloud = this.scene.add.image(300, 80, 'clouds', '1.png').setOrigin(.5).setScale(.72);
