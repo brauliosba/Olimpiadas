@@ -25,12 +25,12 @@ export class MainScene extends Phaser.Scene{
         this.load.atlas('bg', './src/images/bg.png', './src/images/bg.json');
         this.load.image('pista', './src/images/pantalla-de-juego-pista.png');
         this.load.image('extra', './src/images/pista-extras.png');
-        this.load.image('logoTexture','./src/images/logo-pchujoyTexture.png');
+        this.load.image('logoTexture','./src/images/logo-pchujoy-texture.png');
         this.load.image('tapScreen', './src/images/tapScreen.png');
         
         this.load.atlas('clouds', './src/images/clouds.png', './src/images/clouds.json');
         this.load.atlas('inputs', './src/images/actionui.png', './src/images/actionui.json');
-        this.load.atlas('UIgame', './src/images/UIgame.png', './src/images/UIgame.json');
+        this.load.atlas('UIgame', './src/images/ui_game.png', './src/images/ui_game.json');
         this.load.atlas('people', './src/images/people.png', './src/images/people.json');
         this.load.atlas('textos', './src/images/text.png', './src/images/text.json');
         //powerups
@@ -39,17 +39,17 @@ export class MainScene extends Phaser.Scene{
         this.load.spritesheet('corazonOff', './src/images/corazon_off.png', {frameWidth: 310, frameHeight: 310});
         this.load.spritesheet('zapatillaOff', './src/images/zapatilla_off.png', {frameWidth: 310, frameHeight: 310});
         //player
-        this.load.spritesheet('playerIdle', './src/images/playerIdle.png', {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerIdle', './src/images/player_idle.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 700, frameHeight: 500});
-        this.load.spritesheet('playerStun', './src/images/playerStun.png', {frameWidth: 700, frameHeight: 500});
-        this.load.spritesheet('playerHit', './src/images/playerHit.png', {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerStun', './src/images/player_stun.png', {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerHit', './src/images/player_hit.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerFall', './src/images/player_fall.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerJump', './src/images/player_jump.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerlJump', './src/images/player_ljump.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('valla', './src/images/valla.png', {frameWidth: 400, frameHeight: 280});
         
-        this.load.image('playerReady', './src/images/playerReady.png');
-        this.load.image('playerSet', './src/images/playerSet.png');
+        this.load.image('playerReady', './src/images/player_ready.png');
+        this.load.image('playerSet', './src/images/player_set.png');
     }
 
     create(){
