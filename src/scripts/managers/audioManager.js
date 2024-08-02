@@ -9,8 +9,8 @@ export class AudioManager
         //main Themes
         //this.scene.load.audio(`mainTheme`, [ `./src/audios/menu_loop.ogg`, `./src/audios/menu_loop.m4a` ]);
         //this.scene.load.audio(`gameplayTheme`, [ `./src/audios/gameplay_loop.ogg`, `./src/audios/gameplay_loop.m4a` ]);
-        this.scene.load.audio(`mainTheme`, [ `./src/audios/m4a/mus_Carreras_Title_loop.m4a`, `./src/audios/ogg/mus_Carreras_Title_loop.ogg` ]);
-        this.scene.load.audio(`gameplayTheme`, [ `./src/audios/m4a/mus_Carreras_Gameplay_loop.m4a`, `./src/audios/ogg/mus_Carreras_Gameplay_loop.ogg` ]);
+        this.scene.load.audio(`mainTheme`, [ `./src/audios/m4a/mus_carreras_title_loop.m4a`, `./src/audios/ogg/mus_carreras_title_loop.ogg` ]);
+        this.scene.load.audio(`gameplayTheme`, [ `./src/audios/m4a/mus_carreras_gameplay_loop.m4a`, `./src/audios/ogg/mus_carreras_gameplay_loop.ogg` ]);
         //sfx
         this.scene.load.audio(`aterrizaje`, [ `./src/audios/m4a/sfx_aterrizaje.m4a`, `./src/audios/ogg/sfx_aterrizaje.ogg` ]);
         this.scene.load.audio(`golpe`, [ `./src/audios/m4a/sfx_golpe.m4a`, `./src/audios/ogg/sfx_golpe.ogg` ]);
