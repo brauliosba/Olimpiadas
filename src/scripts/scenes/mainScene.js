@@ -26,7 +26,7 @@ export class MainScene extends Phaser.Scene{
         this.load.image('pista', './src/images/pantalla-de-juego-pista.png');
         this.load.image('extra', './src/images/pista-extras.png');
         this.load.image('logoTexture','./src/images/logo-pchujoy-texture.png');
-        this.load.image('tapScreen', './src/images/tapScreen.png');
+        this.load.image('tapScreen', './src/images/tap_screen.png');
         
         this.load.atlas('clouds', './src/images/clouds.png', './src/images/clouds.json');
         this.load.atlas('inputs', './src/images/actionui.png', './src/images/actionui.json');
