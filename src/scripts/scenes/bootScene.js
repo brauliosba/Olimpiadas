@@ -34,14 +34,16 @@ export class BootScene extends Phaser.Scene
         window.addEventListener('touchstart', () => {this.data.set('IS_TOUCH', true); });
            
         this.bg = this.add.image(gameWidth/2, gameWidth/2, `menuBG`).setDisplaySize(gameWidth, gameWidth).setDepth(5).setInteractive();
-        /*
-        this.playButton = this.add.image(gameWidth/2, gameWidth/2, `loadingUI`, `boton_jugar.png`).setDepth(5).setInteractive();
-        this.playButton.setVisible(false).on(`pointerdown`, () => { 
+
+        this.playButton = this.add.image(gameWidth/2, gameWidth/2, `loadingUI`, `boton_jugar_1.png`).setDepth(5).setInteractive().setScale(.72);
+        this.playButton.setVisible(false).on(`pointerdown`, () => { this.playButton.setTexture(`loadingUI`, `boton_jugar_2.png`) });
+        this.playButton.setVisible(false).on(`pointerup`, () => {
+            this.playButton.setTexture(`loadingUI`, `boton_jugar_1.png`)
             this.scene.stop();
             this.scene.get(`UIScene`).splashScreenAnim();
         });
-        */
-        let loadingThumb = this.add.sprite(0,gameWidth/2,'loadingUI','bar_icon.png').setDepth(5.1);
+
+        this.loadingThumb = this.add.sprite(0,gameWidth/2,'loadingUI','bar_icon.png').setDepth(5.1);
         this.loadingSlider = this.rexUI.add.slider({
             x: gameWidth/2+40,
             y: gameWidth/2,
@@ -71,7 +73,7 @@ export class BootScene extends Phaser.Scene
             repeat: 0,
             value: .9,
             onUpdate: () => {
-                if(this.loadingSlider != null) loadingThumb.x = this.loadingSlider.getElement('thumb').x+10;
+                if(this.loadingSlider != null) this.loadingThumb.x = this.loadingSlider.getElement('thumb').x+10;
             },
             onComplete: () => {
                 sliderTween?.remove();
@@ -108,9 +110,8 @@ export class BootScene extends Phaser.Scene
                     sliderTween?.remove();
                     sliderTween = null;
                     this.loadingSlider.setVisible(false);
-                    //this.playButton.setVisible(true);
-                    this.scene.stop();
-                    this.scene.get(`UIScene`).splashScreenAnim();
+                    this.loadingThumb.setVisible(false);
+                    this.playButton.setVisible(true);
                 }
             });
         }
