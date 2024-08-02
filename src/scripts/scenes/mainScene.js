@@ -150,9 +150,7 @@ export class MainScene extends Phaser.Scene{
         this.physics.add.collider(this.obstacleManager.obstaclesGroup, this.ground);
 
         //Player Input
-        if (this.data.get('IS_TOUCH')) {
-            this.input.addPointer(3)
-           
+        if (this.data.get('IS_TOUCH')) {           
             this.jumpButton = this.add.image(380, 780, 'inputs', 'tapatlon_jump_mobile.png').setDepth(6.2).setInteractive().setOrigin(0)
             this.jumpButton.setAlpha(.9)
             this.jumpButton.on('pointerdown', function (pointer) {
