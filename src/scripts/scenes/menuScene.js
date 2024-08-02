@@ -6,7 +6,6 @@ export class MenuScene extends Phaser.Scene
     }
 
     preload(){
-        //this.load.image(`square`, `src/images/square.png`);
         this.load.image(`menuBG`, `src/images/inicio-ilustracion.png`);
         this.load.image(`logo`, `src/images/ui/logo.png`);
         this.load.image(`logoPchujoy`, `src/images/inicio-logo-pchujoy.png`);
