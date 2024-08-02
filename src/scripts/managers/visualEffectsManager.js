@@ -27,18 +27,18 @@ export class VisualEffectsManager
             
         }
         effectTextContainer.setAlpha(0).setScale(.8)
-        this.ShowContainerWithFade(this,200,500, 200, 400, 200, effectTextContainer);
+        this.ShowContainerWithFade(this,200,550, 200, 400, 200, effectTextContainer);
     }
     CreateMessage(messageType){
         let messageContainer = this.scene.add.image(0, 0, 'textos',  messageType + ".png").setDepth(6).setScale(.8)
-        this.ShowContainerWithFade(this,800, 500, 200, 400, 200, messageContainer);
+        this.ShowContainerWithFade(this,300, 450, 200, 400, 200, messageContainer);
     }
 
     CreateMilestone(message){
-        let milestoneContainer = this.scene.add.container(0,0).setDepth(6.3)
-        let milestoneText = this.scene.add.text(0, 0, message, { font: '400 200px Bungee', color: '#F5B05F' }).setOrigin(.5).setDepth(8).setStroke('#503530', 10);
+        let milestoneContainer = this.scene.add.container(0,0).setDepth(8.3)
+        let milestoneText = this.scene.add.text(0, 0, message, { font: '400 200px Bungee', color: '#F5B05F' }).setOrigin(.5).setDepth(8.4).setStroke('#503530', 10);
         milestoneContainer.add(milestoneText)
-        this.ShowContainerWithFade(this,this.scene.gameWidth/2, this.scene.gameWidth/2, 200, 400, 200, milestoneContainer);
+        this.ShowContainerWithFade(this,this.scene.gameWidth/2, this.scene.gameWidth/2-370, 200, 400, 200, milestoneContainer);
     }
 
     ShowContainerWithFade(scene, cx,cy, fadeInDuration, displayDuration, fadeOutDuration, container) {

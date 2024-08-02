@@ -51,8 +51,8 @@ export class UIScene extends Phaser.Scene
         this.graphics.fillStyle(0x000000, 1);
         this.graphics.fillRect(0, 0, this.gameWidth, this.gameWidth);
         
-        this.splashScreen = this.add.image(this.dim/2, this.dim/2, 'logoPChuJoy')
-        this.splashScreen.setDisplaySize(this.dim, this.dim).setDepth(10).setAlpha(0).setInteractive();
+        this.splashScreen = this.add.image(this.gameWidth/2, this.gameWidth/2, 'logoPChuJoy');
+        this.splashScreen.setDisplaySize(this.gameWidth, this.gameWidth).setDepth(10).setAlpha(0).setInteractive();
 
         window.addEventListener('fullscreenchange', () => {
             let phaserDiv = document.getElementById('phaser-div');

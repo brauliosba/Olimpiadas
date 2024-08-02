@@ -1,0 +1,25 @@
+{
+"frames": {
+	"bar_bg.png": {
+		"frame": {"x":0, "y":0, "w":811, "h":176},
+		"spriteSourceSize": {"x":0,"y":0,"w":811,"h":176},
+		"sourceSize": {"w":811,"h":176}
+	},
+	"bar_icon.png": {
+		"frame": {"x":0, "y":264, "w":151, "h":151},
+		"spriteSourceSize": {"x":0,"y":0,"w":151,"h":151},
+		"sourceSize": {"w":151,"h":151}
+	},
+	"bar_relleno.png": {
+		"frame": {"x":0, "y":177, "w":723, "h":86},
+		"spriteSourceSize": {"x":0,"y":0,"w":723,"h":86},
+		"sourceSize": {"w":723,"h":86}
+	}
+
+},
+"meta": {
+	"image": "sprites.png",
+	"size": {"w": 812, "h": 416},
+	"scale": "1"
+}
+}

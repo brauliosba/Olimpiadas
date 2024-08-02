@@ -1,10 +1,15 @@
 export class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, 'playerRun');
+      this.playerJumpCounter = 0
       this.playerRunAnimation = 'run'
       this.playerRunTexture = 'playerRun'
+
+      this.playerJumpAnimation = 'jump'
+      this.playerJumpTexture = 'playerJump'
+
       this.isStun = false
-      this.setDepth(3)
+      this.setDepth(5.2)
       scene.add.existing(this);
       scene.physics.add.existing(this);
       this.baseFrameRate = 10
@@ -35,10 +40,28 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 repeat: -1 
             });
             scene.anims.create({
+                key: 'ljump',
+                frames: this.scene.anims.generateFrameNumbers('playerlJump', { start: 0, end: 2, first: 0 }), // Frames del 0 al 9
+                frameRate: this.baseFrameRate, // Velocidad de la animación
+                repeat: -1 
+            });
+            scene.anims.create({
+                key: 'jump',
+                frames: this.scene.anims.generateFrameNumbers('playerJump', { start: 0, end: 2, first: 0 }), // Frames del 0 al 9
+                frameRate: this.baseFrameRate, // Velocidad de la animación
+                repeat: -1 
+            });
+            scene.anims.create({
                 key: 'hit',
                 frames: this.scene.anims.generateFrameNumbers('playerHit', { start: 0, end: 2, first: 0 }), // Frames del 0 al 9
                 frameRate: this.baseFrameRate, // Velocidad de la animación
                 repeat: 1 
+            });
+            scene.anims.create({
+                key: 'fall',
+                frames: this.scene.anims.generateFrameNumbers('playerFall', { start: 0, end: 19, first: 0 }), // Frames del 0 al 9
+                frameRate: 20, // Velocidad de la animación
+                repeat: 0
             });
 
 
@@ -46,6 +69,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.on('animationcomplete', function (animation, frame) {
             if (animation.key === 'hit') {
                 this.isStun = false
+            }
+        });
+        this.on('animationstart', function(animation, frame) {
+            if (animation.key === 'fall') {
+                // Crear un tween para desplazar la valla hacia la derecha
+                this.scene.tweens.add({
+                    targets: this,
+                    x: this.x + 400, // Mover 100 píxeles hacia la derecha
+                    duration: 1000, // Duración en milisegundos
+                    ease: 'Power2'
+                });
             }
         });
         
@@ -74,9 +108,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                   }
             }else{
                 this.isGrounded = false
-                if (this.texture.key !== 'playerJump') {
+                if (this.texture.key !== this.playerJumpTexture) {
                     this.anims.pause()
-                    this.setTexture('playerJump');
+                    this.setTexture(this.playerJumpTexture);
+                    this.play(this.playerJumpAnimation);
                 }
             }   
         }
@@ -86,6 +121,15 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.isStun= true
         this.setTexture('playerHit');
         this.play('hit');
+    }
+
+    setFall(){
+        this.isStun= true
+        this.setTexture('playerFall');
+        this.play('fall');
+    }
+    getStun(){
+        return this.isStun
     }
 
     fixPlayer(){

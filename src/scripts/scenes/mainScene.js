@@ -27,22 +27,29 @@ export class MainScene extends Phaser.Scene{
         this.load.atlas(`bg`, `${pchujoyPublicFilesPath}/images/bg.png`, `${pchujoyPublicFilesPath}/images/bg.json`);
         this.load.image(`pista`, `${pchujoyPublicFilesPath}/images/pantalla-de-juego-pista.png`);
         this.load.image(`extra`, `${pchujoyPublicFilesPath}/images/pista-extras.png`);
+        this.load.image(`logoTexture`,`${pchujoyPublicFilesPath}/images/logo-pchujoyTexture.png`);
         this.load.image(`tapScreen`, `${pchujoyPublicFilesPath}/images/tapScreen.png`);
         
         this.load.atlas(`clouds`, `${pchujoyPublicFilesPath}/images/clouds.png`, `${pchujoyPublicFilesPath}/images/clouds.json`);
-        this.load.atlas(`inputs`, `${pchujoyPublicFilesPath}/images/inputs.png`, `${pchujoyPublicFilesPath}/images/inputs.json`);
+        this.load.atlas(`inputs`, `${pchujoyPublicFilesPath}/images/actionui.png`, `${pchujoyPublicFilesPath}/images/actionui.json`);
         this.load.atlas(`UIgame`, `${pchujoyPublicFilesPath}/images/UIgame.png`, `${pchujoyPublicFilesPath}/images/UIgame.json`);
         this.load.atlas(`people`, `${pchujoyPublicFilesPath}/images/people.png`, `${pchujoyPublicFilesPath}/images/people.json`);
         this.load.atlas(`textos`, `${pchujoyPublicFilesPath}/images/text.png`, `${pchujoyPublicFilesPath}/images/text.json`);
         //powerups
         this.load.image(`corazon`, `${pchujoyPublicFilesPath}/images/power-up-corazon.png`);
         this.load.image(`zapatilla`, `${pchujoyPublicFilesPath}/images/power-up-zapatilla.png`);
+        this.load.spritesheet('corazonOff', `${pchujoyPublicFilesPath}/images/corazon_off.png`, {frameWidth: 310, frameHeight: 310});
+        this.load.spritesheet('zapatillaOff', `${pchujoyPublicFilesPath}/images/zapatilla_off.png`, {frameWidth: 310, frameHeight: 310});
         //player
         this.load.spritesheet(`playerIdle`, `${pchujoyPublicFilesPath}/images/player-idle.png`, {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet(`playerRun`, `${pchujoyPublicFilesPath}/images/player.png`, {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet(`playerStun`, `${pchujoyPublicFilesPath}/images/player-stun.png`, {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet(`playerHit`, `${pchujoyPublicFilesPath}/images/player-hit.png`, {frameWidth: 700, frameHeight: 500});
-        this.load.image(`playerJump`, `${pchujoyPublicFilesPath}/images/player-jump.png`);
+        this.load.spritesheet('playerFall', `${pchujoyPublicFilesPath}/images/player_fall.png`, {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerJump', `${pchujoyPublicFilesPath}/images/player_jump.png`, {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerlJump', `${pchujoyPublicFilesPath}/images/player_ljump.png`, {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('valla', `${pchujoyPublicFilesPath}/images/valla.png`, {frameWidth: 400, frameHeight: 280});
+        
         this.load.image(`playerReady`, `${pchujoyPublicFilesPath}/images/player-ready.png`);
         this.load.image(`playerSet`, `${pchujoyPublicFilesPath}/images/player-set.png`);
     }
@@ -101,11 +108,16 @@ export class MainScene extends Phaser.Scene{
 
         let playerJump = this.input.keyboard.addKey('up');
         playerJump.on(`down`, () => { 
-            if(this.gameState === 'play')this.player.jump();})
+            if(this.gameState === 'play'){
+                this.player.jump();
+                this.player.playerJumpCounter +=1;
+                if(this.player.playerJumpCounter>2)this.hideJumpButton()
+
+            }})
         //let keyPause3 = this.input.keyboard.addKey(`R`);
         //keyPause3.on(`down`, () => { this.restartGame();})
 
-        let startText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'Presiona para empezar',{ font: '400 60px Bungee', color: '#F5B05F' }).setOrigin(.5).setDepth(8).setStroke('#503530', 10);
+        let startText = this.add.text(this.gameWidth/2, this.gameWidth/2, 'TAP O CLICK PARA EMPEZAR',{ font: '400 60px Bungee', color: '#F5B05F' }).setOrigin(.5).setDepth(8).setStroke('#503530', 10);
         this.startButton = this.add.image(0,0,'square').setDisplaySize(this.gameWidth, this.gameHeight).setOrigin(0).setAlpha(.01).setDepth(6.1);
         this.startButton.setInteractive().on('pointerup', () => {
             startText.setVisible(false);
@@ -141,16 +153,27 @@ export class MainScene extends Phaser.Scene{
         this.physics.add.collider(this.obstacleManager.obstaclesGroup, this.ground);
 
         //Player Input
-        if (this.data.get('IS_TOUCH')) {
-           
-           
-            this.jumpButton = this.add.image(800, 400, 'inputs', 'tapatlon_jump.png').setDepth(6.2).setInteractive().setOrigin(0)
+        if (this.data.get('IS_TOUCH')) {        
+            this.jumpButton = this.add.image(380, 780, 'inputs', 'tapatlon_jump_mobile.png').setDepth(6.2).setInteractive().setOrigin(0)
+            this.jumpButton.setAlpha(.9)
             this.jumpButton.on('pointerdown', function (pointer) {
                 if (this.gameState == 'play' && this.player.isGrounded) {
                     this.player.jump()
                 }
 
             }, this);
+            
+            //Create swipe
+
+            // Variables para almacenar las coordenadas de inicio y fin del swipe
+            this.swipeStartX = 0;
+            this.swipeStartY = 0;
+            this.swipeEndX = 0;
+            this.swipeEndY = 0;
+
+            // Escuchar eventos de toque y clic
+            this.input.on('pointerdown', this.onPointerDown, this);
+            this.input.on('pointerup', this.onPointerUp, this);
 
             this.tapScreen.on('pointerdown', function (pointer) {  
                 // Verificar si estamos en estado 'play' y el jugador está en el suelo
@@ -158,15 +181,17 @@ export class MainScene extends Phaser.Scene{
                     // Incrementar la barra de progreso utilizando la función calculateIncrement
                     this.gameplayUI.hideMobileUI()
                     this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
-                }
-                
+                }       
             }, this);
         } else {
+            this.jumpButton = this.add.image(410, 840, 'inputs', 'tapatlon_jump_pc.png').setDepth(6.2).setOrigin(0).setScale(.77)
+            this.jumpButton.setAlpha(.9)
             // Manejador para el click en pantalla
             this.tapScreen.on('pointerdown', function (pointer) {
                 // Verificar si estamos en estado 'play' y el jugador está en el suelo
                 if (this.gameState == 'play' && this.player.isGrounded) {
                     // Incrementar la barra de progreso utilizando la función calculateIncrement
+                    this.gameplayUI.hideMobileUI()
                     this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
                 }
             }, this);
@@ -176,10 +201,50 @@ export class MainScene extends Phaser.Scene{
                 // Verificar si estamos en estado 'play' y el jugador está en el suelo
                 if (this.gameState == 'play' && this.player.isGrounded) {
                     // Incrementar la barra de progreso utilizando la función calculateIncrement
+                    this.gameplayUI.hideMobileUI()
                     this.gameplayUI.progressBar.value += this.calculateIncrement(this.gameplayUI.progressBar.value, this.clickSpeed);
                 }
             }, this);
         }
+    }
+
+    onPointerDown(pointer) {
+        // Almacenar las coordenadas iniciales del toque o clic
+        this.swipeStartX = pointer.x;
+        this.swipeStartY = pointer.y;
+    }
+
+    onPointerUp(pointer) {
+        // Almacenar las coordenadas finales del toque o clic
+        this.swipeEndX = pointer.x;
+        this.swipeEndY = pointer.y;
+
+        // Calcular la diferencia en las coordenadas
+        let diffY = this.swipeEndY - this.swipeStartY;
+
+        // Determinar si es un swipe hacia arriba
+        if (Math.abs(diffY) > 50 && diffY < 0) { // Umbral para evitar swipes pequeños
+            // Llamar a la función específica para swipe hacia arriba
+            this.onSwipeUp();
+        }
+    }
+
+    onSwipeUp() {
+        // Función a activar cuando se detecte un swipe hacia arriba
+        console.log('Swipe hacia arriba detectado');
+        if (this.gameState == 'play' && this.player.isGrounded) {
+            this.player.jump()
+        }
+        // Aquí puedes agregar la lógica que deseas ejecutar al detectar el swipe hacia arriba
+    }
+
+    hideJumpButton(){
+        this.tweens.add({
+            targets: this.jumpButton,
+            alpha: 0,
+            duration: 500,
+            ease: 'Power2'
+        });
     }
 
     getTypePointer(pointer) {
@@ -198,7 +263,7 @@ export class MainScene extends Phaser.Scene{
                 break;
             case `restart`:
                 if (this.startRunning && this.tutorial) {
-                    this.tutorial = true;
+                    this.tutorial = false;
                     this.startRunning = false;
                     this.startCounter = 3;
                     this.isPaused = true;
@@ -216,7 +281,7 @@ export class MainScene extends Phaser.Scene{
             case `play`:
                 if (!this.isPaused) {      
                     let dt = Math.min(1, deltaTime/1000);
-                    this.gameplayUI.updateThumb();
+                    this.gameplayUI.updateThumb(dt);
                     this.backgroundManager.update(dt);
                     this.obstacleManager.update(dt);
                     this.powerUpManager.update(dt);
@@ -235,8 +300,6 @@ export class MainScene extends Phaser.Scene{
                 }
                 break;
         }
-        
-
     }
 
     PlayRunningSound(deltaTime){
@@ -326,15 +389,69 @@ export class MainScene extends Phaser.Scene{
         }
     }
 
+    startCountdown(totalTime) {
+        this.uiScene.audioManager.alarma_2.play()
+        if (this.timerEvent) {
+            this.timerEvent.remove();
+        }
+        this.gameplayUI.hurryCount.setText(3)
+        // Tiempo dividido en 3 partes iguales
+        let interval = totalTime / 3;
+
+        // Contador inicial
+        let count = 3;
+
+        // Función que se ejecutará en cada intervalo
+        let countdown = () => {
+            count--;
+            this.gameplayUI.hurryCount.setText(count.toString());
+            
+
+            if (count < 0) {
+                this.gameplayUI.hurryContainer.setAlpha(.01)
+                this.gameplayUI.hurryCount.setText('0');
+                // Detener el temporizador
+                this.time.removeEvent(this.timerEvent);
+            }
+            else{
+                this.uiScene.audioManager.alarma_2.play()
+            }
+        };
+
+        // Crear un temporizador que llame a la función cada intervalo
+        this.timerEvent = this.time.addEvent({
+            delay: interval,
+            callback: countdown,
+            callbackScope: this,
+            repeat: 3 // Ejecutar 3 veces (4 si contamos el inicial)
+        });
+    }
+    stopCountdown() {
+        
+        // Detener el contador y mantener el texto
+        if (this.timerEvent) {
+            this.timerEvent.remove();
+            this.timerEvent = null;
+        }
+        if(this.gameplayUI.hurryCount!=null) this.gameplayUI.hurryCount.setText(3);
+    }
+
     startLoseTimer(){
+        let delayTime =2500
+        this.gameplayUI.hurryContainer.setAlpha(1)
+        
         // Si ya estamos rastreando la colisión, no hacer nada
         if (this.loseTimer !== null) return;
+        this.startCountdown(delayTime)
         this.player.playerRunTexture = 'playerStun'
         this.player.playerRunAnimation = 'stun'
+        this.player.playerJumpTexture = 'playerlJump'
+        this.player.playerJumpAnimation = 'ljump'
         // Si no estamos rastreando la colisión, iniciar el temporizador
         this.loseTimer = this.time.addEvent({
-            delay: 1500, // Duración del temporizador en milisegundos (5 segundos)
+            delay: delayTime, // Duración del temporizador en milisegundos (5 segundos)
             callback: () => {
+                this.player.setFall()
                 this.gameState = 'game_over';
             },
             callbackScope: this
@@ -342,8 +459,12 @@ export class MainScene extends Phaser.Scene{
     }
 
     stopLoseTimer() {
+        this.gameplayUI.hurryContainer.setAlpha(.01)
+        this.stopCountdown()
         this.player.playerRunTexture = 'playerRun'
         this.player.playerRunAnimation = 'run'
+         this.player.playerJumpTexture = 'playerJump'
+        this.player.playerJumpAnimation = 'jump'
         this.loseTimer?.remove();
         this.loseTimer = null;
     }
@@ -389,9 +510,9 @@ export class MainScene extends Phaser.Scene{
         return encrypt.encrypt(data);
     }
 
-    finishGame() {
+    finishGame() {       
         this.isPaused = true
-        this.anims.pauseAll();
+        //this.anims.pauseAll();
 
         const newScore = this.score;
         const highScore = parseInt(this.data.get(`highScore`));

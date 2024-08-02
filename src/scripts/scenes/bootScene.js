@@ -20,7 +20,7 @@ export class BootScene extends Phaser.Scene
         this.load.atlas(`loadingUI`, `${pchujoyPublicFilesPath}/images/ui/loading_ui.png`, `${pchujoyPublicFilesPath}/images/ui/loading_ui.json`);
     }
 
-    create(){            
+    create(){
         let gameWidth = this.game.config.width;
         this.data.set('seasonId', this.game.config.metadata.seasonId);
         this.data.set('gameId', this.game.config.metadata.gameId);
@@ -88,6 +88,7 @@ export class BootScene extends Phaser.Scene
                 this.nextSceneReady = true
             });
         });
+
         this.uiScene = this.scene.get(`UIScene`);
     }
 

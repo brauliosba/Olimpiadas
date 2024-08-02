@@ -23,7 +23,6 @@ export class MenuScene extends Phaser.Scene
     }
 
     create(){
-        
         this.gameWidth = 1080;
         this.nextSceneReady = false;
 
@@ -41,14 +40,14 @@ export class MenuScene extends Phaser.Scene
         this.data.set('cd5', 12);
         this.data.set('gravity', 3000);
         this.data.set('tamaño_fase', 40);
-        this.data.set('lostSpeedAir', 100);
+        this.data.set('lostSpeedAir', 60);
         
         //UI
         this.uiScene = this.scene.get('UIScene');
         this.uiScene.setCurrentScene(this);
         this.uiScene.audioManager?.playMusic();
 
-        this.loadingBG = this.add.image(this.gameWidth/2, this.gameWidth/2, 'menuBG').setDisplaySize(this.gameWidth, this.gameWidth);;
+        this.loadingBG = this.add.image(this.gameWidth/2, this.gameWidth/2, 'menuBG').setDisplaySize(this.gameWidth, this.gameWidth);
         this.loadingBG.setDepth(5).setInteractive().setVisible(false);
         this.loadingThumb = this.add.sprite(0,this.gameWidth/2,'loadingUI','bar_icon.png').setDepth(5.1).setVisible(false);
         this.loadingSlider = this.rexUI.add.slider({
@@ -65,10 +64,10 @@ export class MenuScene extends Phaser.Scene
     
             input: `none`,
             space: {
-                top: 15,
-                right: 40,
-                left: -45,
-                bottom: 10
+            top: 15,
+            right: 40,
+            left: -45,
+            bottom: 10
             }
         }).layout().setDepth(5).setVisible(false);
         this.loadingSlider.value = 0;
@@ -121,7 +120,7 @@ export class MenuScene extends Phaser.Scene
             creditsButton.setTexture('menuUI', 'credits_1.png')
         });
 
-        //this.exposedVariables();
+        this.exposedVariables();
     }
 
     update(){
@@ -150,7 +149,7 @@ export class MenuScene extends Phaser.Scene
     showLoading(){
         this.loadingBG.setVisible(true);
         this.loadingSlider.setVisible(true);
-        this.loadingThumb.setVisible(true);
+        this.loadingThumb.setVisible(true)
 
         let sliderTween = this.tweens.add({
             targets: this.loadingSlider,
@@ -170,7 +169,7 @@ export class MenuScene extends Phaser.Scene
         this.scene.launch('MainScene', [this.data, true]);
         this.scene.sendToBack('MainScene');
         this.mainScene = this.scene.get("MainScene");
-        this.scene.get(`MainScene`).events.once(`create`, () => {         
+        this.scene.get(`MainScene`).events.once(`create`, () => {
             this.mainScene.startRunning = false;
             this.nextSceneReady = true;
         });

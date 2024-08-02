@@ -23,17 +23,30 @@ export class ObstacleManager
         this.obstaclesGroup = this.scene.physics.add.group({
             allowGravity: false
         });
+
     }
 
     create() {
+        
+        this.scene.anims.create({
+            key: 'falling',
+            frames: this.scene.anims.generateFrameNumbers('valla', { start: 0, end: 6, first: 0 }), // Frames del 0 al 9
+            frameRate: 30, // Velocidad de la animación
+            hideOnComplete: false
+        });
+
+        
         for (let i = 0; i < 5; i++) {
-            let obs = this.scene.physics.add.sprite(0, 0, 'inputs', 'tapatlon_obstacle.png').setOrigin(0).setScale(.8).setVisible(false).setDepth(5);
-            obs.setSize(60,150);
-            obs.setOffset(10, 10);
+            let obs = this.scene.physics.add.sprite(0, 0, 'valla', 0).setOrigin(0).setScale(.8).setVisible(false).setDepth(5);
+            
+            console.log("CURRENT" + obs.anims.currentAnim)
+            obs.setSize(30,150);
+            obs.setOffset(120, 60);
             obs.body.allowGravity = false;
             let obstacle = new Obstacle(obs)
             this.obstacles.push(obstacle);
         }
+       
 
         this.getEnemiesGroup();
     }
@@ -69,7 +82,7 @@ export class ObstacleManager
             if (obstacle.status == 'free') {
                 obstacle.sprite.enableBody();
                 let posX = this.scene.powerUpManager.checkActivePowerUp();
-                obstacle.sprite.setPosition(posX, this.gameWidth-360).setVisible(true);
+                obstacle.sprite.setPosition(posX, this.gameWidth-420).setVisible(true);
                 obstacle.status = 'active'
                 this.activeObstacles.push(obstacle);
                 break;
@@ -81,7 +94,7 @@ export class ObstacleManager
         for (let i = 0; i < this.activeObstacles.length; i++) {
             let obstacle = this.activeObstacles[i];
             obstacle.sprite.x -= this.horizontalSpeed * dt;
-            if (obstacle.sprite.x <=this.scene.player.x-40 && !obstacle.colissionPlayer){
+            if (obstacle.sprite.x <=this.scene.player.x-140 && !obstacle.colissionPlayer){
 
                 console.log("ESQUIVO ")
                 this.scene.uiScene.audioManager.playRandomStadioSound()
@@ -92,6 +105,8 @@ export class ObstacleManager
             if (obstacle.sprite.x <= -obstacle.sprite.displayWidth) {
                 
                 obstacle.sprite.setVisible(false);
+                obstacle.sprite.anims.pause()
+                obstacle.sprite.setFrame(0)
                 obstacle.colissionPlayer = false
                 obstacle.status = 'free';
                 this.activeObstacles.shift();
@@ -117,14 +132,21 @@ export class ObstacleManager
     }
 
     collisionHandler(playerBody, obstacleBody) {
-        this.scene.uiScene.audioManager.estadio_u.play()
-        this.scene.uiScene.audioManager.golpe.play()
-        this.scene.player.setStun()
-        obstacleBody.disableBody(true, false);
-        this.obstacles[0].colissionPlayer = true;
-        this.scene.lifes -= 1;
-        this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(false);
-        if (this.scene.lifes == 0) this.scene.gameState = 'game_over';
+        if(!this.scene.player.getStun()){
+            this.scene.uiScene.audioManager.estadio_u.play()
+            this.scene.uiScene.audioManager.golpe.play()
+            obstacleBody.anims.play('falling')
+            this.scene.player.setStun()
+            
+            obstacleBody.colissionPlayer = true;
+        
+            this.scene.lifes -= 1;
+            this.scene.gameplayUI.hearts.getChildren()[this.scene.lifes].setVisible(false);
+            if (this.scene.lifes == 0) {
+                this.scene.player.setFall()
+                this.scene.gameState = 'game_over';}
+        }
+        
     }
 
     checkActiveObstacles() {
