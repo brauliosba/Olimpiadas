@@ -6,20 +6,30 @@
 		"sourceSize": {"w":811,"h":176}
 	},
 	"bar_icon.png": {
-		"frame": {"x":0, "y":264, "w":151, "h":151},
-		"spriteSourceSize": {"x":0,"y":0,"w":151,"h":151},
-		"sourceSize": {"w":151,"h":151}
+		"frame": {"x":0, "y":538, "w":151, "h":140},
+		"spriteSourceSize": {"x":0,"y":0,"w":151,"h":140},
+		"sourceSize": {"w":151,"h":140}
 	},
 	"bar_relleno.png": {
 		"frame": {"x":0, "y":177, "w":723, "h":86},
 		"spriteSourceSize": {"x":0,"y":0,"w":723,"h":86},
 		"sourceSize": {"w":723,"h":86}
+	},
+	"boton_jugar_1.png": {
+		"frame": {"x":0, "y":401, "w":692, "h":136},
+		"spriteSourceSize": {"x":0,"y":0,"w":692,"h":136},
+		"sourceSize": {"w":692,"h":136}
+	},
+	"boton_jugar_2.png": {
+		"frame": {"x":0, "y":264, "w":692, "h":136},
+		"spriteSourceSize": {"x":0,"y":0,"w":692,"h":136},
+		"sourceSize": {"w":692,"h":136}
 	}
 
 },
 "meta": {
 	"image": "sprites.png",
-	"size": {"w": 812, "h": 416},
+	"size": {"w": 812, "h": 679},
 	"scale": "1"
 }
 }
