@@ -162,6 +162,20 @@ export class MainScene extends Phaser.Scene{
                 }
 
             }, this);
+            
+            //Create swipe
+
+            // Variables para almacenar las coordenadas de inicio y fin del swipe
+            this.swipeStartX = 0;
+            this.swipeStartY = 0;
+            this.swipeEndX = 0;
+            this.swipeEndY = 0;
+
+            // Escuchar eventos de toque y clic
+            this.input.on('pointerdown', this.onPointerDown, this);
+            this.input.on('pointerup', this.onPointerUp, this);
+
+            
 
             this.tapScreen.on('pointerdown', function (pointer) {  
                 // Verificar si estamos en estado 'play' y el jugador está en el suelo
@@ -197,6 +211,37 @@ export class MainScene extends Phaser.Scene{
             }, this);
         }
     }
+
+    onPointerDown(pointer) {
+        // Almacenar las coordenadas iniciales del toque o clic
+        this.swipeStartX = pointer.x;
+        this.swipeStartY = pointer.y;
+    }
+
+    onPointerUp(pointer) {
+        // Almacenar las coordenadas finales del toque o clic
+        this.swipeEndX = pointer.x;
+        this.swipeEndY = pointer.y;
+
+        // Calcular la diferencia en las coordenadas
+        let diffY = this.swipeEndY - this.swipeStartY;
+
+        // Determinar si es un swipe hacia arriba
+        if (Math.abs(diffY) > 50 && diffY < 0) { // Umbral para evitar swipes pequeños
+            // Llamar a la función específica para swipe hacia arriba
+            this.onSwipeUp();
+        }
+    }
+
+    onSwipeUp() {
+        // Función a activar cuando se detecte un swipe hacia arriba
+        console.log('Swipe hacia arriba detectado');
+        if (this.gameState == 'play' && this.player.isGrounded) {
+            this.player.jump()
+        }
+        // Aquí puedes agregar la lógica que deseas ejecutar al detectar el swipe hacia arriba
+    }
+
     hideJumpButton(){
         this.tweens.add({
             targets: this.jumpButton,
