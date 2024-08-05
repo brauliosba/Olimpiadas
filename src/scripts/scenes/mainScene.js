@@ -502,6 +502,7 @@ export class MainScene extends Phaser.Scene{
         this.uiScene.audioManager.stopMusic();
         this.scene.restart([this.data, false]);
     }
+    
     encrypt(data) {
         const encrypt = new JSEncrypt();
         encrypt.setPublicKey(process.env.GAME_PUBLIC_KEY);
