@@ -120,7 +120,7 @@ export class MenuScene extends Phaser.Scene
             creditsButton.setTexture('menuUI', 'credits_1.png')
         });
 
-        this.exposedVariables();
+        //this.exposedVariables();
     }
 
     update(){
