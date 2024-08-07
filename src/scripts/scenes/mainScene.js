@@ -185,6 +185,12 @@ export class MainScene extends Phaser.Scene{
                 
             }, this);
         } else {
+            window.addEventListener('keydown', function(event) {
+                if (event.code === 'Space' || event.key === ' ' || event.keyCode === 32) {
+                    event.preventDefault();
+                }
+            });
+
             this.jumpButton = this.add.image(410, 840, 'inputs', 'tapatlon_jump_pc.png').setDepth(6.2).setOrigin(0).setScale(.77)
             this.jumpButton.setAlpha(.9)
             // Manejador para el click en pantalla
