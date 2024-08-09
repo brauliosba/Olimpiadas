@@ -6,7 +6,10 @@ export class BackgroundManager
         this.horizontalSpeed = this.scene.toPixels(this.scene.data.get('initialSpeed'));
         this.backgrounds = [];
         this.clouds = [];
+        this.wallTextures = [];
         this.lastCloudIndex = 2;
+        this.lastWallIndex = 2;
+        this.wallLogoCounter = 2;
     }
 
     create() {
@@ -15,7 +18,7 @@ export class BackgroundManager
         //this.seats = this.scene.add.tileSprite(0,235,0,0,'bg','asientos.png').setOrigin(0).setScale(.72).setDepth(0.2);
         
         this.scene.add.image(0,this.gameWidth-570,'bg','muro.png').setOrigin(0).setScale(.72).setDepth(0.3);
-        this.logo = this.scene.add.tileSprite(0,this.gameWidth-515,0,0,'logoTexture').setOrigin(0).setScale(.72).setDepth(0.4);
+        //this.logo = this.scene.add.tileSprite(0,this.gameWidth-515,0,0,'logoTexture').setOrigin(0).setScale(.72).setDepth(0.4);
         this.scene.add.image(0,this.gameWidth-350,'pista').setOrigin(0).setScale(.72).setDepth(0.5);
         this.extra = this.scene.add.tileSprite(0,620,0,0,'extra').setOrigin(0).setScale(.72).setDepth(0.6);
         let cloud = this.scene.add.image(300, 80, 'clouds', '1.png').setOrigin(.5).setScale(.72);
@@ -30,6 +33,16 @@ export class BackgroundManager
         let cloud4 = this.scene.add.image(1500, -10, 'clouds', '2.png').setOrigin(.5).setScale(.72);
         this.clouds.push(cloud4);
 
+        let wall1 = this.scene.add.image(0, this.gameWidth-440, 'pared', 'logo.png').setOrigin(0, .5).setScale(.72).setDepth(0.6);
+        this.wallTextures.push(wall1);
+
+        let wall2 = this.scene.add.image(0, this.gameWidth-400, 'pared', 'podio.png').setOrigin(0, .5).setScale(.72).setDepth(0.6);
+        wall2.x = wall1.displayWidth;
+        this.wallTextures.push(wall2);
+
+        let wall3 = this.scene.add.image(0, this.gameWidth-400, 'pared', 'trofeo.png').setOrigin(0, .5).setScale(.72).setDepth(0.6);
+        wall3.x = wall2.x + wall2.displayWidth;
+        this.wallTextures.push(wall3);
 
         // Create an array to hold the crowd images
         this.crowdImages = [];
@@ -42,16 +55,12 @@ export class BackgroundManager
             let image = this.scene.add.sprite(positions[i], 335, 'people', `tapatlon_publico_0${i+1}`+'.png').setScale(.72).setDepth(0.2).setOrigin(0,.5);
             this.crowdImages.push(image);
         }
-
-        
-
     }
 
-    update(dt) {
-        
+    update(dt) {      
         this.extra.tilePositionX += this.horizontalSpeed * dt * 1.9 ;
         //this.seats.tilePositionX += this.horizontalSpeed * dt* 1.9 *.8  ;
-        this.logo.tilePositionX += this.horizontalSpeed * dt* 1.9 ;
+        //this.logo.tilePositionX += this.horizontalSpeed * dt* 1.9 ;
         this.crowdImages.forEach(image => {
             image.x -=  this.horizontalSpeed * dt*.8 ;
 
@@ -62,10 +71,9 @@ export class BackgroundManager
                 image.x = maxX + image.width;
             }
         });
+        this.wallUpdate(dt);
         this.cloudsUpdate(dt);
-    }
-
-   
+    }  
 
     cloudsUpdate(dt){
         for(let i = 0; i < this.clouds.length; i++){
@@ -74,6 +82,7 @@ export class BackgroundManager
 
             if (cloud.x <= -cloud.displayWidth/2){
                 this.drawCloud()
+                i--;
             }
         }
     }
@@ -91,5 +100,35 @@ export class BackgroundManager
 
         this.clouds.shift();
         this.clouds.push(cloud);
+    }
+
+    wallUpdate(dt){
+        for (let i = 0; i < this.wallTextures.length; i++){
+            let texture = this.wallTextures[i];
+            texture.x -= dt * this.horizontalSpeed * 1.9;
+
+            if (texture.x <= -texture.displayWidth){
+                this.drawWallTexture();
+                i--;
+            }
+        }
+    }
+
+    drawWallTexture(){
+        let type = Phaser.Math.Between(1, 2);
+        type = type != this.lastWallIndex ? type : type + 1 > 2 ? 1 : type + 1;
+        if (this.wallLogoCounter >= 2) { type = 0; this.wallLogoCounter = 0; }
+        else { this.wallLogoCounter += 1; }
+        this.lastWallIndex = type;
+        let texture = this.wallTextures[0];
+        let key = type == 0 ? 'logo.png' : type == 1 ? 'podio.png' : 'trofeo.png';
+        texture.setTexture('pared', key);
+        const lastTexture =  this.wallTextures[this.wallTextures.length - 1]
+        const posX = lastTexture.x + lastTexture.displayWidth;
+        const posY = type > 0 ? this.gameWidth-400 : this.gameWidth-440;
+        texture.setPosition(posX, posY);
+
+        this.wallTextures.shift();
+        this.wallTextures.push(texture);
     }
 }

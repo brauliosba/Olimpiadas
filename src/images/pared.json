@@ -1,0 +1,25 @@
+{
+"frames": {
+	"logo.png": {
+		"frame": {"x":0, "y":402, "w":900, "h":200},
+		"spriteSourceSize": {"x":0,"y":0,"w":900,"h":200},
+		"sourceSize": {"w":900,"h":200}
+	},
+	"podio.png": {
+		"frame": {"x":0, "y":201, "w":900, "h":200},
+		"spriteSourceSize": {"x":0,"y":0,"w":900,"h":200},
+		"sourceSize": {"w":900,"h":200}
+	},
+	"trofeo.png": {
+		"frame": {"x":0, "y":0, "w":900, "h":200},
+		"spriteSourceSize": {"x":0,"y":0,"w":900,"h":200},
+		"sourceSize": {"w":900,"h":200}
+	}
+
+},
+"meta": {
+	"image": "pared.png",
+	"size": {"w": 901, "h": 603},
+	"scale": "1"
+}
+}
