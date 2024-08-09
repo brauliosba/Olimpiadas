@@ -58,7 +58,7 @@ export class BackgroundManager
     }
 
     update(dt) {      
-        this.extra.tilePositionX += this.horizontalSpeed * dt * 1.9 ;
+        this.extra.tilePositionX += this.horizontalSpeed * dt * 2 ;
         //this.seats.tilePositionX += this.horizontalSpeed * dt* 1.9 *.8  ;
         //this.logo.tilePositionX += this.horizontalSpeed * dt* 1.9 ;
         this.crowdImages.forEach(image => {
@@ -105,7 +105,7 @@ export class BackgroundManager
     wallUpdate(dt){
         for (let i = 0; i < this.wallTextures.length; i++){
             let texture = this.wallTextures[i];
-            texture.x -= dt * this.horizontalSpeed * 1.35;
+            texture.x -= dt * this.horizontalSpeed * 1.4;
 
             if (texture.x <= -texture.displayWidth){
                 this.drawWallTexture();
