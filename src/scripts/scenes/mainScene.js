@@ -270,7 +270,6 @@ export class MainScene extends Phaser.Scene{
                 if (this.startRunning && this.tutorial) {
                     this.tutorial = false;
                     this.startRunning = false;
-                    this.startCounter = 3;
                     this.isPaused = true;
                     this.pauseTimeEvents();
                     this.startTutorial();
@@ -537,6 +536,7 @@ export class MainScene extends Phaser.Scene{
         this.blockStart = true;
         let countText = this.add.text(this.gameWidth/2, this.gameHeight/2, '3', { font: '400 400px Bungee', color: '#F5B05F' }).setStroke('#503530', 20);
         countText.setOrigin(.5).setDepth(10);
+        this.startCounter = 3;
 
         this.regressiveCount(countText);
     }
