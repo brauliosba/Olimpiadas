@@ -62,7 +62,7 @@ export class BackgroundManager
         //this.seats.tilePositionX += this.horizontalSpeed * dt* 1.9 *.8  ;
         //this.logo.tilePositionX += this.horizontalSpeed * dt* 1.9 ;
         this.crowdImages.forEach(image => {
-            image.x -=  this.horizontalSpeed * dt*.8 ;
+            image.x -=  this.horizontalSpeed * dt *.8 ;
 
             // If the image moves off-screen to the left, reposition it to the right
             if (image.x < -image.width) {
@@ -105,7 +105,7 @@ export class BackgroundManager
     wallUpdate(dt){
         for (let i = 0; i < this.wallTextures.length; i++){
             let texture = this.wallTextures[i];
-            texture.x -= dt * this.horizontalSpeed * 1.9;
+            texture.x -= dt * this.horizontalSpeed * 1.35;
 
             if (texture.x <= -texture.displayWidth){
                 this.drawWallTexture();
