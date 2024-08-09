@@ -26,7 +26,7 @@ export class MainScene extends Phaser.Scene{
         this.load.atlas(`bg`, `${pchujoyPublicFilesPath}/images/bg.png`, `${pchujoyPublicFilesPath}/images/bg.json`);
         this.load.image(`pista`, `${pchujoyPublicFilesPath}/images/pantalla-de-juego-pista.png`);
         this.load.image(`extra`, `${pchujoyPublicFilesPath}/images/pista-extras.png`);
-        this.load.image(`logoTexture`,`${pchujoyPublicFilesPath}/images/logo-pchujoy-texture.png`);
+        this.load.atlas(`pared`, `${pchujoyPublicFilesPath}./src/images/pared.png','./src/images/pared.json`);
         this.load.image(`tapScreen`, `${pchujoyPublicFilesPath}/images/tap_screen.png`);
         
         this.load.atlas(`clouds`, `${pchujoyPublicFilesPath}/images/clouds.png`, `${pchujoyPublicFilesPath}/images/clouds.json`);
@@ -183,6 +183,12 @@ export class MainScene extends Phaser.Scene{
                 }       
             }, this);
         } else {
+            window.addEventListener('keydown', function(event) {
+                if (event.code === 'Space' || event.key === ' ' || event.keyCode === 32) {
+                    event.preventDefault();
+                }
+            });
+
             this.jumpButton = this.add.image(410, 840, 'inputs', 'tapatlon_jump_pc.png').setDepth(6.2).setOrigin(0).setScale(.77)
             this.jumpButton.setAlpha(.9)
             // Manejador para el click en pantalla
@@ -230,7 +236,6 @@ export class MainScene extends Phaser.Scene{
 
     onSwipeUp() {
         // Función a activar cuando se detecte un swipe hacia arriba
-        console.log('Swipe hacia arriba detectado');
         if (this.gameState == 'play' && this.player.isGrounded) {
             this.player.jump()
         }
@@ -332,7 +337,6 @@ export class MainScene extends Phaser.Scene{
         this.gameplayUI.handlePointerDown()
         if(this.player.isStun || this.isPaused)return 0
         let aument = ((baseSpeed / (value * 5)))/1000
-        console.log("AUMENTO " + aument)
         return aument;
     }
 
@@ -342,7 +346,6 @@ export class MainScene extends Phaser.Scene{
         const minRange = 0.1;
         const maxRange = 0.6;
         
-        console.log('SPEED '+ speed)
         // Calcular la proporción
         let proportion = (speed - minSpeed) / (maxSpeed - minSpeed);
         
@@ -354,7 +357,6 @@ export class MainScene extends Phaser.Scene{
     }
     
     UpdateSpeed(dt){
-        console.log(this.obstacleManager.horizontalSpeed)
         this.player.UpdateFrameRate(this.gameplayUI.progressBar.value)
         this.timePerStep = this.mapSpeedToRange(this.obstacleManager.horizontalSpeed)
         this.obstacleManager.horizontalSpeed = (this.gameplayUI.progressBar.value * this.obstacleManager.maxSpeed)
@@ -363,7 +365,6 @@ export class MainScene extends Phaser.Scene{
     }
 
     UpdateBar(dt){
-        console.log("DELTA TIME " + dt)
         if(this.player.isGrounded)this.gameplayUI.progressBar.value -= (this.lostSpeed * (dt/1000)); 
         else this.gameplayUI.progressBar.value -= (this.lostSpeedAir * (dt/1000)); 
 
