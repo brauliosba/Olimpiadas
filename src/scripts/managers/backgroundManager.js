@@ -40,7 +40,7 @@ export class BackgroundManager
         wall2.x = wall1.displayWidth;
         this.wallTextures.push(wall2);
 
-        let wall3 = this.scene.add.image(0, this.gameWidth-400, 'pared', 'trofeo.png').setOrigin(0, .5).setScale(.72).setDepth(0.6);
+        let wall3 = this.scene.add.image(0, this.gameWidth-410, 'pared', 'trofeo.png').setOrigin(0, .5).setScale(.72).setDepth(0.6);
         wall3.x = wall2.x + wall2.displayWidth;
         this.wallTextures.push(wall3);
 
@@ -121,11 +121,27 @@ export class BackgroundManager
         else { this.wallLogoCounter += 1; }
         this.lastWallIndex = type;
         let texture = this.wallTextures[0];
-        let key = type == 0 ? 'logo.png' : type == 1 ? 'podio.png' : 'trofeo.png';
+        let key, posY;
+        switch (type) {
+            case 0:
+                key = 'logo.png';
+                posY = this.gameWidth-440;
+                break;
+            case 1:
+                key = 'podio.png';
+                posY = this.gameWidth-400;
+                break;
+            case 2:
+                key = 'trofeo.png';
+                posY = this.gameWidth-410;
+                break;
+            default:
+                break;
+        }
+        
         texture.setTexture('pared', key);
         const lastTexture =  this.wallTextures[this.wallTextures.length - 1]
         const posX = lastTexture.x + lastTexture.displayWidth;
-        const posY = type > 0 ? this.gameWidth-400 : this.gameWidth-440;
         texture.setPosition(posX, posY);
 
         this.wallTextures.shift();
