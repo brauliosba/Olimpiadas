@@ -105,7 +105,7 @@ export class BackgroundManager
     wallUpdate(dt){
         for (let i = 0; i < this.wallTextures.length; i++){
             let texture = this.wallTextures[i];
-            texture.x -= dt * this.horizontalSpeed * 1.4;
+            texture.x -= this.horizontalSpeed * dt * 1.43;
 
             if (texture.x <= -texture.displayWidth){
                 this.drawWallTexture();
