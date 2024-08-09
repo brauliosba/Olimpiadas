@@ -81,6 +81,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 this.isStun = false
             }
         });
+        /*
         this.on('animationstart', function(animation, frame) {
             if (animation.key === 'fall') {
                 // Crear un tween para desplazar la valla hacia la derecha
@@ -92,7 +93,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 });
             }
         });
-        
+        */
 
        this.anims.play('idle', true);
        this.isGrounded = true
@@ -135,6 +136,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     setFall(){
         this.isStun= true
+        this.setOrigin(0,.5);
         this.setTexture('playerFall');
         this.play('fall');
     }

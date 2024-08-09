@@ -44,7 +44,7 @@ export class MainScene extends Phaser.Scene{
         this.load.spritesheet(`playerRun`, `${pchujoyPublicFilesPath}/images/player.png`, {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet(`playerStun`, `${pchujoyPublicFilesPath}/images/player_stun.png`, {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet(`playerHit`, `${pchujoyPublicFilesPath}/images/player_hit.png`, {frameWidth: 700, frameHeight: 500});
-        this.load.spritesheet('playerFall', `${pchujoyPublicFilesPath}/images/player_fall.png`, {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerFall', `${pchujoyPublicFilesPath}/images/player_fall.png`, {frameWidth: 1500, frameHeight: 500});
         this.load.spritesheet('playerJump', `${pchujoyPublicFilesPath}/images/player_jump.png`, {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerlJump', `${pchujoyPublicFilesPath}/images/player_ljump.png`, {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('valla', `${pchujoyPublicFilesPath}/images/valla.png`, {frameWidth: 400, frameHeight: 280});
@@ -463,7 +463,7 @@ export class MainScene extends Phaser.Scene{
         this.stopCountdown()
         this.player.playerRunTexture = 'playerRun'
         this.player.playerRunAnimation = 'run'
-         this.player.playerJumpTexture = 'playerJump'
+        this.player.playerJumpTexture = 'playerJump'
         this.player.playerJumpAnimation = 'jump'
         this.loseTimer?.remove();
         this.loseTimer = null;
@@ -496,6 +496,7 @@ export class MainScene extends Phaser.Scene{
 
     pauseTimeEvents(){
         if (this.loseTimer != null) this.loseTimer.paused = this.isPaused;
+        if (this.timerEvent != null)  this.timerEvent.paused = this.isPaused;
     }
     
     restartGame(){
