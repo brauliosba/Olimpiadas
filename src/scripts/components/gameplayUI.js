@@ -153,12 +153,10 @@ export class GameplayUI
         }
     }
     updateThumb(dt){    
-        console.log('CAMBIO 0' +this.at)
         if(this.at>.1){
             
             this.at = 0
             let prevleft = this.tapLeft.frame.name
-            console.log('CAMBIO' + prevleft)
             let prevright = this.tapRight.frame.name
             this.tapLeft.setTexture('inputs',this.tapLeftTexture)
             this.tapRight.setTexture('inputs',this.tapRightTexture)
@@ -168,7 +166,6 @@ export class GameplayUI
         else{
             if(dt != null)this.at+=dt
         }
-        console.log("THUMB"+this.thumb.x)
         this.thumb.x = (this.progressBar.value*750+178)
     }
     onSliderValueChange(value) {
@@ -186,7 +183,6 @@ export class GameplayUI
     }
 
     updateRedBar(currentZone) {
-        console.log("zone" +currentZone)
         if(this.currentThreshold<=(8*.091)){
       
             this.currentThreshold += 0.091
