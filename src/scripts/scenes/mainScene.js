@@ -26,7 +26,7 @@ export class MainScene extends Phaser.Scene{
         this.load.atlas(`bg`, `${pchujoyPublicFilesPath}/images/bg.png`, `${pchujoyPublicFilesPath}/images/bg.json`);
         this.load.image(`pista`, `${pchujoyPublicFilesPath}/images/pantalla-de-juego-pista.png`);
         this.load.image(`extra`, `${pchujoyPublicFilesPath}/images/pista-extras.png`);
-        this.load.atlas(`pared`, `${pchujoyPublicFilesPath}/images/pared.png`,`${pchujoyPublicFilesPath} /images/pared.json`);
+        this.load.atlas(`pared`, `${pchujoyPublicFilesPath}/images/pared.png`,`${pchujoyPublicFilesPath}/images/pared.json`);
         this.load.image(`tapScreen`, `${pchujoyPublicFilesPath}/images/tap_screen.png`);
         
         this.load.atlas(`clouds`, `${pchujoyPublicFilesPath}/images/clouds.png`, `${pchujoyPublicFilesPath}/images/clouds.json`);
