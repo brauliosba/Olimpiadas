@@ -218,12 +218,13 @@ export class Panel
         sfxSlider.value = sfxVolume;
 
         if ((/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)){
-            musicTitle.setPosition(dim/2-325, dim/2-50);
-            musicThumb.setPosition(dim/2+5, dim/2-55);
-            musicSlider.setPosition(dim/2+140, dim/2-55);
-            sfxTitle.setPosition(dim/2-235, dim/2+50);
-            sfxThumb.setPosition(dim/2+5, dim/2+50)
-            sfxSlider.setPosition(dim/2+140, dim/2+50);
+            musicTitle.y = dim/2-50;
+            musicThumb.y = dim/2-55;
+            musicSlider.y = dim/2-55;
+            sfxTitle.y = dim/2+50;
+            sfxThumb.y = dim/2+50;
+            sfxSlider.y = dim/2+50;
+
             this.optionsContainer = this.scene.add.container(0, 0, 
                 [optionsTitle, closeImage, sfxSlider, sfxTitle, sfxThumb, musicTitle, musicSlider, musicThumb]);
         } else {
