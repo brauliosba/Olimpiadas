@@ -2,7 +2,6 @@ class Obstacle {
     constructor(sprite){
         this.sprite = sprite;
         this.status = 'free';
-        this.colissionPlayer = false;
     }
 }
 
@@ -38,7 +37,7 @@ export class ObstacleManager
         
         for (let i = 0; i < 5; i++) {
             let obs = this.scene.physics.add.sprite(0, 0, 'valla', 0).setOrigin(0).setScale(.8).setVisible(false).setDepth(5);
-            
+            obs.colissionPlayer = false;
             console.log("CURRENT" + obs.anims.currentAnim)
             obs.setSize(30,150);
             obs.setOffset(120, 60);
@@ -94,20 +93,20 @@ export class ObstacleManager
         for (let i = 0; i < this.activeObstacles.length; i++) {
             let obstacle = this.activeObstacles[i];
             obstacle.sprite.x -= this.horizontalSpeed * dt;
-            if (obstacle.sprite.x <=this.scene.player.x-140 && !obstacle.colissionPlayer){
+            if (obstacle.sprite.x <=this.scene.player.x-150 && !obstacle.sprite.colissionPlayer){
 
                 console.log("ESQUIVO ")
                 this.scene.uiScene.audioManager.playRandomStadioSound()
                 this.scene.score += 100
                 this.scene.visualEffectsManager.CreateNumbersText(100)
-                obstacle.colissionPlayer = true
+                obstacle.sprite.colissionPlayer = true
             }
             if (obstacle.sprite.x <= -obstacle.sprite.displayWidth) {
                 
                 obstacle.sprite.setVisible(false);
                 obstacle.sprite.anims.pause()
                 obstacle.sprite.setFrame(0)
-                obstacle.colissionPlayer = false
+                obstacle.sprite.colissionPlayer = false
                 obstacle.status = 'free';
                 this.activeObstacles.shift();
             }
