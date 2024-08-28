@@ -68,10 +68,18 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 repeat: 1 
             });
         }
-        if (!this.scene.anims.exists('fall')){
+        if (!this.scene.anims.exists('fall1')){
             scene.anims.create({
-                key: 'fall',
-                frames: this.scene.anims.generateFrameNumbers('playerFall', { start: 0, end: 19, first: 0 }), // Frames del 0 al 9
+                key: 'fall1',
+                frames: this.scene.anims.generateFrameNumbers('playerFall1', { start: 0, end: 9, first: 0 }), // Frames del 0 al 9
+                frameRate: 20, // Velocidad de la animación
+                repeat: 0
+            });
+        }
+        if (!this.scene.anims.exists('fall2')){
+            scene.anims.create({
+                key: 'fall2',
+                frames: this.scene.anims.generateFrameNumbers('playerFall2', { start: 0, end: 9, first: 0 }), // Frames del 0 al 9
                 frameRate: 20, // Velocidad de la animación
                 repeat: 0
             });
@@ -80,20 +88,21 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             if (animation.key === 'hit') {
                 this.isStun = false
             }
+            if (animation.key === 'fall1') {
+                this.setTexture('playerFall2').play('fall2')
+            }
         });
-        /*
         this.on('animationstart', function(animation, frame) {
-            if (animation.key === 'fall') {
+            if (animation.key === 'fall1') {
                 // Crear un tween para desplazar la valla hacia la derecha
                 this.scene.tweens.add({
                     targets: this,
-                    x: this.x + 400, // Mover 100 píxeles hacia la derecha
-                    duration: 1000, // Duración en milisegundos
+                    x: this.x + 700,
+                    duration: 1000,
                     ease: 'Power2'
                 });
             }
         });
-        */
 
        this.anims.play('idle', true);
        this.isGrounded = true
@@ -136,9 +145,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     setFall(){
         this.isStun= true
-        this.setOrigin(0,.5);
-        this.setTexture('playerFall');
-        this.play('fall');
+        this.setTexture('playerFall1');
+        this.play('fall1');
     }
     getStun(){
         return this.isStun
