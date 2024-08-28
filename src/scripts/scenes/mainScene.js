@@ -42,7 +42,8 @@ export class MainScene extends Phaser.Scene{
         this.load.spritesheet('playerRun', './src/images/player.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerStun', './src/images/player_stun.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerHit', './src/images/player_hit.png', {frameWidth: 700, frameHeight: 500});
-        this.load.spritesheet('playerFall', './src/images/player_fall.png', {frameWidth: 1500, frameHeight: 500});
+        this.load.spritesheet('playerFall1', './src/images/player_fall1.png', {frameWidth: 700, frameHeight: 500});
+        this.load.spritesheet('playerFall2', './src/images/player_fall2.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerJump', './src/images/player_jump.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('playerlJump', './src/images/player_ljump.png', {frameWidth: 700, frameHeight: 500});
         this.load.spritesheet('valla', './src/images/valla.png', {frameWidth: 400, frameHeight: 280});
