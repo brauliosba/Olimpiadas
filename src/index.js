@@ -87,14 +87,14 @@ function run(opts) {
 
     const game = new Phaser.Game(gameOptions);
     game.config.metadata = metadata;
-    window.turboGame = game;
+    window.Tapatlon = game;
 }
 
 // Method to destroy the game from outside
 function destroyGame() {
-  if (window.turboGame) {
-    window.turboGame.destroy(true);
-    window.turboGame = null;
+  if (window.Tapatlon) {
+    window.Tapatlon.destroy(true);
+    window.Tapatlon = null;
   }
 }
 
