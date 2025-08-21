@@ -85,9 +85,17 @@ function run(opts) {
         ...opts,
         }
 
-    // gama instance
     const game = new Phaser.Game(gameOptions);
     game.config.metadata = metadata;
+    window.turboGame = game;
+}
+
+// Method to destroy the game from outside
+function destroyGame() {
+  if (window.turboGame) {
+    window.turboGame.destroy(true);
+    window.turboGame = null;
+  }
 }
 
 // Attach the game to the window object
@@ -95,6 +103,7 @@ if (typeof window !== 'undefined') {
     if (!window.Tapatlon) {
       window.Tapatlon = {
         run,
+        destroyGame,
       };
     }
 }

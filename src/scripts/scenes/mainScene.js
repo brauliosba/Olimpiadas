@@ -6,6 +6,7 @@ import { ObstacleManager } from '../managers/obstacleManager.js';
 import { PowerUpsManager } from '../managers/powerUpsManager.js';
 import { GameplayUI } from '../components/gameplayUI.js';
 import { config } from '../../config.js';
+import { encryptWithPublicKey } from '../utils/encryption.js';
 const { pchujoyPublicFilesPath } = config; 
 
 export class MainScene extends Phaser.Scene{
@@ -527,11 +528,14 @@ export class MainScene extends Phaser.Scene{
             game_id: this.data.get(`gameId`),
             season_id: this.data.get(`seasonId`)
         }
-        let encryptedObject = this.encrypt(JSON.stringify(payload));
+
+        const publicKey = config.GAME_PUBLIC_KEY;
+        encryptWithPublicKey(JSON.stringify(payload), publicKey).then(encryptedObject => {
+            this.game.config.metadata.onGameEnd(encryptedObject);
+        });
 
         setTimeout(() =>{
             this.panel.showScore(newScore, newScore, gameplayTime);
-            this.game.config.metadata.onGameEnd(encryptedObject);
         }, 2000);
     }
 
