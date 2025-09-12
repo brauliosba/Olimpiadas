@@ -87,23 +87,24 @@ function run(opts) {
 
     const game = new Phaser.Game(gameOptions);
     game.config.metadata = metadata;
-    window.Tapatlon = game;
+    window.Tapatlon.game = game;
 }
 
 // Method to destroy the game from outside
 function destroyGame() {
-  if (window.Tapatlon) {
-    window.Tapatlon.destroy(true);
-    window.Tapatlon = null;
+  if (window.Tapatlon && window.Tapatlon.game) {
+    window.Tapatlon.game.destroy(true);
+    window.Tapatlon.game = null;
   }
 }
 
 // Attach the game to the window object
 if (typeof window !== 'undefined') {
-    if (!window.Tapatlon) {
+    if (!window.Tapatlon || typeof window.Tapatlon !== 'object') {
       window.Tapatlon = {
         run,
         destroyGame,
+        game: null,
       };
     }
 }
