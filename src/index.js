@@ -100,7 +100,7 @@ function destroyGame() {
 
 // Attach the game to the window object
 if (typeof window !== 'undefined') {
-    if (!window.Tapatlon || typeof window.Tapatlon !== 'object') {
+    if (!window.Tapatlon) {
       window.Tapatlon = {
         run,
         destroyGame,
