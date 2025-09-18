@@ -525,7 +525,7 @@ export class MainScene extends Phaser.Scene{
 
         const payload = {
             score: newScore,
-            game_id: this.data.get(`gameId`),
+            game_id: 'Tapatlon',
             season_id: this.data.get(`seasonId`)
         }
 
